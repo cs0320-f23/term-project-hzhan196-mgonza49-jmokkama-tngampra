@@ -14,6 +14,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.List;
 import spark.Request;
 import spark.Response;
@@ -41,56 +42,53 @@ public class SearchHandler implements Route{
 	 */
 	@Override
 	public Object handle(Request request, Response response) {
-
-
+		
 		Set<String> parameters = request.queryParams();
-		if (!parameters.contains("columnIndex") || !parameters.contains("keyword") || !parameters.contains("headerName")) {
+		if (!parameters.contains("keyword") || !parameters.contains("country")) {
 			String error = "error_bad_json";
 			String exception = "One or more parameters are missing";
-			return new SearchFailureResponse(error, exception, "", "", "").serialize();
+			return new SearchFailureResponse(error, exception, "", "").serialize();
 		}
-		if (parameters.size() != 3) {
+		if (parameters.size() != 2) {
 			String error = "error_bad_request";
 			String exception = "Too many or too little requests are passed in";
-			return new SearchFailureResponse(error, exception, "", "", "").serialize();
+			return new SearchFailureResponse(error, exception, "", "").serialize();
 
 		}
 
-
-		String columnSearchIndexString = request.queryParams("columnIndex");
 		String keyword = request.queryParams("keyword");
-		String header = request.queryParams("headerName");
+		String country = request.queryParams("country");
 
 		if (Objects.equals(keyword, "")) {
 			String error = "error_bad_request";
 			String exception = "Need keyword input to search in csv";
-			return new SearchFailureResponse(error, exception, columnSearchIndexString, keyword, header).serialize();
+			return new SearchFailureResponse(error, exception, keyword, country).serialize();
 
 		}
 
 		try {
 			if (loadHandler.loadCalled) {
-				Integer columnSearchIndex = Integer.parseInt(columnSearchIndexString);
-			List<List<String>> matches = this.loadHandler.parser.parseAndSearchCSV(columnSearchIndex,
-					keyword, header);
-			return new SearchSuccessResponse(matches, columnSearchIndexString, keyword, header).serialize();
+				// CHANGE LATER
+				List<List<String>> matches = new ArrayList<>();
+				// this.loadHandler.parser.parseAndSearchCSV(keyword, country);
+				return new SearchSuccessResponse(matches, keyword, country).serialize();
 			}
 			//return error if unsuccessful
 			else {
 				String error = "error_bad_request";
 				String exception = "loadcsv endpoint must be called first";
-				return new SearchFailureResponse(error, exception, columnSearchIndexString, keyword, header).serialize();
+				return new SearchFailureResponse(error, exception, keyword, country).serialize();
 			}
 		}
 		//check if column search index is an int - add defensive programming
 		catch (NumberFormatException e) {
 			String error = "error_bad_request";
 			String exception = "The column index is not a valid integer";
-			return new SearchFailureResponse(error, exception, columnSearchIndexString, keyword, header).serialize();
+			return new SearchFailureResponse(error, exception, keyword, country).serialize();
 		}
 		catch (Exception e) {
 			String error = "error_bad_json";
-			return new SearchFailureResponse(error, e.getMessage(), columnSearchIndexString, keyword, header).serialize();
+			return new SearchFailureResponse(error, e.getMessage(), keyword, country).serialize();
 
 		}
 	}
@@ -101,9 +99,9 @@ public class SearchHandler implements Route{
 	 * @param result - a string, can be success or failure
 	 * @param data - the data we are returning
 	 */
-	public record SearchSuccessResponse(String result, List<List<String>> data, String columnIndex, String keyword, String headerName) {
-		public SearchSuccessResponse(List<List<String>> data, String columnIndex, String keyword, String headerName) {
-			this("success", data, columnIndex, keyword, headerName);
+	public record SearchSuccessResponse(String result, List<List<String>> data, String keyword, String country) {
+		public SearchSuccessResponse(List<List<String>> data, String keyword, String country) {
+			this("success", data, keyword, country);
 		}
 		/**
 		 * @return this response, serialized as Json
@@ -131,14 +129,13 @@ public class SearchHandler implements Route{
 	 * @param result - a string, can be success or failure
 	 * @param exception - the exception that caused the failure
 	 */
-	public record SearchFailureResponse(String result, String exception, String columnIndex, String keyword, String headerName) {
+	public record SearchFailureResponse(String result, String exception, String keyword, String country) {
 		//result should contain error and error code
-		public SearchFailureResponse(String result, String exception, String columnIndex, String keyword, String headerName) {
+		public SearchFailureResponse(String result, String exception, String keyword, String country) {
 			this.result = result;
 			this.exception = exception;
-			this.columnIndex = columnIndex;
 			this.keyword = keyword;
-			this.headerName = headerName;
+			this.country = country;
 		}
 
 		/**
