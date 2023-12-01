@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1472b8ab-4284-49ea-82f8-4a234dbbb004" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/src/mock_backend/trivial_backend.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/src/mock_backend/trivial_backend.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Keyword-not-in-csv-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Keyword-not-in-csv-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-a-non-existent-file-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-a-non-existent-file-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-and-then-search-by-col-index-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-and-then-search-by-col-index-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-and-then-search-by-col-name-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-and-then-search-by-col-name-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-and-then-search-entire-csv-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-and-then-search-entire-csv-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-and-then-view-and-then-view-again-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-and-then-view-and-then-view-again-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-and-then-view-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-and-then-view-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-command-works-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-command-works-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-view-and-load-again-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-view-and-load-again-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-without-arguments-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Load-without-arguments-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Repeated-calls-to-load-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Repeated-calls-to-load-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Repeated-calls-to-load-then-view-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Repeated-calls-to-load-then-view-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Search-has-no-results-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Search-has-no-results-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Search-index-out-of-bounds-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Search-index-out-of-bounds-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Search-invalid-column-name-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Search-invalid-column-name-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Search-missing-parameters-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Search-missing-parameters-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Search-too-many-parameters-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Search-too-many-parameters-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Search-without-load-shows-error-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Search-without-load-shows-error-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Searching-in-csv-that-has-no-headers-no-column-index-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Searching-in-csv-that-has-no-headers-no-column-index-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Switching-mode-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Switching-mode-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Test-mode-load-view-search-broadband-then-view-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-Test-mode-load-view-search-broadband-then-view-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-View-without-load-shows-error-chromium/trace.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../../mock-combined/test-results/TestSuite-View-without-load-shows-error-chromium/trace.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/edu/brown/cs/student/main/CSVClasses/Parse.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/edu/brown/cs/student/main/CSVClasses/Parse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/edu/brown/cs/student/main/Handlers/LoadHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/edu/brown/cs/student/main/Handlers/LoadHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/edu/brown/cs/student/main/Handlers/ViewHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/edu/brown/cs/student/main/Handlers/ViewHandler.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2XbPZO0qUtulIMLvFC6l7QBy6ho" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/21kenn/Desktop/cs0320/repl-tngampra-utullyca/server-combined/src",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1472b8ab-4284-49ea-82f8-4a234dbbb004" name="Changes" comment="" />
+      <created>1698894860292</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698894860292</updated>
+      <workItem from="1698894861489" duration="217000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

@@ -1,0 +1,49 @@
+#Project details
+##Project name: CSV
+Team members: Evani Dalal (edalal)
+Total estimated time it took to complete project: 16 hours
+A link to your repo: https://github.com/cs0320-f23/csv-evdalal
+
+##Design choices -- high level design of your program:
+I developed a package called classesToRun where I made a Parse and Search class and also a Main class. The Main class is for User story 1
+where an end user stakeholder can search the CSV for rows that contain a value given. The Main class creates a parse object which first
+parses using the functions in the parse class and then calls the search class using the functions in the search class. The Parse class has a constructor that
+takes in a reader, rowCreator object, and a headerExistence boolean. Parse uses the method parseCSV() which will first collect and store the headers from a given
+CSV, and then will create objects for each row and store it in a list. The objects that are created are based on the rowCreator object passed in.
+For the searching functionality, we use the function parseAndSearchCSV() which will determine which search method to use in the Search class based on how the user wants to search
+their CSV. This can be by a column header, a column index, or searching the whole CSV.
+
+The search class has two types of functions: searchCSV() and narrowAndConductSearch(). narrowAndConductSearch() is called by the Parser class and this first
+narrows the search based on the column identifier if applicable and then searches the CSV using the searchCSV() function. If a header name is passed in, then to find
+the header name is not case sensitive. However, in the actual search to see if any rows in the CSV match the keyword, it is case sensitive. For example, a row that
+contains "hi" will not be matched if the keyword is "HI". The matches are stored and can be accessed using a getter in the Search class or the parseAndSearchCSV() in the Parse
+class.
+
+I also created an object called Star that has five fields according to the stardata.csv headings and thus a creatorFromRowStar method for to test parsing for star objects. In addition,
+I made a CreatorFromRowString which is used because search currently can only be conducted on string CSV data. I made a CreatorFromRowCharCount for testing purposes to test a new creator
+which counts the number of characters in each row. I got the inspiration to do this during debugging hours for more comprehensive unit tests.
+
+No bugs currently known.
+
+##Tests:
+I created two types of tests, one for the Parse class and one for the Search class. The test for the Parse class tests using different create methods from creatorFromRow such as the star one, a string one, and the character counter one.
+I also test the regex I used which was from the lecture livecode notes. This regex splits by comma delimiters and pairs of quotations. However, one fault is that if there is a quote that does not have a closing pair, then the
+separation gets messed up. There must be pairs for the delimiters to work properly. I also tested different readers such as a string reader and a filereader to check if parsing works with both because it is ultimately
+wrapped in a buffer reader in the Parse class. I check whether if the CSV has headers, that the parsedRows list does not contain the headers since this is metadata and not actual content. I also test my parseAndSearch() method
+after knowing the parseCSV() method works. These tests include searching by column index. I also test whether we search a keyword that exists in the CSV but the wrong column index is given so no results should be returned
+even though the word exists. Furthermore, I check that searching can only be done on strings as that is all the search class supports.
+
+I also created a separate test class for the individual methods in the Search class. I check if we can search by the header, index, and the full CSV without narrowing the search. Because I tested different readers in the Parse tests
+and the search class does not use readers, I only used the filereader for these tests. I checked if the header has the same name as the keyword that the header is not returned in the matches since this is technically not data.
+I also checked that a row gets returned if the keyword is only part of a larger phrase in the CSV. For example if the keyword is "hello" but the cell in the CSV row is "hello what's up" then this should be a match. I also check
+that multiple results get returned if applicable and what happens if the column index to narrow the search on is out of bounds. I check what happens if a header is passed in that does not exist and if there are no results of the
+keyword in the CSV. I also check if an exception is thrown if the file is not found.
+
+To run the tests, we run mvn -test.
+
+#How to:
+To run the main class, we can just run the main executable first. Any arguments that are needed will be prompted by the terminal after the program starts running. First we enter the CSV file path and then indicate Y or N to
+see if there are headers in the CSV. The Y or N is not case sensitive. The main method then parses the csv given in the file path and if there is an error reading the file, the program will print to System.err.ln to indicate this
+to the user. Then for searching, we enter search keywords which are case sensitive. If we want to narrow our search, we enter C, I, or N to indicate if we want to narrow by name of column, index of column, or nothing. Based on this choice,
+the search is conducted and the results are printed. If there are no results, the program will print "No results found". Everything is in a try catch block so if there is an exception thrown by the parse or search class, it gets propogated
+to the main class and caught and printed.

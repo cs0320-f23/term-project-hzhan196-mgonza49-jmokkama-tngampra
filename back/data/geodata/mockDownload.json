@@ -1,0 +1,1 @@
+{"type": "FeatureCollection", "features": [{"type":"Feature","geometry":{"type":"MultiPolygon","coordinates":[[[[-73.5,41.1]]]]},"properties":{"state":"CT","city":"Stamford","name":null,"holc_id":"A2","holc_grade":"A","neighborhood_id":3588,"area_description_data":{"1":"A-2 First Stamford, Conn."}}}]}
