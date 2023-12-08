@@ -2,6 +2,11 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  justify-content: flex-start;
+  min-height: 100vh; 
 }
 
 header {
@@ -16,7 +21,7 @@ header {
   gap: 10px;
 }
 
-button {
+/* button {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
@@ -28,7 +33,7 @@ button {
 
 button:hover {
   background-color: #2980b9;
-}
+} */
 
 main {
   padding: 20px;
@@ -73,3 +78,74 @@ main {
   text-decoration: none;
   cursor: pointer;
 }
+
+
+/* ------- HANNAHS CSS FILES ADDED BELOW, MIGHT NEED TO MERGE OR CLEAN UP IDK I GOT LAZY ----*/
+.navbar-container{
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 10px;
+  position: sticky;
+  background-color: #333;
+  top: 0;
+  z-index: 100; /* to make sure it appears above other elements*/
+}
+
+.menu{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  position: sticky;
+  background-color: #333;
+  top: 0;
+  z-index: 100; /* to make sure it appears above other elements*/
+  }
+
+
+.profile-circle {
+position: relative;
+height: 3rem; 
+width: 3rem;   
+border-radius: 50%;
+border: 2px solid #fff;
+box-sizing: border-box;
+}
+
+/* .profile-outer {
+position: relative;
+display:flex;
+background-color: rgb(28, 97, 193);
+height: 3rem; 
+width: 3rem;   
+border-radius: 50%;
+border: 2px solid #fff;
+box-sizing: border-box;
+} */
+
+.nav2{
+    color: #fff;  
+}
+
+.nav-item {
+border-radius: 0.375rem; /* rounded-md */
+padding: 0.75rem 1.125rem; /* px-3 py-2 */
+font-size: 1; /* text-sm */
+font-weight: 500; /* font-medium */
+text-decoration: none;
+color: #fff;
+
+}
+
+/* Styles for the active state */
+.nav-item.active {
+background-color: #ffffff; /* bg-gray-900 */
+color: #fff; /* text-white */
+}
+
+/* Hover styles for non-active items */
+.nav-item:not(.active):hover {
+background-color: #555; /* hover:bg-gray-700 */
+color: #fff; /* hover:text-white */
+}
+
