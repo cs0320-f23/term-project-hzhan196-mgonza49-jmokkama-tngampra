@@ -4,9 +4,9 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: flex-start;
   justify-content: flex-start;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 header {
@@ -21,7 +21,7 @@ header {
   gap: 10px;
 }
 
-/* button {
+.button {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
@@ -29,13 +29,18 @@ header {
   border-radius: 5px;
   background-color: #3498db;
   color: white;
+  align-items: center;
+  text-align: center;
 }
-
+/*
 button:hover {
   background-color: #2980b9;
 } */
 
-main {
+.main {
+  text-align: center;
+  font-size: 2em;
+  margin-top: 20px;
   padding: 20px;
 }
 
@@ -79,11 +84,10 @@ main {
   cursor: pointer;
 }
 
-
 /* ------- HANNAHS CSS FILES ADDED BELOW, MIGHT NEED TO MERGE OR CLEAN UP IDK I GOT LAZY ----*/
-.navbar-container{
-  justify-content: space-between; 
-  align-items: center; 
+.navbar-container {
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
   position: sticky;
   background-color: #333;
@@ -91,7 +95,7 @@ main {
   z-index: 100; /* to make sure it appears above other elements*/
 }
 
-.menu{
+.menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -100,16 +104,15 @@ main {
   background-color: #333;
   top: 0;
   z-index: 100; /* to make sure it appears above other elements*/
-  }
-
+}
 
 .profile-circle {
-position: relative;
-height: 3rem; 
-width: 3rem;   
-border-radius: 50%;
-border: 2px solid #fff;
-box-sizing: border-box;
+  position: relative;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-sizing: border-box;
 }
 
 /* .profile-outer {
@@ -123,29 +126,50 @@ border: 2px solid #fff;
 box-sizing: border-box;
 } */
 
-.nav2{
-    color: #fff;  
+.nav2 {
+  color: #fff;
 }
 
 .nav-item {
-border-radius: 0.375rem; /* rounded-md */
-padding: 0.75rem 1.125rem; /* px-3 py-2 */
-font-size: 1; /* text-sm */
-font-weight: 500; /* font-medium */
-text-decoration: none;
-color: #fff;
-
+  border-radius: 0.375rem; /* rounded-md */
+  padding: 0.75rem 1.125rem; /* px-3 py-2 */
+  font-size: 1; /* text-sm */
+  font-weight: 500; /* font-medium */
+  text-decoration: none;
+  color: #fff;
 }
 
 /* Styles for the active state */
 .nav-item.active {
-background-color: #ffffff; /* bg-gray-900 */
-color: #fff; /* text-white */
+  background-color: #ffffff; /* bg-gray-900 */
+  color: #fff; /* text-white */
 }
 
 /* Hover styles for non-active items */
 .nav-item:not(.active):hover {
-background-color: #555; /* hover:bg-gray-700 */
-color: #fff; /* hover:text-white */
+  background-color: #555; /* hover:bg-gray-700 */
+  color: #fff; /* hover:text-white */
 }
 
+.circular-container {
+  width: 100%;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circular-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.description {
+  text-align: center;
+  margin-top: 10px;
+  padding: 20px;
+}
