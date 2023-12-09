@@ -23,10 +23,7 @@ export default function Navbar() {
               Study Abroad @ Brown
             </div>
           </div>
-          <div className="search-container">
-            <input type="text" id="searchInput" />
-            {/* <button onclick="toggleSearch()"/> */}
-          </div>
+       
 
           {/* "hidden sm:ml-6 sm:block" */}
           <div className="">

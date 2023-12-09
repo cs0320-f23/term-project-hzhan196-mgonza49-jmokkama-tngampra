@@ -50,6 +50,10 @@ button:hover {
   margin-top: 20px;
 }
 
+.search-input{
+  width: 60%;
+}
+
 #searchOverlay {
   display: none;
   position: fixed;

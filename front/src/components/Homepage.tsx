@@ -43,13 +43,28 @@ function setupIcons(data: [string, string][]) {
   return totalIcons;
 }
 
+function handleSearch(){
+
+}
+
 export default function Homepage({}: UserProps) {
   return (
     <div>
       <div className="navbar-container">
-        {" "}
-        <Navbar />{" "}
+        {/* {" "} */}
+        <Navbar />
       </div>
+
+      <div className="search-container">
+          {/* <input type="text" onChange={e => setSearchString(e.target.value)} />
+          <button className="button" onClick={handleSearch}>Search</button>
+          {notFound && <p> Movie not found </p>} */}
+
+
+            <input type="text" id="searchInput" className="search-input"/> 
+            <button className="button" onClick={handleSearch}> Search </button>
+
+          </div>
 
       <div>
         <div className="main">You might like:</div>
