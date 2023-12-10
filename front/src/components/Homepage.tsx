@@ -3,10 +3,11 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import Navbar from "./Navbar.tsx";
-import "../style/interface.css";
+import Search from "./Search.tsx";
 import { Icons } from "./Icons.tsx";
 import { ReactNode } from "react";
 import { forms } from "./Form.tsx";
+import "../style/interface.css";
 
 interface UserProps {}
 
@@ -57,8 +58,11 @@ export default function Homepage({}: UserProps) {
   return (
     <div>
       <div className="navbar-container">
-        {" "}
-        <Navbar />{" "}
+        <Navbar />
+      </div>
+
+      <div>
+        <Search />
       </div>
 
       <div>
