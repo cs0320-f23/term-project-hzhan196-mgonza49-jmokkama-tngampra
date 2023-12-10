@@ -3,9 +3,10 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import Navbar from "./Navbar.tsx";
-import "../style/interface.css";
+import Search from "./Search.tsx";
 import { Icons } from "./Icons.tsx";
 import { ReactNode } from "react";
+import "../style/interface.css";
 
 interface UserProps {}
 
@@ -43,28 +44,18 @@ function setupIcons(data: [string, string][]) {
   return totalIcons;
 }
 
-function handleSearch(){
 
-}
 
 export default function Homepage({}: UserProps) {
   return (
     <div>
       <div className="navbar-container">
-        {/* {" "} */}
         <Navbar />
       </div>
 
-      <div className="search-container">
-          {/* <input type="text" onChange={e => setSearchString(e.target.value)} />
-          <button className="button" onClick={handleSearch}>Search</button>
-          {notFound && <p> Movie not found </p>} */}
-
-
-            <input type="text" id="searchInput" className="search-input"/> 
-            <button className="button" onClick={handleSearch}> Search </button>
-
-          </div>
+      <div>
+        <Search />
+      </div>
 
       <div>
         <div className="main">You might like:</div>

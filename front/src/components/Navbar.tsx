@@ -1,11 +1,14 @@
 "use client";
 import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { BrowserRouter, Link} from 'react-router-dom';
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import "../style/interface.css";
+import "../style/App.css"
+
 
 const navigation = [
-  { name: "Home", href: "#", current: true },
+  { name: "Home", href: "/", current: true },
   { name: "Browse", href: "/browse/", current: false },
 ];
 
@@ -27,16 +30,22 @@ export default function Navbar() {
 
           {/* "hidden sm:ml-6 sm:block" */}
           <div className="">
+
+
+          
+
+
             {/* flex space-x-4 */}
             {navigation.map((item) => (
-              <a
+ 
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className="nav-item"
                 aria-current={item.current ? "page" : undefined}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
 
