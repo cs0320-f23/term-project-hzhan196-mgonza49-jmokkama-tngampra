@@ -13,7 +13,6 @@ const navigation = [
 ];
 
 export default function Navbar() {
-  const [isShowing, setIsShowing] = useState(false);
 
   return (
     //    <h1>NavBar</h1>
@@ -28,7 +27,7 @@ export default function Navbar() {
         </div>
      
 
-        <div className="fixed top-16 w-56 text-right">
+        <div>
           {/* flex space-x-4 */}
           {navigation.map((item) => (
 
@@ -45,9 +44,8 @@ export default function Navbar() {
 
         <Menu as="div">
           {/* <div className="profile-outer"> */}
-          <Menu.Button
-            onClick={() => setIsShowing((isShowing) => !isShowing)}
-            style={{ background: "transparent", border: "none" }}
+          <Menu.Button className="ml-2 relative flex rounded-full custom-dark-gray focus:outline-none"
+            // style={{ background: "transparent", border: "none" }}
           >
             <img
               className="profile-circle"
@@ -56,22 +54,24 @@ export default function Navbar() {
             />
           </Menu.Button>
 
+
           <Transition
             as= {Fragment}
-            show={isShowing}
-            enter="ease-out opacity-100"
-            enterFrom="scale-95 opacity-0"
-            enterTo="scale-100 opacity-100"
-            leave="ease-in opacity-75"
-            leaveFrom="scale-100 opacity-100"
-            leaveTo="scale-95 opacity-0"
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items as="section" className="profile-dropdown">
-              <div className="px-1 py-1 ">
-                  <Menu.Item as={Fragment}>
+            <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-opacity-5 focus:outline-none">
+              {/* <div className=""> */}
+                  <Menu.Item>
                   {({ active }) => (
                       <button
-                      className={`profile-dropdown-buttons ${active ? 'active' : ''}`}
+                        className={`${
+                        active ? 'bg-gray-200' : ''
+                      } w-full text-left block px-4 py-2 text-gray-700`}
                       // href="/settings"
                       >
                       Settings
@@ -79,17 +79,19 @@ export default function Navbar() {
                   )}
                   </Menu.Item>
 
-                  <Menu.Item as={Fragment}>
+                  <Menu.Item>
                   {({ active }) => (
                       <button
                       // onClick={handleSignOut}
-                      className={`profile-dropdown-buttons ${active ? 'active' : ''}`}
+                      className={`${
+                        active ? 'bg-gray-200' : ''
+                      } w-full text-left block px-4 py-2 text-gray-700`}
                       >
                       Sign Out
                       </button>
                   )}
                   </Menu.Item>
-              </div>
+              {/* </div> */}
             </Menu.Items>
           </Transition>
         </Menu>
