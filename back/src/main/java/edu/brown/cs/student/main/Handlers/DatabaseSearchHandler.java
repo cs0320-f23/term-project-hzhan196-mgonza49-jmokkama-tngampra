@@ -50,7 +50,6 @@ public class BroadbandHandler implements Route {
 
     return new ArrayList<String>;
 
-
     // String stateID = stateCodes.get(state);
     // String countyId = "";
     // if (county != null) {
