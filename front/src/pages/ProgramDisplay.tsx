@@ -35,6 +35,11 @@ function ProgramDisplay() {
 
         <h1>{ProgramData[programId-1].name}</h1>{" "}
         <p>{ProgramData[programId-1].description}</p>{" "}
+
+        <img src={ProgramData[programId-1].image}>
+        </img>
+
+
     
     </div>
   )

@@ -70,7 +70,7 @@ export default function Navbar() {
                   {({ active }) => (
                       <button
                         className={`${
-                        active ? 'bg-gray-200' : ''
+                        active ? 'bg-gray-200' : 'bg-white'
                       } w-full text-left block px-4 py-2 text-gray-700`}
                       // href="/settings"
                       >
@@ -84,7 +84,7 @@ export default function Navbar() {
                       <button
                       // onClick={handleSignOut}
                       className={`${
-                        active ? 'bg-gray-200' : ''
+                        active ? 'bg-gray-200' : 'bg-white'
                       } w-full text-left block px-4 py-2 text-gray-700`}
                       >
                       Sign Out
