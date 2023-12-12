@@ -53,7 +53,6 @@ public class Server {
 
         Spark.get("loadcsv", loadHandler);
         Spark.get("viewcsv", new ViewHandler(loadHandler));
-        // Spark.get("searchcsv", new SearchHandler(loadHandler));
         Spark.get("broadband", broadbandHandler);
         Spark.get("redline", new RedLineHandler(path));
         Spark.get("searchprograms", new DatabaseSearchHandler());
