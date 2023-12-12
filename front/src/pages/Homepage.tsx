@@ -1,14 +1,34 @@
 "use client";
 import { useState } from "react";
-import Navbar from "../components/Navbar.tsx";
-import Search from "../components/Search.tsx";
+import Navbar from '../components/Navbar'
+import Search from '../components/Search'
 import Icons from "../components/Icons.tsx";
+import Recommended from '../components/mockRecommended.tsx'
 import { Link , useParams, Outlet} from 'react-router-dom';
 import { ReactNode } from "react";
 import { forms } from "../components/Form.tsx";
 import "../style/interface.css";
 
 interface UserProps {}
+
+function setupIcons() {
+
+  const totalIcons: ReactNode[] = [];
+    
+  Recommended.forEach((program) => {
+    totalIcons.push(  
+      <Icons
+        key={program.id}  // Make sure to add a unique key when rendering components in a loop
+        image={program.image}
+        name={program.name}
+        link={`/browse/${program.id}`}
+        id={program.id}
+      />
+    );
+  });
+
+  return totalIcons;
+}
 
 export default function Homepage({}: UserProps) {
   return (
@@ -19,10 +39,8 @@ export default function Homepage({}: UserProps) {
         <Navbar />
       </div>
 
-      
-
-      <div className="bg-gray-500 flex flex-col justify-center h-screen">
-        <h1 className="margin-bottom-5 text-2xl lg:text-6xl text-gray-300 font-semibold">Study Abroad @ Brown</h1>
+      <div className="bg-gray-500 flex flex-col h-screen">
+        <h1 className="main-title text-2xl lg:text-6xl text-white font-semibold mt-2">Study Abroad @ Brown</h1>
        
         <h2 className="text-gray-300 mt-2">some placeholder text here, gray bg is also temporary</h2>
         <Search />
@@ -33,28 +51,17 @@ export default function Homepage({}: UserProps) {
             Browse Programs
           </a>
         </div>
-
       </div>
 
-      <div>
-        <div className="main">You might like: </div>
-        <div className="main">
-          You might like:
-          sjdbfjksdbf
-          jkdbfsjkdbf
-          skjfbdsjkf
-          jksdbfjksdf
-          jksdbfjksdfkjsdbfkjsd
-          sdfjkbsd
-          sdfjkbsda
-          2dw3BCZ3KfSsFyeLxUv6uUD2jqBEcfYgCivXOi1hBj
-          sjdbfjksdbf
-          ndjksnncxvn
-          siehjsdf
-          
-           </div>
-        {/* {setupIcons()} */}
+      <div className="rec-container-wrap">
+        <div className="main">Your Recommended: </div>
+
+        <div className="rec-icon-container">
+            {setupIcons()}
+        </div>
+        
       </div>
+      
 
       <div>{forms()}</div>
     </div>
