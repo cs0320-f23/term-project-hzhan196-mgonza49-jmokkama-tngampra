@@ -3,16 +3,12 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 import os
 import pymongo
-# import com.mongodb.ConnectionString;
-
 
 class LoadProgram:
     def __init__(self, site):
-        # self.chrome_path = '/path/to/chromedriver'  # Replace with the path to your chromedriver executable
         chrome_service = ChromeService()
         self.driver = webdriver.Chrome(service=chrome_service)
 
-        # STUDY_ABROAD_WEBSITE = "https://studyabroad.brown.edu/explore/explore-programs"
         self.driver.get(site)
         self.driver.implicitly_wait(10)
 
@@ -38,14 +34,8 @@ class LoadProgram:
                         if link_href:
                             link_href = link_href.get_attribute('href')
 
-                        # print("Span Text:", span_text)
-                        # print("Link Href:", link_href)
-
                         text_content = location.text.strip()
-                        # print(text_content)
-
                         self.programs[span_text] = [link_href, text_content]
-
                     else:
                         print("There was an error")
                 except: 
@@ -81,18 +71,6 @@ class LoadProgram:
                 mycol.insert_one(insert_dict)
                 # print(program_name + value_lst[1])
                 # print(value_lst[0])
-
-        # myquery = { "name" : "test" }
-        # mydoc = mycol.find(myquery)
-
-        # print(len(list(mydoc)))
-
-        # for x in mydoc:
-        #     print(x)
-
-        # myquery = { "name" : "fish" }
-        # mydoc2 = mycol.find(myquery)
-
 
 if __name__ == "__main__":
     STUDY_ABROAD_WEBSITE = "https://studyabroad.brown.edu/explore/explore-programs"
