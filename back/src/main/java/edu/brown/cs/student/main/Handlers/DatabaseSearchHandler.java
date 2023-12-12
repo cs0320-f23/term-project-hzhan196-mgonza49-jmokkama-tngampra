@@ -59,26 +59,6 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 public class DatabaseSearchHandler implements Route {
 
   public DatabaseSearchHandler() {}
-  // /**
-  //  * Adapted from the testing code. Helper method to start a connection to a specific API endpoint.
-  //  * Modified signature to take in a callRequest string to set the request method to use either GET
-  //  * or POST.
-  //  *
-  //  * @param apiCall the call string for the API endpoint
-  //  * @return the connection to the API endpoint
-  //  * @throws IOException if there is an error connecting to the API endpoint
-  //  */
-  // private static HttpURLConnection tryRequest(String apiCall, String callRequest) throws IOException {
-  //   URL request = new URL("https://api.census.gov/data/2010/dec/sf1?get=NAME&for=state:*");
-  //   HttpURLConnection connection = (HttpURLConnection) request.openConnection();
-  //   connection.setRequestMethod(callRequest);
-  //   connection.connect();
-
-  //   if (connection.getResponseCode() != 200) {
-  //     throw new RuntimeException("HttpResponseCode: " + connection.getResponseCode());
-  //   }
-  //   return connection;
-  // }
 
    private List<ProgramData> searchDatabase(String keyword, String country, MongoCollection<ProgramData> collection) {
 
@@ -160,7 +140,7 @@ public class DatabaseSearchHandler implements Route {
 
     List<ProgramData> searchData = this.searchDatabase(keyword, country, collection);
 
-	 return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword, country);
+	  return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword, country);
   }
 
   /**
