@@ -90,13 +90,17 @@ public class DatabaseSearchHandler implements Route {
 
 	 Bson filter = Filters.and(
 			 Filters.eq("name", keyword),
-			 Filters.eq("country", country)
+			 Filters.eq("location", country)
 	 );
 
 	 List<ProgramData> results = new ArrayList<>();
-	 collection.find(filter, ProgramData.class).forEach(results::add);
+	 collection.find(filter).forEach(results::add);
 
-     return results;
+	 for (ProgramData programData : results) {
+		 System.out.println(programData);
+	 }
+
+	 return results;
    }
 
 //  private void searchMongoDB(String keyword) {
@@ -146,7 +150,7 @@ public class DatabaseSearchHandler implements Route {
     if ((keyword == null) && (country == null)) {
       response.status(400);
       // some sort of error
-      return "No parameters provided";
+		return new DatabaseSearchHandler.SearchFailureResponse("error_bad_json: ", "missing keyword or country", keyword, country).serialize();
     }
 
     Logger.getLogger( "org.mongodb.driver" ).setLevel(Level.WARNING);
@@ -181,7 +185,7 @@ public class DatabaseSearchHandler implements Route {
 
      List<ProgramData> searchData = this.searchDatabase(keyword, country, collection);
 
-	 return new DatabaseSearchHandler.SearchSuccessResponse("sucess", searchData, keyword, country);
+	 return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword, country);
   }
 
   /**
@@ -233,19 +237,65 @@ public class DatabaseSearchHandler implements Route {
 		 */
 		String serialize() {
 			Moshi moshi = new Moshi.Builder().build();
-			return moshi.adapter(SearchHandler.SearchFailureResponse.class).toJson(this);
+			return moshi.adapter(DatabaseSearchHandler.SearchFailureResponse.class).toJson(this);
 		}
 	}
 
-  public class ProgramData {
-    private String name;
-    private String link;
-    private String location;
+	public static class ProgramData {
+		private String name;
+		private String link;
+		private String location;
 
-    public ProgramData(String name, String link, String location) {
-      this.name = name;
-      this.link = link;
-      this.location = location;
-    }
-  }
+		public ProgramData(String name, String link, String location) {
+			this.name = name;
+			this.link = link;
+			this.location = location;
+		}
+
+		public ProgramData() {
+			link = "";
+			name = "";
+			location = "";
+		}
+
+		@Override
+		public String toString() {
+			final StringBuilder sb = new StringBuilder("ProgramData{");
+			sb.append("name='").append(name).append('\'');
+			sb.append(", link='").append(link).append('\'');
+			sb.append(", location='").append(location).append('\'');
+			sb.append('}');
+			return sb.toString();
+		}
+
+		// Getter for name
+		public String getName() {
+			return name;
+		}
+
+		// Setter for name
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		// Getter for link
+		public String getLink() {
+			return link;
+		}
+
+		// Setter for link
+		public void setLink(String link) {
+			this.link = link;
+		}
+
+		// Getter for location
+		public String getLocation() {
+			return location;
+		}
+
+		// Setter for location
+		public void setLocation(String location) {
+			this.location = location;
+		}
+	}
 }
