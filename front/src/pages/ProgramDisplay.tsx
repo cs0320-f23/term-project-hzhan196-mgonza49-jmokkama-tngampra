@@ -2,7 +2,6 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Search from '../components/Search'
 import ProgramData from '../components/mockProgramData'
-import ProgramList from '../pages/ProgramList'
 import { Link , useParams, Outlet, useNavigate} from 'react-router-dom';
 import "../style/interface.css"
 
