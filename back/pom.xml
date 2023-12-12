@@ -68,6 +68,19 @@
             <version>2.9.3</version>
         </dependency>
 
+        <!-- Java MongoDB Driver dependency -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+
+        <!-- slf4j logging dependency, required for logging output from the MongoDB Java Driver -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.7.28</version>
+        </dependency>
         
         <dependency>
             <groupId>org.junit.jupiter</groupId>

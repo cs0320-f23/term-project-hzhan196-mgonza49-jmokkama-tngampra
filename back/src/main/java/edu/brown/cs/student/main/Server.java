@@ -56,7 +56,7 @@ public class Server {
         // Spark.get("searchcsv", new SearchHandler(loadHandler));
         Spark.get("broadband", broadbandHandler);
         Spark.get("redline", new RedLineHandler(path));
-        Spark.get("searchprograms", new SearchHandler(loadHandler));
+        Spark.get("searchprograms", new DatabaseSearchHandler());
 
         Spark.init();
         Spark.awaitInitialization();
