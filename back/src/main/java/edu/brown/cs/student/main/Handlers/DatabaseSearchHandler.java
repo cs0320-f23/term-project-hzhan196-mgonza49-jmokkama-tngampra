@@ -59,26 +59,26 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 public class DatabaseSearchHandler implements Route {
 
   public DatabaseSearchHandler() {}
-  /**
-   * Adapted from the testing code. Helper method to start a connection to a specific API endpoint.
-   * Modified signature to take in a callRequest string to set the request method to use either GET
-   * or POST.
-   *
-   * @param apiCall the call string for the API endpoint
-   * @return the connection to the API endpoint
-   * @throws IOException if there is an error connecting to the API endpoint
-   */
-  private static HttpURLConnection tryRequest(String apiCall, String callRequest) throws IOException {
-    URL request = new URL("https://api.census.gov/data/2010/dec/sf1?get=NAME&for=state:*");
-    HttpURLConnection connection = (HttpURLConnection) request.openConnection();
-    connection.setRequestMethod(callRequest);
-    connection.connect();
+  // /**
+  //  * Adapted from the testing code. Helper method to start a connection to a specific API endpoint.
+  //  * Modified signature to take in a callRequest string to set the request method to use either GET
+  //  * or POST.
+  //  *
+  //  * @param apiCall the call string for the API endpoint
+  //  * @return the connection to the API endpoint
+  //  * @throws IOException if there is an error connecting to the API endpoint
+  //  */
+  // private static HttpURLConnection tryRequest(String apiCall, String callRequest) throws IOException {
+  //   URL request = new URL("https://api.census.gov/data/2010/dec/sf1?get=NAME&for=state:*");
+  //   HttpURLConnection connection = (HttpURLConnection) request.openConnection();
+  //   connection.setRequestMethod(callRequest);
+  //   connection.connect();
 
-    if (connection.getResponseCode() != 200) {
-      throw new RuntimeException("HttpResponseCode: " + connection.getResponseCode());
-    }
-    return connection;
-  }
+  //   if (connection.getResponseCode() != 200) {
+  //     throw new RuntimeException("HttpResponseCode: " + connection.getResponseCode());
+  //   }
+  //   return connection;
+  // }
 
    private List<ProgramData> searchDatabase(String keyword, String country, MongoCollection<ProgramData> collection) {
 
@@ -98,32 +98,6 @@ public class DatabaseSearchHandler implements Route {
 
      return results;
    }
-
-//  private void searchMongoDB(String keyword) {
-//    String appID = "application-0-dblhv"; // replace this with your App ID
-//    App app = new App(new AppConfiguration.Builder(appID).build());
-//
-//    Credentials credentials = Credentials.anonymous();
-//    app.loginAsync(credentials, it -> {
-//        if (it.isSuccess()) {
-//            User user = app.currentUser();
-//            assert user != null;
-//            Functions functionsManager = app.getFunctions(user);
-//            String searchTerm = "your_search_term"; // replace this with your actual search term
-//
-//            // Call the searchPrograms function with one argument
-//            functionsManager.callFunctionAsync("searchPrograms", Arrays.asList(keyword), Object.class, result -> {
-//              if (result.isSuccess()) {
-//                  System.out.println("Search result: " + result.get());
-//              } else {
-//                  System.err.println("Failed to call searchPrograms function with: " + result.getError());
-//              }
-//            });
-//        } else {
-//            Log.e("EXAMPLE", "Error logging into the Realm app. Make sure that anonymous authentication is enabled. Error: " + it.getError());
-//        }
-//});
-//  }
 
   // Maps the state codes to their names by calling the 2010 census API
   /**
@@ -173,15 +147,16 @@ public class DatabaseSearchHandler implements Route {
     } catch (MongoException me) {
 		return new DatabaseSearchHandler.SearchFailureResponse("Unable to connect to the MongoDB instance due to an error", me.getMessage(), keyword, country).serialize();
     }
+    
     // MongoDatabase defines a connection to a specific MongoDB database
     MongoDatabase database = mongoClient.getDatabase(dbName);
 
     // MongoCollection defines a connection to a specific collection of documents in a specific database
     MongoCollection<ProgramData> collection = database.getCollection(collectionName, ProgramData.class);
 
-     List<ProgramData> searchData = this.searchDatabase(keyword, country, collection);
+    List<ProgramData> searchData = this.searchDatabase(keyword, country, collection);
 
-	 return new DatabaseSearchHandler.SearchSuccessResponse("sucess", searchData, keyword, country);
+	  return new DatabaseSearchHandler.SearchSuccessResponse("sucess", searchData, keyword, country);
   }
 
   /**
