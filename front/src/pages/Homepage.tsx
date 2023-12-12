@@ -64,7 +64,8 @@ export default function Homepage({}: UserProps) {
       
 
       <div className="bg-gray-500 flex flex-col justify-center h-screen">
-        <h1 className="h-screen-2 text-gray-300">Study Abroad @ Brown</h1>
+        <h1 className="h-screen-2 text-gray-300 lg:text-6xl pl-1 text-2xl font-semibold">Study Abroad @ Brown</h1>
+        {/* <h1 className="text-[#D292FF] "> skjsbdf</h1> */}
         <h2 className="text-gray-300">some placeholder text here, gray bg is also temporary</h2>
         <Search />
       </div>
