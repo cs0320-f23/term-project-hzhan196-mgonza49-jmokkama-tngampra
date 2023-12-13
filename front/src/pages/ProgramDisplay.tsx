@@ -1,15 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 import ProgramData from "../components/mockProgramData";
 import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
 import "../style/interface.css";
 import Comment from "../components/Comments";
+import { loginStatus } from "../components/Login";
 
 interface Program {
   id: number;
   name: string;
   // country: string;
+}
+
+function commentDisplay() {
+  const [commentStatus, setCommentStatus] = useState<Boolean>();
+  useEffect(() => {
+    loginStatus()
+      .then((name) => {
+        if (name === "Sign Out") {
+          setCommentStatus(true);
+        } else {
+          setCommentStatus(false);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+  if (commentStatus) {
+    return <Comment />;
+  }
 }
 
 function ProgramDisplay() {
@@ -34,7 +55,7 @@ function ProgramDisplay() {
       <h1>{ProgramData[programId - 1].name}</h1>{" "}
       <p>{ProgramData[programId - 1].description}</p>{" "}
       <img src={ProgramData[programId - 1].image}></img>
-      <Comment />
+      {commentDisplay()}
     </div>
   );
 }

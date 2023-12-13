@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { loginStatus } from "./Login";
 import "../style/interface.css";
 
 interface CommentProps {
@@ -35,6 +36,7 @@ function Comment() {
   return (
     <div className="flex items-center justify-center">
       <div className="search-container">
+        {" "}
         <input
           type="text"
           id="searchInput"
