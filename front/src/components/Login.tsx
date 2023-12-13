@@ -57,9 +57,9 @@ export function loginStatus(): Promise<string> {
         console.log("user, " + user.email);
       }
       if (user) {
-        resolve("true");
+        resolve("Sign Out");
       } else {
-        resolve("false");
+        resolve("Sign In");
       }
     });
   });

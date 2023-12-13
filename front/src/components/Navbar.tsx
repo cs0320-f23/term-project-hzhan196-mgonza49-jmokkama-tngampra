@@ -8,6 +8,7 @@ import "../style/App.css";
 import { login, logout, loginStatus } from "./Login";
 import { getAuth } from "firebase/auth";
 import app from "./firebaseInit";
+import NavbarButtons from "./NavbarButtons";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -107,8 +108,9 @@ export default function Navbar() {
                     </button>
                   )}
                 </Menu.Item>
+                <NavbarButtons />
 
-                <Menu.Item>
+                {/* <Menu.Item>
                   {({ active }) => (
                     <button
                       onClick={handleSignIn}
@@ -119,7 +121,7 @@ export default function Navbar() {
                       Sign Out
                     </button>
                   )}
-                </Menu.Item>
+                </Menu.Item> */}
                 {/* </div> */}
               </Menu.Items>
             </Transition>
