@@ -76,8 +76,8 @@ if __name__ == "__main__":
     STUDY_ABROAD_WEBSITE = "https://studyabroad.brown.edu/explore/explore-programs"
     loader = LoadProgram(STUDY_ABROAD_WEBSITE)
     programs = loader.webScrape()
-    # print(programs)
     loader.insertDatabase(programs)
+    print("COMPLETE!")
 
 
     
