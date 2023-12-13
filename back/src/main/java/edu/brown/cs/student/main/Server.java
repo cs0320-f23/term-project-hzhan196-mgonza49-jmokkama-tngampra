@@ -56,7 +56,8 @@ public class Server {
         // Spark.get("searchcsv", new SearchHandler(loadHandler));
         Spark.get("broadband", broadbandHandler);
         Spark.get("redline", new RedLineHandler(path));
-        Spark.get("searchprograms", new SearchHandler(loadHandler));
+        Spark.get("searchprograms", new DatabaseSearchHandler());
+        Spark.get("updatedatabase", new UpdateHandler());
 
         Spark.init();
         Spark.awaitInitialization();
@@ -82,6 +83,8 @@ public class Server {
         Spark.unmap("/viewcsv");
         Spark.unmap("/broadband");
         Spark.unmap("/redline");
+        Spark.unmap("/searchprograms");
+        Spark.unmap("/updatedatabase");
         Spark.stop();
         Spark.awaitStop(); // don't proceed until the server is stopped
     }

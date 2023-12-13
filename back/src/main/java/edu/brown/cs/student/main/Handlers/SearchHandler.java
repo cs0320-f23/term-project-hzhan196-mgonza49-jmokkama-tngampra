@@ -42,7 +42,7 @@ public class SearchHandler implements Route{
 	 */
 	@Override
 	public Object handle(Request request, Response response) {
-		
+
 		Set<String> parameters = request.queryParams();
 		if (!parameters.contains("keyword") || !parameters.contains("country")) {
 			String error = "error_bad_json";
@@ -53,7 +53,6 @@ public class SearchHandler implements Route{
 			String error = "error_bad_request";
 			String exception = "Too many or too little requests are passed in";
 			return new SearchFailureResponse(error, exception, "", "").serialize();
-
 		}
 
 		String keyword = request.queryParams("keyword");
@@ -63,7 +62,6 @@ public class SearchHandler implements Route{
 			String error = "error_bad_request";
 			String exception = "Need keyword input to search in csv";
 			return new SearchFailureResponse(error, exception, keyword, country).serialize();
-
 		}
 
 		try {
