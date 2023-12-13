@@ -5,7 +5,9 @@ import { BrowserRouter, Link } from "react-router-dom";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import "../style/interface.css";
 import "../style/App.css";
-import { Login } from "./Login";
+import { login, logout } from "./Login";
+import { getAuth } from "firebase/auth";
+import app from "./firebaseInit";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -13,18 +15,33 @@ const navigation = [
 ];
 
 export default function Navbar() {
+  const auth = getAuth(app);
+  const user = auth.currentUser;
   const handleSignIn = async () => {
-    try {
-      const loginStatus = (await Login()).toString();
-      console.log("login status " + loginStatus);
-      if (loginStatus === "success") {
-        console.log("it worked!");
+    if (user == null) {
+      try {
+        const loginStatus = (await login()).toString();
+        console.log("login status " + loginStatus);
+        if (loginStatus === "success") {
+          console.log("Signed in successfully");
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.log("error in onClick");
-      console.error(error);
+    } else {
+      try {
+        const loginStatus = (await logout()).toString();
+        console.log("login status " + loginStatus);
+        if (loginStatus === "success") {
+          console.log("Signed out successfully");
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
+
+  const parseSignIn = handleSignIn();
 
   return (
     //    <h1>NavBar</h1>
@@ -78,9 +95,9 @@ export default function Navbar() {
                 {/* <div className=""> */}
                 <Menu.Item>
                   {({ active }) => (
-                      <button
-                        className={`${
-                        active ? 'bg-gray-200' : 'bg-white'
+                    <button
+                      className={`${
+                        active ? "bg-gray-200" : "bg-white"
                       } w-full text-left block px-4 py-2 text-gray-700`}
                       // href="/settings"
                     >
@@ -94,7 +111,7 @@ export default function Navbar() {
                     <button
                       onClick={handleSignIn}
                       className={`${
-                        active ? 'bg-gray-200' : 'bg-white'
+                        active ? "bg-gray-200" : "bg-white"
                       } w-full text-left block px-4 py-2 text-gray-700`}
                     >
                       Sign Out
