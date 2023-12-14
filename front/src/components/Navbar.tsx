@@ -42,9 +42,9 @@ export default function Navbar() {
             ))}
           </div>
 
-          <Menu as="div">
-            {/* <div className="profile-outer"> */}
-            <Menu.Button
+          {/* <Menu as="div"> */}
+          {/* <div className="profile-outer"> */}
+          {/* <Menu.Button
               className="ml-2 relative flex rounded-full custom-dark-gray focus:outline-none"
               // style={{ background: "transparent", border: "none" }}
             >
@@ -64,9 +64,9 @@ export default function Navbar() {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-opacity-5 focus:outline-none">
-                {/* <div className=""> */}
-                <Menu.Item>
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-opacity-5 focus:outline-none"> */}
+          {/* <div className=""> */}
+          {/* <Menu.Item>
                   {({ active }) => (
                     <button
                       className={`${
@@ -77,10 +77,10 @@ export default function Navbar() {
                       Settings
                     </button>
                   )}
-                </Menu.Item>
-                <NavbarButtons />
+                    </Menu.Item> */}
+          <NavbarButtons />
 
-                {/* <Menu.Item>
+          {/* <Menu.Item>
                   {({ active }) => (
                     <button
                       onClick={handleSignIn}
@@ -92,10 +92,10 @@ export default function Navbar() {
                     </button>
                   )}
                 </Menu.Item> */}
-                {/* </div> */}
-              </Menu.Items>
+          {/* </div> */}
+          {/* </Menu.Items>
             </Transition>
-          </Menu>
+          </Menu> */}
         </>
       )}
     </Disclosure>

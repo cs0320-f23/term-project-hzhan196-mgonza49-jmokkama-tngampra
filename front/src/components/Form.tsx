@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useFormik, Field, Formik, Form } from "formik";
+import { useFormik, Field, Formik, Form, FieldArray } from "formik";
 import "../style/interface.css";
 import { loginStatus } from "./Login";
 
@@ -30,6 +30,8 @@ function expandedForm(isExpanded: boolean) {
           country: "",
           program: "",
           duration: "",
+          countryBlacklist: [],
+          programBlacklist: [],
         }}
         onSubmit={async (values) => {
           alert(JSON.stringify(values, null, 2));
@@ -64,6 +66,49 @@ function expandedForm(isExpanded: boolean) {
                 Full Year
               </label>
             </div>
+
+            <FieldArray name="countryBlacklist">
+              {({ insert, remove, push }) => (
+                <div>
+                  <h3>What countries are you uninterested in going to?</h3>
+                  {values.countryBlacklist.length > 0 &&
+                    values.countryBlacklist.map((country, index) => (
+                      <div className="flex flex-row" key={index}>
+                        <div className="col">
+                          <label htmlFor={`countryBlacklist.${index}.name`}>
+                            Country
+                          </label>
+                          <Field
+                            as="select"
+                            name={`countryBlacklist.${index}.name`}
+                            placeholder="Country"
+                          >
+                            <option value="USA">USA</option>
+                            <option value="Canada">Canada</option>
+                            <option value="UK">UK</option>
+                          </Field>
+                        </div>
+                        <div className="col">
+                          <button
+                            type="button"
+                            className="review-button"
+                            onClick={() => remove(index)}
+                          >
+                            X
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  <button
+                    type="button"
+                    className="review-button"
+                    onClick={() => push({ name: "", email: "" })}
+                  >
+                    Add Country
+                  </button>
+                </div>
+              )}
+            </FieldArray>
 
             <button type="submit">Submit</button>
           </Form>
