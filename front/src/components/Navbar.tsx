@@ -8,6 +8,7 @@ import "../style/App.css";
 import { login, logout, loginStatus } from "./Login";
 import { getAuth } from "firebase/auth";
 import app from "./firebaseInit";
+import NavbarButtons from "./NavbarButtons";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -15,35 +16,6 @@ const navigation = [
 ];
 
 export default function Navbar() {
-  function getUser() {
-    const auth = getAuth(app);
-    console.log("user " + loginStatus());
-  }
-  const handleSignIn = async () => {
-    const loggedIn = (await loginStatus()).toString();
-    console.log("loggedIn " + loggedIn);
-    if (loggedIn === "false") {
-      try {
-        const loginStatus = (await login()).toString();
-        console.log("login status " + loginStatus);
-        if (loginStatus === "success") {
-          console.log("Signed in successfully");
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      try {
-        const loginStatus = (await logout()).toString();
-        console.log("login status " + loginStatus);
-        if (loginStatus === "success") {
-          console.log("Signed out successfully");
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
   return (
     //    <h1>NavBar</h1>
     <Disclosure as="nav" className="menu">
@@ -69,7 +41,6 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
-          <button onClick={getUser}> user</button>
 
           <Menu as="div">
             {/* <div className="profile-outer"> */}
@@ -107,8 +78,9 @@ export default function Navbar() {
                     </button>
                   )}
                 </Menu.Item>
+                <NavbarButtons />
 
-                <Menu.Item>
+                {/* <Menu.Item>
                   {({ active }) => (
                     <button
                       onClick={handleSignIn}
@@ -119,7 +91,7 @@ export default function Navbar() {
                       Sign Out
                     </button>
                   )}
-                </Menu.Item>
+                </Menu.Item> */}
                 {/* </div> */}
               </Menu.Items>
             </Transition>

@@ -27,6 +27,7 @@ export function login(): Promise<string> {
           reject("Error: You do not have access to this page");
         } else {
           console.log("success");
+          window.location.reload();
           resolve("success");
         }
       })
@@ -41,6 +42,7 @@ export function logout(): Promise<String> {
     const auth = getAuth(app);
     signOut(auth)
       .then(() => {
+        window.location.reload();
         resolve("success");
       })
       .catch((error) => {
@@ -57,9 +59,9 @@ export function loginStatus(): Promise<string> {
         console.log("user, " + user.email);
       }
       if (user) {
-        resolve("true");
+        resolve("Sign Out");
       } else {
-        resolve("false");
+        resolve("Sign In");
       }
     });
   });

@@ -19,6 +19,9 @@ export const forms = () => {
     <div className="footer">
       <div className="footer-content">
         <div>Form</div>
+        <button className="expand">
+          <span className="expand-label">^</span>
+        </button>
         <Formik
           initialValues={{
             country: "",
@@ -29,14 +32,14 @@ export const forms = () => {
             alert(JSON.stringify(values, null, 2));
           }}
         >
-          {({ values }) => (
+          {({ values, handleChange }) => (
             <Form>
               <label htmlFor="country">Country</label>
               <input
                 id="country"
                 name="country"
                 type="country"
-                // onChange={values.handleChange}
+                onChange={handleChange}
                 value={values.country}
               />
               <label htmlFor="program">Program</label>
@@ -44,8 +47,8 @@ export const forms = () => {
                 id="program"
                 name="program"
                 type="program"
-                // onChange={formik.handleChange}
-                value={values.country}
+                onChange={handleChange}
+                value={values.program}
               />
               <div>Duration</div>
               <div role="group">

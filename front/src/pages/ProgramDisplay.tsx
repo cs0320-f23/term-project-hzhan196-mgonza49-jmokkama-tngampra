@@ -1,10 +1,13 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import BarChart from '../components/BarChart'
-import ProgramData from '../components/mockProgramData'
-import { Link , useParams, Outlet, useNavigate} from 'react-router-dom';
-import "../style/interface.css"
-
+import React, { ReactNode, useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import Search from "../components/Search";
+import ProgramData from "../components/mockProgramData";
+import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
+import "../style/interface.css";
+import Comment from "../components/Comments";
+import { loginStatus } from "../components/Login";
+import commentData from "../components/mockCommentData";
+import CommentStore from "../components/CommentStore";
 
 interface Program {
     tempId: number;
@@ -12,6 +15,38 @@ interface Program {
     // country: string;
   }
 
+
+function setupComments() {
+  const totalComments: ReactNode[] = [];
+
+  commentData.forEach((comment) => {
+    totalComments.push(
+      <CommentStore user={comment.user} content={comment.comment} />
+    );
+  });
+
+  return totalComments;
+}
+
+function commentDisplay() {
+  const [commentStatus, setCommentStatus] = useState<Boolean>();
+  useEffect(() => {
+    loginStatus()
+      .then((name) => {
+        if (name === "Sign Out") {
+          setCommentStatus(true);
+        } else {
+          setCommentStatus(false);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+  if (commentStatus) {
+    return <Comment />;
+  }
+}
 
 function ProgramDisplay() {
   const { id } = useParams();

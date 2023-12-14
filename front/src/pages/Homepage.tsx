@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 import Icons from "../components/Icons.tsx";
@@ -8,6 +8,7 @@ import { Link, useParams, Outlet } from "react-router-dom";
 import { ReactNode } from "react";
 import { forms } from "../components/Form.tsx";
 import "../style/interface.css";
+import { loginStatus } from "../components/Login.tsx";
 
 interface UserProps {}
 
@@ -30,6 +31,26 @@ function setupIcons() {
   });
 
   return totalIcons;
+}
+
+function formAccess() {
+  const [commentStatus, setCommentStatus] = useState<Boolean>();
+  useEffect(() => {
+    loginStatus()
+      .then((name) => {
+        if (name === "Sign Out") {
+          setCommentStatus(true);
+        } else {
+          setCommentStatus(false);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+  if (commentStatus) {
+    return forms();
+  }
 }
 
 export default function Homepage({}: UserProps) {
@@ -68,7 +89,7 @@ export default function Homepage({}: UserProps) {
 
       </div>
 
-      <div>{forms()}</div>
+      <div>{formAccess()}</div>
     </div>
   );
 }

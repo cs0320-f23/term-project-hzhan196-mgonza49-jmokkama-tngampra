@@ -1,30 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { loginStatus } from "./Login";
 import "../style/interface.css";
-
-interface CommentProps {
-  user: string;
-  content: string;
-}
-
-function showComments({ user, content }: CommentProps) {
-  return (
-    <div>
-      <p>User: {user}</p>
-      <p>{content}</p>
-    </div>
-  );
-}
 
 function Comment() {
   const [commentString, setCommentString] = useState("");
 
   const handleKeyPress = (event: any) => {
     if (event.key === "Enter") {
-      //   if (user == null) {
-      //     console.log("Error: You do not have access to this function");
-      //   } else {
-      //     showComments([user, commentString]);
-      //   }
+      handleSubmit(commentString);
       console.log(commentString);
       setCommentString("");
     }
@@ -35,6 +18,7 @@ function Comment() {
   return (
     <div className="flex items-center justify-center">
       <div className="search-container">
+        {" "}
         <input
           type="text"
           id="searchInput"
