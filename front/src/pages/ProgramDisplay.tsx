@@ -10,10 +10,11 @@ import commentData from "../components/mockCommentData";
 import CommentStore from "../components/CommentStore";
 
 interface Program {
-  id: number;
-  name: string;
-  // country: string;
-}
+    tempId: number;
+    name: string;
+    // country: string;
+  }
+
 
 function setupComments() {
   const totalComments: ReactNode[] = [];
@@ -56,23 +57,43 @@ function ProgramDisplay() {
       <div className="navbar-container">
         <Navbar />
       </div>
-      <h1> Program List </h1>
-      {/* <ul>
-            {Programs.map((prog:any) => (
-                <li key= {prog.id}>
-                    <Link to={`/programs/${prog.id}`}> 
-                        {prog.name}
-                    </Link>
-                </li>
-            ))}
-        </ul> */}
-      <h1>{ProgramData[programId - 1].name}</h1>{" "}
-      <p>{ProgramData[programId - 1].description}</p>{" "}
-      <div>
-        <img src={ProgramData[programId - 1].image}></img>
+      <div className="program-box">
+        <div className="program-display">
+
+          <div className="flex justify-center items-center">
+              {/* <img src={ProgramData[programId-1].image} className="circular-image">
+              </img> */}
+            </div>
+
+            <Link to="/browse/" className="ml-2 flex text-left mt-2 text-gray-300">
+          Back to Browse
+             </Link>
+ 
+          <div className="display-title">
+            {ProgramData[programId-1].name}
+          </div>
+        </div>
+
+
+      {/* White block scroll contents  */}
+      <div className="big-card-holder">
+        <div className="display-info">
+          <div className="text-lg font-bold">
+              {ProgramData[programId-1].name}
+            </div>
+          <p> {ProgramData[programId-1].country}</p>
+          <p> {ProgramData[programId-1].term}</p>
+          <p>{ProgramData[programId-1].description}</p>
+        </div>
+
+        <div className="display-stats">
+          <BarChart />
+        </div>
       </div>
-      <div>{setupComments()}</div>
-      {commentDisplay()}
+      
+
+      </div>
+
     </div>
   );
 }

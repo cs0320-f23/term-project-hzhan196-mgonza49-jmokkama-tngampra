@@ -51,6 +51,8 @@ function setupIcons() {
         name={program.name}
         link={`/browse/${program.id}`}
         id={program.id}
+        country={program.country}
+        term={program.term}
       />
     );
   });
