@@ -6,9 +6,9 @@ How to run the web scraper:
 
 To install tailwindCSS, run:
 
-npm install -D tailwindcss
-npx tailwindcss -i ./src/style/interface.css -o ./dist/output.css
+`npm install -D tailwindcss`
+`npx tailwindcss -i ./src/style/interface.css -o ./dist/output.css`
 
 To install the bar charts, run: 
 
-npm install chart.js react-chartjs-2
+`npm install chart.js react-chartjs-2`
