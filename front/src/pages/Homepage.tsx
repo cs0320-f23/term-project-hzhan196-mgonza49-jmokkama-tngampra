@@ -18,11 +18,14 @@ function setupIcons() {
   Recommended.forEach((program) => {
     totalIcons.push(  
       <Icons
-        key={program.id}  // Make sure to add a unique key when rendering components in a loop
-        image={program.image}
-        name={program.name}
-        link={`/browse/${program.id}`}
-        id={program.id}
+      key={program.id}  
+      image={program.image}
+      name={program.name}
+      link={`/browse/${program.id}`}
+      id={program.id}
+      country={program.country}
+      term={program.term}
+
       />
     );
   });
@@ -59,7 +62,7 @@ export default function Homepage({}: UserProps) {
         <div className="rec-icon-container">
             {setupIcons()}
         </div>
-        
+
       </div>
       
 
