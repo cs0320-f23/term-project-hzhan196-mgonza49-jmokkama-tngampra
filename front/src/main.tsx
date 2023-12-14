@@ -7,6 +7,7 @@ import Homepage from './pages/Homepage.tsx';
 import BrowseList from './pages/BrowseList.tsx';
 import Notfoundpage from './pages/Notfoundpage.tsx';
 import ProgramDisplay from './pages/ProgramDisplay.tsx';
+import Profile from './pages/ViewProfile.tsx'
 import Review from './pages/Review.tsx';
 import 'chart.js/auto';
 import { Bar } from "react-chartjs-2";
@@ -18,7 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="*" element={<Notfoundpage />} />
-        {/* <Route path="browse" element={<BrowseList />} /> */}
+        <Route path="profile" element={<Profile />} />
 
         <Route path="browse" element={<BrowseList />} />
         <Route path="browse/:id" element={<ProgramDisplay />} />

@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BrowserRouter, Link } from "react-router-dom";
+import { BrowserRouter, Link, useNavigate } from "react-router-dom";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import "../style/interface.css";
 import "../style/App.css";
@@ -10,6 +10,8 @@ import app from "./firebaseInit";
 import { useEffect } from "react";
 
 export default function NavbarButtons() {
+  const navigate = useNavigate();
+
   const handleSignIn = async () => {
     const loggedIn = (await loginStatus()).toString();
     console.log("loggedIn " + loggedIn);
@@ -96,8 +98,9 @@ export default function NavbarButtons() {
                   active ? "bg-gray-200" : "bg-white"
                 } w-full text-left block px-4 py-2 text-gray-700`}
                 // href="/settings"
+                onClick={() => navigate('/profile')}
               >
-                Settings
+                View Profile
               </button>
             )}
           </Menu.Item>
