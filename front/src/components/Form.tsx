@@ -27,6 +27,7 @@ function expandedForm(isExpanded: boolean) {
       <Formik
         className="footer-content"
         initialValues={{
+          languages: [],
           country: "",
           program: "",
           duration: "",
@@ -39,7 +40,53 @@ function expandedForm(isExpanded: boolean) {
       >
         {({ values, handleChange }) => (
           <Form>
-            <label htmlFor="country">Country</label>
+            <FieldArray name="languages">
+              {({ insert, remove, push }) => (
+                <div role="group">
+                  <div>
+                    <h2 className="border border-white p-4">
+                      What languages do you currently speak?
+                    </h2>
+                    {values.languages.length > 0 &&
+                      values.languages.map((language, index) => (
+                        <div
+                          className="flex flex-row items-center justify-center"
+                          key={index}
+                        >
+                          <div className="col">
+                            <label htmlFor={`languages.${index}.name`}>
+                              Language
+                            </label>
+                            <Field as="select" name={`languages.${index}.name`}>
+                              <option value="English">English</option>
+                              <option value="Mandarin">Mandarin</option>
+                              <option value="Tagalog">Tagalog</option>
+                            </Field>
+                          </div>
+                          <div className="col">
+                            <button
+                              type="button"
+                              className="review-button"
+                              onClick={() => remove(index)}
+                            >
+                              X
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    className="review-button"
+                    onClick={() => push({ name: "", email: "" })}
+                  >
+                    Add Language
+                  </button>
+                </div>
+              )}
+            </FieldArray>
+            {/* <label htmlFor="country">Country</label>
             <input
               id="country"
               name="country"
@@ -65,46 +112,109 @@ function expandedForm(isExpanded: boolean) {
                 <Field type="radio" name="duration" value="Full Year" />
                 Full Year
               </label>
-            </div>
+            </div> */}
 
             <FieldArray name="countryBlacklist">
               {({ insert, remove, push }) => (
-                <div>
-                  <h3>What countries are you uninterested in going to?</h3>
-                  {values.countryBlacklist.length > 0 &&
-                    values.countryBlacklist.map((country, index) => (
-                      <div className="flex flex-row" key={index}>
-                        <div className="col">
-                          <label htmlFor={`countryBlacklist.${index}.name`}>
-                            Country
-                          </label>
-                          <Field
-                            as="select"
-                            name={`countryBlacklist.${index}.name`}
-                            placeholder="Country"
-                          >
-                            <option value="USA">USA</option>
-                            <option value="Canada">Canada</option>
-                            <option value="UK">UK</option>
-                          </Field>
+                <div role="group">
+                  <div>
+                    <h2 className="border border-white p-4">
+                      What countries are you uninterested in going to?
+                    </h2>
+                    {values.countryBlacklist.length > 0 &&
+                      values.countryBlacklist.map((country, index) => (
+                        <div
+                          className="flex flex-row items-center justify-center"
+                          key={index}
+                        >
+                          <div className="col">
+                            <label htmlFor={`countryBlacklist.${index}.name`}>
+                              Country
+                            </label>
+                            <Field
+                              as="select"
+                              name={`countryBlacklist.${index}.name`}
+                              placeholder="Country"
+                            >
+                              <option value="USA">USA</option>
+                              <option value="Canada">Canada</option>
+                              <option value="UK">UK</option>
+                            </Field>
+                          </div>
+                          <div className="col">
+                            <button
+                              type="button"
+                              className="review-button"
+                              onClick={() => remove(index)}
+                            >
+                              X
+                            </button>
+                          </div>
                         </div>
-                        <div className="col">
-                          <button
-                            type="button"
-                            className="review-button"
-                            onClick={() => remove(index)}
-                          >
-                            X
-                          </button>
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                  </div>
+
                   <button
                     type="button"
                     className="review-button"
                     onClick={() => push({ name: "", email: "" })}
                   >
                     Add Country
+                  </button>
+                </div>
+              )}
+            </FieldArray>
+
+            <FieldArray name="programBlacklist">
+              {({ insert, remove, push }) => (
+                <div role="group">
+                  <div>
+                    <h2 className="border border-white p-4">
+                      Are there any programs that you've looked at and decided
+                      are not for you?
+                    </h2>
+                    {values.programBlacklist.length > 0 &&
+                      values.programBlacklist.map((program, index) => (
+                        <div
+                          className="flex flex-row items-center justify-center"
+                          key={index}
+                        >
+                          <div className="col">
+                            <label htmlFor={`programBlacklist.${index}.name`}>
+                              Program
+                            </label>
+                            <Field
+                              as="select"
+                              name={`programBlacklist.${index}.name`}
+                              placeholder="Program"
+                            >
+                              <option value="Ben-Gurion University">
+                                Ben-Gurion University
+                              </option>
+                              <option value="Another program">
+                                Something else
+                              </option>
+                            </Field>
+                          </div>
+                          <div className="col">
+                            <button
+                              type="button"
+                              className="review-button"
+                              onClick={() => remove(index)}
+                            >
+                              X
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    className="review-button"
+                    onClick={() => push({ name: "", email: "" })}
+                  >
+                    Add Program
                   </button>
                 </div>
               )}
