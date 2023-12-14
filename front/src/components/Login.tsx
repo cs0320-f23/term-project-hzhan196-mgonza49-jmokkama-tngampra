@@ -16,8 +16,6 @@ export function login(): Promise<string> {
 
     signInWithPopup(auth, provider)
       .then((result: UserCredential) => {
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
         const user = result.user;
         if (user.email == null) {
           console.log("null !!!");
@@ -40,6 +38,7 @@ export function login(): Promise<string> {
 export function logout(): Promise<String> {
   return new Promise((resolve, reject) => {
     const auth = getAuth(app);
+
     signOut(auth)
       .then(() => {
         window.location.reload();
@@ -55,9 +54,6 @@ export function loginStatus(): Promise<string> {
   return new Promise((resolve) => {
     const auth = getAuth(app);
     onAuthStateChanged(auth, (user) => {
-      if (user != null) {
-        console.log("user, " + user.email);
-      }
       if (user) {
         resolve("Sign Out");
       } else {
@@ -73,6 +69,32 @@ export function profilePhoto(): Promise<string | null> {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         resolve(user.photoURL);
+      } else {
+        resolve("error");
+      }
+    });
+  });
+}
+
+export function profileName(): Promise<string | null> {
+  return new Promise((resolve) => {
+    const auth = getAuth(app);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        resolve(user.displayName);
+      } else {
+        resolve("error");
+      }
+    });
+  });
+}
+
+export function profileEmail(): Promise<string | null> {
+  return new Promise((resolve) => {
+    const auth = getAuth(app);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        resolve(user.email);
       } else {
         resolve("error");
       }

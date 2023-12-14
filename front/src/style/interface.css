@@ -17,12 +17,6 @@ body {
   margin-bottom: 300px;
 }
 
-header {
-  background-color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
-}
-
 .button-container {
   display: flex;
   justify-content: center;
@@ -424,6 +418,36 @@ button:hover {
   box-sizing: border-box;
 }
 
-.chart-box{
+.chart-box {
   height: 400px;
+}
+
+.profile-page {
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 50px;
+  padding-left: 50px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.profile-page-photo {
+  position: relative;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: 2px solid black;
+  box-sizing: border-box;
+}
+
+.profile-page-color {
+  color: black;
+  border: 2px solid black;
+
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  align-items: center;
+  text-align: center;
 }

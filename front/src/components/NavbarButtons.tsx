@@ -8,6 +8,7 @@ import { login, logout, loginStatus, profilePhoto } from "./Login";
 import { getAuth } from "firebase/auth";
 import app from "./firebaseInit";
 import { useEffect } from "react";
+import React from "react";
 
 export default function NavbarButtons() {
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ export default function NavbarButtons() {
                   active ? "bg-gray-200" : "bg-white"
                 } w-full text-left block px-4 py-2 text-gray-700`}
                 // href="/settings"
-                onClick={() => navigate('/profile')}
+                onClick={() => navigate("/profile")}
               >
                 View Profile
               </button>

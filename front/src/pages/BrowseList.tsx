@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 import { ReactNode } from "react";
-import Navbar from '../components/Navbar'
-import Search from '../components/Search'
-import Icons from "../components/Icons.tsx";
-import ProgramData from '../components/mockProgramData'
-import { Link , useParams, Outlet, useNavigate} from 'react-router-dom';
-import "../style/interface.css"
+import Navbar from "../components/Navbar";
+import Search from "../components/Search";
+import Icons from "../components/Icons";
+import ProgramData from "../components/mockProgramData";
+import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
+import "../style/interface.css";
 
 // const mockData: [string, string][] = [
 //   [
@@ -40,13 +40,12 @@ import "../style/interface.css"
 // ];
 
 function setupIcons() {
-
   const totalIcons: ReactNode[] = [];
-    
+
   ProgramData.forEach((program) => {
-    totalIcons.push(  
+    totalIcons.push(
       <Icons
-        key={program.id}  // Make sure to add a unique key when rendering components in a loop
+        key={program.id} // Make sure to add a unique key when rendering components in a loop
         image={program.image}
         name={program.name}
         link={`/browse/${program.id}`}
@@ -60,27 +59,21 @@ function setupIcons() {
   return totalIcons;
 }
 
-
 // TODO probs just make a bunch of cards for each country here
-function BrowseList() { 
-  
+function BrowseList() {
   return (
     <div>
       <div className="navbar-container">
         <Navbar />
       </div>
-  
+
       <div>
         <Search />
       </div>
 
-      <div className="icon-container">
-        {setupIcons()}
-      </div>
-      
-
+      <div className="icon-container">{setupIcons()}</div>
     </div>
-  )
+  );
 }
 
-export default BrowseList
+export default BrowseList;

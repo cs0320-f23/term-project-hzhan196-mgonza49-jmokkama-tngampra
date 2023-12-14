@@ -9,6 +9,7 @@ import { login, logout, loginStatus } from "./Login";
 import { getAuth } from "firebase/auth";
 import app from "./firebaseInit";
 import NavbarButtons from "./NavbarButtons";
+import React from "react";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -41,61 +42,7 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
-
-          {/* <Menu as="div"> */}
-          {/* <div className="profile-outer"> */}
-          {/* <Menu.Button
-              className="ml-2 relative flex rounded-full custom-dark-gray focus:outline-none"
-              // style={{ background: "transparent", border: "none" }}
-            >
-              <img
-                className="profile-circle"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
-              />
-            </Menu.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-opacity-5 focus:outline-none"> */}
-          {/* <div className=""> */}
-          {/* <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      className={`${
-                        active ? "bg-gray-200" : "bg-white"
-                      } w-full text-left block px-4 py-2 text-gray-700`}
-                      // href="/settings"
-                    >
-                      Settings
-                    </button>
-                  )}
-                    </Menu.Item> */}
           <NavbarButtons />
-
-          {/* <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      onClick={handleSignIn}
-                      className={`${
-                        active ? "bg-gray-200" : "bg-white"
-                      } w-full text-left block px-4 py-2 text-gray-700`}
-                    >
-                      Sign Out
-                    </button>
-                  )}
-                </Menu.Item> */}
-          {/* </div> */}
-          {/* </Menu.Items>
-            </Transition>
-          </Menu> */}
         </>
       )}
     </Disclosure>

@@ -2,13 +2,14 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
-import Icons from "../components/Icons.tsx";
-import Recommended from "../components/mockRecommended.tsx";
+import Icons from "../components/Icons";
+import Recommended from "../components/mockRecommended";
 import { Link, useParams, Outlet } from "react-router-dom";
 import { ReactNode } from "react";
-import { forms } from "../components/Form.tsx";
+import { forms } from "../components/Form";
 import "../style/interface.css";
-import { loginStatus } from "../components/Login.tsx";
+import { loginStatus } from "../components/Login";
+import React from "react";
 
 interface UserProps {}
 
