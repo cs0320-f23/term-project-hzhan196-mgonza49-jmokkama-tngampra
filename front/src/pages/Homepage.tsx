@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import Navbar from '../components/Navbar'
-import Search from '../components/Search'
+import Navbar from "../components/Navbar";
+import Search from "../components/Search";
 import Icons from "../components/Icons.tsx";
-import Recommended from '../components/mockRecommended.tsx'
-import { Link , useParams, Outlet} from 'react-router-dom';
+import Recommended from "../components/mockRecommended.tsx";
+import { Link, useParams, Outlet } from "react-router-dom";
 import { ReactNode } from "react";
 import { forms } from "../components/Form.tsx";
 import "../style/interface.css";
@@ -12,11 +12,10 @@ import "../style/interface.css";
 interface UserProps {}
 
 function setupIcons() {
-
   const totalIcons: ReactNode[] = [];
-    
+
   Recommended.forEach((program) => {
-    totalIcons.push(  
+    totalIcons.push(
       <Icons
       key={program.id}  
       image={program.image}
@@ -36,21 +35,26 @@ function setupIcons() {
 export default function Homepage({}: UserProps) {
   return (
     <div>
-
-
       <div className="navbar-container">
         <Navbar />
       </div>
 
       <div className="bg-gray-500 flex flex-col h-screen">
-        <h1 className="main-title text-2xl lg:text-6xl text-white font-semibold mt-2">Study Abroad @ Brown</h1>
-       
-        <h2 className="text-gray-300 mt-2">some placeholder text here, gray bg is also temporary</h2>
+        <h1 className="main-title text-2xl lg:text-6xl text-white font-semibold mt-2">
+          Study Abroad @ Brown
+        </h1>
+
+        <h2 className="text-gray-300 mt-2">
+          some placeholder text here, gray bg is also temporary
+        </h2>
         <Search />
 
         <div className="flex flex-row justify-center mt-2">
           <span className="text-gray-300"> or</span>
-          <a href="/browse" className="underlined-text ml-2 text-gray-300 hover:text-white">
+          <a
+            href="/browse"
+            className="underlined-text ml-2 text-gray-300 hover:text-white"
+          >
             Browse Programs
           </a>
         </div>
@@ -58,13 +62,11 @@ export default function Homepage({}: UserProps) {
 
       <div className="rec-container-wrap">
         <div className="main">Your Recommended: </div>
-
         <div className="rec-icon-container">
             {setupIcons()}
         </div>
 
       </div>
-      
 
       <div>{forms()}</div>
     </div>

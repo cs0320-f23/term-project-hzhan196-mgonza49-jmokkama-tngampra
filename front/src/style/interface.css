@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 body {
   font-family: Arial, sans-serif;
@@ -53,7 +53,6 @@ button:hover {
   /* border: 1px solid black; */
 }
 
-
 #searchOverlay {
   display: none;
   position: fixed;
@@ -97,8 +96,7 @@ button:hover {
   background-color: #333;
   top: 0;
   z-index: 100; /* to make sure it appears above other elements*/
-  width: 100%
-  
+  width: 100%;
 }
 
 .menu {
@@ -156,12 +154,12 @@ button:hover {
 
 .icon-container {
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   margin-top: 20px;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   /* margin-left: 10vh; */
-  margin-left:5%;
-  margin-right:5%;
+  margin-left: 5%;
+  margin-right: 5%;
   padding: 20px;
   /* height: 50vh; */
   /* background-color: black; */
@@ -177,30 +175,30 @@ button:hover {
   padding: 0;
 }
 
-.rec-container-wrap{
+.rec-container-wrap {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   transform: translate(0, -45%);
   z-index: 1;
   min-height: 350px;
 }
 
 .rec-icon-container {
-    display: flex;
-    justify-content: flex-start; 
-    /* flex-wrap: wrap; */
-    /* margin-left: 10vh; */
-    margin-left:3%;
-    margin-right:5%;
-    padding: 20px;
-    overflow-x: scroll;
-    /* transform: translate(0, -50%);
+  display: flex;
+  justify-content: flex-start;
+  /* flex-wrap: wrap; */
+  /* margin-left: 10vh; */
+  margin-left: 3%;
+  margin-right: 5%;
+  padding: 20px;
+  overflow-x: scroll;
+  /* transform: translate(0, -50%);
     z-index: 1; */
 
-    /* height: 50px; */
-    /* height: 50vh; */
-    /* background-color: black; */
+  /* height: 50px; */
+  /* height: 50vh; */
+  /* background-color: black; */
 }
 
 .card {
@@ -213,7 +211,7 @@ button:hover {
   box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
   border-radius: 10px;
-  transition: background-color 0.3s; 
+  transition: background-color 0.3s;
   overflow-y: auto;
   white-space: normal;
   color:black;
@@ -233,7 +231,7 @@ button:hover {
   margin: 0 7px 8px;
   padding: 10px;
   background-color: #fff;
-  box-shadow: 2px 3px 10px rgba(0, 0, 0, .5);
+  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
   border-radius: 10px;
 }
@@ -249,7 +247,7 @@ button:hover {
   width: 4rem;
   border-radius: 50%;
   border: 2px solid #333;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   margin-bottom: 5%;
 }
 

@@ -5,7 +5,7 @@ import { BrowserRouter, Link } from "react-router-dom";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import "../style/interface.css";
 import "../style/App.css";
-import { login, logout } from "./Login";
+import { login, logout, loginStatus } from "./Login";
 import { getAuth } from "firebase/auth";
 import app from "./firebaseInit";
 
@@ -15,10 +15,14 @@ const navigation = [
 ];
 
 export default function Navbar() {
-  const auth = getAuth(app);
-  const user = auth.currentUser;
+  function getUser() {
+    const auth = getAuth(app);
+    console.log("user " + loginStatus());
+  }
   const handleSignIn = async () => {
-    if (user == null) {
+    const loggedIn = (await loginStatus()).toString();
+    console.log("loggedIn " + loggedIn);
+    if (loggedIn === "false") {
       try {
         const loginStatus = (await login()).toString();
         console.log("login status " + loginStatus);
@@ -40,9 +44,6 @@ export default function Navbar() {
       }
     }
   };
-
-  const parseSignIn = handleSignIn();
-
   return (
     //    <h1>NavBar</h1>
     <Disclosure as="nav" className="menu">
@@ -68,6 +69,7 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
+          <button onClick={getUser}> user</button>
 
           <Menu as="div">
             {/* <div className="profile-outer"> */}

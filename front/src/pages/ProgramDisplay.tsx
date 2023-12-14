@@ -59,12 +59,8 @@ function ProgramDisplay() {
 
       </div>
 
-
-
-
-    
     </div>
-  )
+  );
 }
 
-export default ProgramDisplay
+export default ProgramDisplay;
