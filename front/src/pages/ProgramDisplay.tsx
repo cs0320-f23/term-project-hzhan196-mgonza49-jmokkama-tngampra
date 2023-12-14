@@ -8,13 +8,13 @@ import Comment from "../components/Comments";
 import { loginStatus } from "../components/Login";
 import commentData from "../components/mockCommentData";
 import CommentStore from "../components/CommentStore";
+import BarChart from "../components/BarChart";
 
 interface Program {
-    tempId: number;
-    name: string;
-    // country: string;
-  }
-
+  tempId: number;
+  name: string;
+  // country: string;
+}
 
 function setupComments() {
   const totalComments: ReactNode[] = [];
@@ -59,41 +59,37 @@ function ProgramDisplay() {
       </div>
       <div className="program-box">
         <div className="program-display">
-
           <div className="flex justify-center items-center">
-              {/* <img src={ProgramData[programId-1].image} className="circular-image">
+            {/* <img src={ProgramData[programId-1].image} className="circular-image">
               </img> */}
-            </div>
+          </div>
 
-            <Link to="/browse/" className="ml-2 flex text-left mt-2 text-gray-300">
-          Back to Browse
-             </Link>
- 
-          <div className="display-title">
-            {ProgramData[programId-1].name}
+          <Link
+            to="/browse/"
+            className="ml-2 flex text-left mt-2 text-gray-300"
+          >
+            Back to Browse
+          </Link>
+
+          <div className="display-title">{ProgramData[programId - 1].name}</div>
+        </div>
+
+        {/* White block scroll contents  */}
+        <div className="big-card-holder">
+          <div className="display-info">
+            <div className="text-lg font-bold">
+              {ProgramData[programId - 1].name}
+            </div>
+            <p> {ProgramData[programId - 1].country}</p>
+            <p> {ProgramData[programId - 1].term}</p>
+            <p>{ProgramData[programId - 1].description}</p>
+          </div>
+
+          <div className="display-stats">
+            <BarChart />
           </div>
         </div>
-
-
-      {/* White block scroll contents  */}
-      <div className="big-card-holder">
-        <div className="display-info">
-          <div className="text-lg font-bold">
-              {ProgramData[programId-1].name}
-            </div>
-          <p> {ProgramData[programId-1].country}</p>
-          <p> {ProgramData[programId-1].term}</p>
-          <p>{ProgramData[programId-1].description}</p>
-        </div>
-
-        <div className="display-stats">
-          <BarChart />
-        </div>
       </div>
-      
-
-      </div>
-
     </div>
   );
 }

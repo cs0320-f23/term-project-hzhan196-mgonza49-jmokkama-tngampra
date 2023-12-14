@@ -203,7 +203,7 @@ button:hover {
 
 .card {
   display: inline-block;
-  width: 300px; 
+  width: 300px;
   height: 250px;
   margin: 0 7px 8px;
   padding: 10px;
@@ -214,7 +214,7 @@ button:hover {
   transition: background-color 0.3s;
   overflow-y: auto;
   white-space: normal;
-  color:black;
+  color: black;
 }
 
 .card-title {
@@ -225,8 +225,8 @@ button:hover {
 
 .card:hover {
   display: inline-block;
-  color:black;
-  width: 300px; 
+  color: black;
+  width: 300px;
   height: 250px;
   margin: 0 7px 8px;
   padding: 10px;
@@ -235,8 +235,6 @@ button:hover {
   text-align: center;
   border-radius: 10px;
 }
-
-
 
 .circular-image {
   width: 100%;
@@ -317,40 +315,40 @@ button:hover {
 
 .expand-label {
   color: #ffffff;
-
-.program-box{
-  padding-top: 50px;
-  background-color:  #4F718B;
-  height: 80vh;
-
 }
 
-.display-title{
+.program-box {
+  padding-top: 50px;
+  background-color: #4f718b;
+  height: 80vh;
+}
+
+.display-title {
   margin-top: 2px;
-  font-size: 5vh; 
+  font-size: 5vh;
   font-weight: bold;
   margin-bottom: 2vh;
   margin-left: 1vh;
   color: white;
 }
 
-.program-display{
+.program-display {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: flex-start;
   margin-left: 5%;
 }
 
-.big-card-holder{
+.big-card-holder {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   align-items: flex-start;
   margin-left: 3%;
 }
 
-.display-info{
+.display-info {
   margin-top: 20vh;
-  width: 60%; 
+  width: 60%;
   height: 400px;
   margin: 0 20px 8px;
   padding: 10px;
@@ -358,15 +356,15 @@ button:hover {
   box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
   text-align: left;
   border-radius: 10px;
-  transition: background-color 0.3s; 
+  transition: background-color 0.3s;
   overflow-y: auto;
   white-space: normal;
-  color:black;
+  color: black;
 }
 
-.display-stats{
+.display-stats {
   margin-top: 20vh;
-  width: 30%; 
+  width: 30%;
   height: 400px;
   margin: 0 20px 8px;
   padding: 10px;
@@ -374,8 +372,8 @@ button:hover {
   box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
   text-align: left;
   border-radius: 10px;
-  transition: background-color 0.3s; 
+  transition: background-color 0.3s;
   overflow-y: auto;
   white-space: normal;
-  color:black;
+  color: black;
 }
