@@ -5,16 +5,19 @@ import "../pages/ProgramDisplay"
 import "../style/interface.css";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
+ChartJS.register(ChartDataLabels);
 
-function ChartComponent() {
+function ChartComponent({ programRating }: {programRating: number[]}) {
+  console.log(programRating);
   const labels = [1, 2, 3, 4, 5];
   const data = {
     labels: labels,
     datasets: [{
       axis: 'y',
       label: 'Rating',
-      data: [1,2,3,2,4],
+      data: programRating,
       fill: false,
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
@@ -39,20 +42,43 @@ function ChartComponent() {
   };
 
   const options = {
-    indexAxis: 'y', // Specify 'y' for horizontal bars
+    indexAxis: 'y', 
     scales: {
-      // x: { // Use 'x' for the horizontal axis
-      //   beginAtZero: true,
-      // },
-      // y: {
-      //   beginAtZero: true,
-      // },
+      x: { 
+        display: false,
+        beginAtZero: true,
+      },
+      y: {
+        display: true,
+        beginAtZero: true,
+      },
     },
-    aspectRatio: 7/8,
+    aspectRatio: 0.99,
+    
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        formatter: (value: number) => value, // Display the data value at the end of each bar
+        color: 'black', // Adjust the color of the displayed value
+        font: {
+          weight: 'bold',
+        },
+      },
+    },
+
+    layout: {
+      padding: {
+        top: 20, 
+        right: 25, 
+        // bottom: 20, 
+        // left: 20,
+      },
+    },
   };
 
   return (
-    <div style={{ }}> {/* Adjust the width as needed */}
+    <div style={{ display: 'flex', justifyContent: 'center', height: '40vh'}}>
       <Bar data={data} options={options} />
     </div>
   );

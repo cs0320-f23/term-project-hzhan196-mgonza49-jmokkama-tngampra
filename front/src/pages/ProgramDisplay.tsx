@@ -10,6 +10,7 @@ import commentData from "../components/mockCommentData";
 import CommentStore from "../components/CommentStore";
 import BarChart from "../components/ChartComponent";
 import Chart from 'chart.js/auto';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 interface Program {
   tempId: number;
@@ -92,7 +93,7 @@ function ProgramDisplay() {
 
           <div className="display-stats">
             Ratings:
-            <BarChart />
+            <BarChart programRating={ProgramData[programId-1].rating}/>
           </div>
         </div>
       </div>

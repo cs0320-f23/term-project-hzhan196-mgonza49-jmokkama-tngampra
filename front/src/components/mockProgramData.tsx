@@ -6,6 +6,7 @@ const ProgramData = [
       term: "Fall 2024, Spring 2024",
       description: "Description 1",
       image: "https://cdn.britannica.com/25/4825-004-F1975B92/Flag-United-Kingdom.jpg",
+      rating: [1,3,2,5,3] //first index is how many 1s it got, 2nd is how many 2s it got (3 in this case, etc.)
     },
     {
       id: 2,
@@ -14,6 +15,7 @@ const ProgramData = [
       term: "Fall 2024, Full Year 2024-2025",
       description: "Description 2",
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Flag_of_Ireland.svg/255px-Flag_of_Ireland.svg.png",
+      rating: [1,1,1,3,4]
     },
     {
       id: 3,
@@ -22,6 +24,7 @@ const ProgramData = [
       term: "Fall 2024, Spring 2024",
       description: "Description 3",
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/2560px-Flag_of_the_People%27s_Republic_of_China.svg.png",
+      rating: [1,1,1,3,4]
     },
     {
         id: 4,
@@ -30,6 +33,7 @@ const ProgramData = [
         term: "Spring 2024, Fall 2024, Full Year 2024-2025",
         description: "Description 4",
         image: "https://upload.wikimedia.org/wikipedia/en/thumb/0/05/Flag_of_Brazil.svg/1280px-Flag_of_Brazil.svg.png",
+        rating: [1,1,1,3,4]
       },
       {
         id: 5,
@@ -38,6 +42,7 @@ const ProgramData = [
         term: "term here",
         description: "Description 5",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Flag_of_Australia_%28converted%29.svg/1280px-Flag_of_Australia_%28converted%29.svg.png",
+        rating: [1,1,1,3,4]
       },
       {
         id: 6,
@@ -46,6 +51,7 @@ const ProgramData = [
         term: "term here",
         description: "Description 6",
         image: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/1280px-Flag_of_Japan.svg.png",
+        rating: [1,1,1,3,4]
       },
   ];
 
