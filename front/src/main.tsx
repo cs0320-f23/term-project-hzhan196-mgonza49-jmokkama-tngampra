@@ -7,6 +7,7 @@ import Homepage from './pages/Homepage.tsx';
 import BrowseList from './pages/BrowseList.tsx';
 import Notfoundpage from './pages/Notfoundpage.tsx';
 import ProgramDisplay from './pages/ProgramDisplay.tsx';
+import Review from './pages/Review.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
         <Route path="browse" element={<BrowseList />} />
         <Route path="browse/:id" element={<ProgramDisplay />} />
+        <Route path="review" element={<Review />} />
     
       </Routes>
     </BrowserRouter>
