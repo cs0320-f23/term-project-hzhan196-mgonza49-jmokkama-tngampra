@@ -423,3 +423,7 @@ button:hover {
   resize: vertical;
   box-sizing: border-box;
 }
+
+.chart-box{
+  height: 400px;
+}

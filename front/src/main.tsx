@@ -8,6 +8,8 @@ import BrowseList from './pages/BrowseList.tsx';
 import Notfoundpage from './pages/Notfoundpage.tsx';
 import ProgramDisplay from './pages/ProgramDisplay.tsx';
 import Review from './pages/Review.tsx';
+import 'chart.js/auto';
+import { Bar } from "react-chartjs-2";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

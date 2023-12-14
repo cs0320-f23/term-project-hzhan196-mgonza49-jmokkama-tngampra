@@ -8,8 +8,8 @@ import Comment from "../components/Comments";
 import { loginStatus } from "../components/Login";
 import commentData from "../components/mockCommentData";
 import CommentStore from "../components/CommentStore";
-// import BarChart from "../components/ChartComponent";
-// import Chart from 'chart.js/auto';
+import BarChart from "../components/ChartComponent";
+import Chart from 'chart.js/auto';
 
 interface Program {
   tempId: number;
@@ -91,8 +91,8 @@ function ProgramDisplay() {
           </div>
 
           <div className="display-stats">
-            {/* <BarChart /> */}
             Ratings:
+            <BarChart />
           </div>
         </div>
       </div>
