@@ -68,7 +68,9 @@ function ProgramDisplay() {
         </ul> */}
       <h1>{ProgramData[programId - 1].name}</h1>{" "}
       <p>{ProgramData[programId - 1].description}</p>{" "}
-      <img src={ProgramData[programId - 1].image}></img>
+      <div>
+        <img src={ProgramData[programId - 1].image}></img>
+      </div>
       <div>{setupComments()}</div>
       {commentDisplay()}
     </div>
