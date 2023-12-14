@@ -257,19 +257,29 @@ button:hover {
 
 .footer {
   position: fixed;
+  display: flex;
+  flex-direction: column;
   bottom: 0;
   width: 100%;
+  height: 10%;
   background-color: black;
-  border-top: 1px solid black;
   transition: height 0.3s ease;
   color: white;
+  align-items: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.footer.expanded {
+  height: 70%;
 }
 
 .footer-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
+  justify-content: center;
+  padding: 1% 20px;
   color: white;
 }
 
@@ -308,13 +318,20 @@ button:hover {
   width: 50px;
   height: 50px;
   text-align: center;
-  background-color: currentColor;
+  background-color: transparent;
+  border-color: transparent;
+  outline: none;
   top: 0;
   left: 0;
 }
 
+.expand:focus {
+  outline: none;
+}
+
 .expand-label {
   color: #ffffff;
+  font-weight: bold;
 }
 
 .program-box {

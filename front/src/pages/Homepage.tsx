@@ -18,39 +18,18 @@ function setupIcons() {
   Recommended.forEach((program) => {
     totalIcons.push(
       <Icons
-      key={program.id}  
-      image={program.image}
-      name={program.name}
-      link={`/browse/${program.id}`}
-      id={program.id}
-      country={program.country}
-      term={program.term}
-
+        key={program.id} // Make sure to add a unique key when rendering components in a loop
+        image={program.image}
+        name={program.name}
+        country={program.country}
+        term={program.term}
+        link={`/browse/${program.id}`}
+        id={program.id}
       />
     );
   });
 
   return totalIcons;
-}
-
-function formAccess() {
-  const [commentStatus, setCommentStatus] = useState<Boolean>();
-  useEffect(() => {
-    loginStatus()
-      .then((name) => {
-        if (name === "Sign Out") {
-          setCommentStatus(true);
-        } else {
-          setCommentStatus(false);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-  if (commentStatus) {
-    return forms();
-  }
 }
 
 export default function Homepage({}: UserProps) {
@@ -83,13 +62,11 @@ export default function Homepage({}: UserProps) {
 
       <div className="rec-container-wrap">
         <div className="main">Your Recommended: </div>
-        <div className="rec-icon-container">
-            {setupIcons()}
-        </div>
 
+        <div className="rec-icon-container">{setupIcons()}</div>
       </div>
 
-      <div>{formAccess()}</div>
+      <div>{forms()}</div>
     </div>
   );
 }
