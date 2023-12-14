@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 import ProgramData from "../components/mockProgramData";
@@ -6,11 +6,25 @@ import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
 import "../style/interface.css";
 import Comment from "../components/Comments";
 import { loginStatus } from "../components/Login";
+import commentData from "../components/mockCommentData";
+import CommentStore from "../components/CommentStore";
 
 interface Program {
   id: number;
   name: string;
   // country: string;
+}
+
+function setupComments() {
+  const totalComments: ReactNode[] = [];
+
+  commentData.forEach((comment) => {
+    totalComments.push(
+      <CommentStore user={comment.user} content={comment.comment} />
+    );
+  });
+
+  return totalComments;
 }
 
 function commentDisplay() {
@@ -55,6 +69,7 @@ function ProgramDisplay() {
       <h1>{ProgramData[programId - 1].name}</h1>{" "}
       <p>{ProgramData[programId - 1].description}</p>{" "}
       <img src={ProgramData[programId - 1].image}></img>
+      <div>{setupComments()}</div>
       {commentDisplay()}
     </div>
   );
