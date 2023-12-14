@@ -45,7 +45,11 @@ function commentDisplay() {
       });
   }, []);
   if (commentStatus) {
-    return <Comment />;
+    return (
+      <Link to="/review" className="button">
+        Form
+      </Link>
+    );
   }
 }
 
@@ -92,11 +96,7 @@ function ProgramDisplay() {
           </div>
         </div>
       </div>
-
-          <Link to="/review" className="button">
-            Form
-          </Link>
-
+      {commentDisplay()}
     </div>
   );
 }

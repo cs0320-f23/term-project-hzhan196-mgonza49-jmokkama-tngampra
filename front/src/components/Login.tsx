@@ -66,3 +66,16 @@ export function loginStatus(): Promise<string> {
     });
   });
 }
+
+export function profilePhoto(): Promise<string | null> {
+  return new Promise((resolve) => {
+    const auth = getAuth(app);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        resolve(user.photoURL);
+      } else {
+        resolve("error");
+      }
+    });
+  });
+}
