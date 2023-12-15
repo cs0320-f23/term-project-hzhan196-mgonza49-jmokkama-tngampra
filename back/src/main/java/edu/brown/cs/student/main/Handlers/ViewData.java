@@ -164,10 +164,10 @@ public class ViewData {
 		private String link;
         private String location;
         private HashMap<String, HashMap<String, Integer>> userScores;
-        private List<String> comment; 
+        private List<HashMap<String, String>> comment;
 
 		public ProgramData(String name, String link, String location,
-            HashMap<String, HashMap<String, Integer>> userScores, List<String> comment) {
+            HashMap<String, HashMap<String, Integer>> userScores, List<HashMap<String, String>> comment) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
@@ -236,12 +236,12 @@ public class ViewData {
 		}
 
         // Getter for comment
-		public List<String> getComment() {
+		public List<HashMap<String, String>> getComment() {
 			return comment;
 		}
 
 		// Setter for comment
-		public void setComment(List<String> comment) {
+		public void setComment(List<HashMap<String, String>> comment) {
 			this.comment = comment;
 		}
 	}

@@ -147,7 +147,7 @@ public class DatabaseSearchHandler implements Route {
 
     List<ProgramData> searchData = this.searchDatabase(keyword, country, collection);
 
-	  return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword, country);
+	return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword, country);
   }
 
   /**
@@ -212,25 +212,25 @@ public class DatabaseSearchHandler implements Route {
   public static class ProgramData {
     private String name;
     private String link;
-        private String location;
-        private HashMap<String, HashMap<String, Integer>> userScores;
-        private List<String> comment; 
+	private String location;
+	private HashMap<String, HashMap<String, Integer>> userScores;
+	private List<String> comment;
 
     public ProgramData(String name, String link, String location,
             HashMap<String, HashMap<String, Integer>> userScores, List<String> comment) {
       this.name = name;
       this.link = link;
       this.location = location;
-            this.userScores = userScores;
-            this.comment = comment;
+      this.userScores = userScores;
+      this.comment = comment;
     }
 
     public ProgramData() {
       link = "";
       name = "";
       location = "";
-            userScores = new HashMap<>();
-            comment = new ArrayList<>();
+	  userScores = new HashMap<>();
+	  comment = new ArrayList<>();
     }
 
     @Override
@@ -239,8 +239,8 @@ public class DatabaseSearchHandler implements Route {
       sb.append("name='").append(name).append('\'');
       sb.append(", link='").append(link).append('\'');
       sb.append(", location='").append(location).append('\'');
-            sb.append(", userScores='").append(userScores).append('\'');
-            sb.append(", comment='").append(comment).append('\'');
+	  sb.append(", userScores='").append(userScores).append('\'');
+	  sb.append(", comment='").append(comment).append('\'');
       sb.append('}');
       return sb.toString();
     }
