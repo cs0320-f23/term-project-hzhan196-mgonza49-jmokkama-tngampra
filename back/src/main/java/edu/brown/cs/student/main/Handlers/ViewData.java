@@ -53,20 +53,19 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 public class ViewData implements Route {
     public ViewData() {}
 
-	private List<ProgramData> sortProgramData(List<ProgramData> programData, List<UserData> userData) {
+	private List<ProgramData> sortProgramData(String email, List<ProgramData> programData, List<UserData> userData) {
 		Integer len = programData.size();
 		Integer i = 0;
-		Integer totalScore;
 		while (i < len) {
 			ProgramData program = programData.get(i);
 			HashMap<String, HashMap<String, Integer>> userScores = program.getUserScores();
 			List<HashMap<String, Integer>> scoreValues = new ArrayList<HashMap<String, Integer>>(userScores.values());
 			Integer lenScore = scoreValues.size();
 			Integer j = 0;
-			Integer acceptance = 0;
-			Integer safety = 0;
-			Integer minority = 0;
-			Integer learning = 0;
+			float acceptance = 0;
+			float safety = 0;
+			float minority = 0;
+			float learning = 0;
 			while (j < lenScore) {
 				acceptance += scoreValues.get(j).get("accpetance");
 				safety += scoreValues.get(j).get("safety");
@@ -126,8 +125,13 @@ public class ViewData implements Route {
 				}
 				k = k + 1;
 			}
+
 			i = i + 1;
+			HashMap<String, Float> average = program.getAverage();
+			average.put(email, average.get(email) + acceptance+safety+minority+learning);
+			program.setAverage(average);
 		}
+		Collections.sort(programData);
 		return programData;
 	}
 
@@ -190,10 +194,10 @@ public class ViewData implements Route {
 		List<ProgramData> results = new ArrayList<>();
 	    collection.find().forEach(results::add);
 
-		List<ProgramData> sorted = sortProgramData(results, resultsUsr);
+		List<ProgramData> sorted = sortProgramData(email, results, resultsUsr);
 
         // Sort results
-        return new ViewData.ViewSuccessResponse("success", results, email);
+        return new ViewData.ViewSuccessResponse("success", sorted, email);
     }
 
     /**
