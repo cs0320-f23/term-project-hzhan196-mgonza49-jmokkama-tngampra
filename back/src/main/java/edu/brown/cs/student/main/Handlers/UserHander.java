@@ -49,28 +49,20 @@ import org.eclipse.jetty.util.log.Log;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
-//import io.realm.mongodb.App;
-//import io.realm.mongodb.AppConfiguration;
-//import io.realm.mongodb.Credentials;
-//import io.realm.mongodb.User;
-//import io.realm.mongodb.functions.Functions;
-//
+public class UserHander {
+    public UserHander() {}
 
-public class DatabaseSearchHandler implements Route {
+    private List<ProgramData> searchDatabase(String keyword, String country, MongoCollection<ProgramData> collection) {
 
-  public DatabaseSearchHandler() {}
-
-  private List<ProgramData> searchDatabase(String keyword, String country, MongoCollection<ProgramData> collection) {
-
-     // check nullness too
-     keyword = keyword.toLowerCase();
-     if (country != null) {
-       country = country.toLowerCase();
-     }
+    // check nullness too
+    keyword = keyword.toLowerCase();
+    if (country != null) {
+        country = country.toLowerCase();
+    }
 
 	 Bson filter = Filters.and(
-			 Filters.eq("name", keyword),
-			 Filters.eq("location", country)
+        Filters.eq("name", keyword),
+        Filters.eq("location", country)
 	 );
 
 	 List<ProgramData> results = new ArrayList<>();
@@ -122,8 +114,8 @@ public class DatabaseSearchHandler implements Route {
     // The MongoClient defines the connection to our MongoDB datastore instance (Atlas) using MongoClientSettings
     // You can create a MongoClientSettings with a Builder to configure codecRegistries, connection strings, and more
     MongoClientSettings settings = MongoClientSettings.builder()
-            .codecRegistry(pojoCodecRegistry)
-            .applyConnectionString(mongoUri).build();
+        .codecRegistry(pojoCodecRegistry)
+        .applyConnectionString(mongoUri).build();
 
     MongoClient mongoClient = null;
     try {
