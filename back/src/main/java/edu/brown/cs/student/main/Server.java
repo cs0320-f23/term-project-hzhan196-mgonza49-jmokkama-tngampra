@@ -45,6 +45,7 @@ public class Server {
         Spark.get("searchprograms", new DatabaseSearchHandler());
         Spark.get("updatedatabase", new UpdateHandler());
         Spark.get("adduser", new UserHander());
+        Spark.get("viewdata", new ViewData());
 
         Spark.init();
         Spark.awaitInitialization();
@@ -67,6 +68,8 @@ public class Server {
     public void tearDown() {
         Spark.unmap("/searchprograms");
         Spark.unmap("/updatedatabase");
+        Spark.unmap("/adduser");
+        Spark.unmap("/viewdata");
         Spark.stop();
         Spark.awaitStop(); // don't proceed until the server is stopped
     }

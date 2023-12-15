@@ -49,7 +49,7 @@ import org.eclipse.jetty.util.log.Log;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
-public class ViewData {
+public class ViewData implements Route {
     public ViewData() {}
 
     public Object handle(Request request, Response response) {
@@ -97,7 +97,6 @@ public class ViewData {
 	    collection.find().forEach(results::add);
 
         // Sort results
-
         return new ViewData.ViewSuccessResponse("success", results, email);
     }
 
@@ -165,14 +164,16 @@ public class ViewData {
         private String location;
         private HashMap<String, HashMap<String, Integer>> userScores;
         private List<String> comment; 
+		private HashMap<String, Float> average;
 
 		public ProgramData(String name, String link, String location,
-            HashMap<String, HashMap<String, Integer>> userScores, List<String> comment) {
+            HashMap<String, HashMap<String, Integer>> userScores, List<String> comment, HashMap<String, Float> average) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
             this.userScores = userScores;
             this.comment = comment;
+			this.average = average;
 		}
 
 		public ProgramData() {
@@ -181,6 +182,7 @@ public class ViewData {
 			location = "";
             userScores = new HashMap<>();
             comment = new ArrayList<>();
+			average = new HashMap<>();
 		}
 
 		@Override
@@ -191,6 +193,7 @@ public class ViewData {
 			sb.append(", location='").append(location).append('\'');
             sb.append(", userScores='").append(userScores).append('\'');
             sb.append(", comment='").append(comment).append('\'');
+			sb.append(", average='").append(comment).append('\'');
 			sb.append('}');
 			return sb.toString();
 		}
@@ -243,6 +246,16 @@ public class ViewData {
 		// Setter for comment
 		public void setComment(List<String> comment) {
 			this.comment = comment;
+		}
+
+		// Getter for comment
+		public HashMap<String, Float> getAverage() {
+			return average;
+		}
+
+		// Setter for comment
+		public void setAverage(HashMap<String, Float> average) {
+			this.average = average;
 		}
 	}
 }
