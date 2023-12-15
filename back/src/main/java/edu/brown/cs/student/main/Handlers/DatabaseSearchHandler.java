@@ -104,7 +104,7 @@ public class DatabaseSearchHandler implements Route {
     if ((keyword == null) && (country == null)) {
       response.status(400);
       // some sort of error
-		return new DatabaseSearchHandler.SearchFailureResponse("error_bad_json: ", "missing keyword or country", keyword, country).serialize();
+		  return new DatabaseSearchHandler.SearchFailureResponse("error_bad_json: ", "missing keyword or country", keyword, country).serialize();
     }
 
     Logger.getLogger( "org.mongodb.driver" ).setLevel(Level.WARNING);
