@@ -147,7 +147,7 @@ public class DatabaseSearchHandler implements Route {
 
     List<ProgramData> searchData = this.searchDatabase(keyword, country, collection);
 
-	  return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword, country);
+	return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword, country);
   }
 
   /**

@@ -45,7 +45,9 @@ public class Server {
         Spark.get("searchprograms", new DatabaseSearchHandler());
         Spark.get("updatedatabase", new UpdateHandler());
         Spark.get("adduser", new UserHander());
+        Spark.get("programform", new ProgramFormHander());
         Spark.get("viewdata", new ViewData());
+
 
         Spark.init();
         Spark.awaitInitialization();
