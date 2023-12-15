@@ -1,5 +1,6 @@
 package edu.brown.cs.student.main.Handlers;
 
+import com.mongodb.client.result.InsertOneResult;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
@@ -9,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 import okio.Buffer;
+import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -49,31 +51,8 @@ import org.eclipse.jetty.util.log.Log;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
-public class UserHander {
-    public UserHander() {}
-
-    private List<ProgramData> searchDatabase(String keyword, String country, MongoCollection<ProgramData> collection) {
-
-    // check nullness too
-    keyword = keyword.toLowerCase();
-    if (country != null) {
-        country = country.toLowerCase();
-    }
-
-	 Bson filter = Filters.and(
-        Filters.eq("name", keyword),
-        Filters.eq("location", country)
-	 );
-
-	 List<ProgramData> results = new ArrayList<>();
-	 collection.find(filter).forEach(results::add);
-
-	 for (ProgramData programData : results) {
-		 System.out.println(programData);
-	 }
-
-	 return results;
-   }
+public class UserHander implements Route {
+  public UserHander(){}
 
   // Maps the state codes to their names by calling the 2010 census API
   /**
@@ -87,17 +66,47 @@ public class UserHander {
    * @return
    * @throws Exception
    */
+  
   @Override
   public Object handle(Request request, Response response) {
     // Query parameters for the API call, county code is optional
-    String keyword = request.queryParams("keyword");
-    String country = request.queryParams("country");
+    String username = request.queryParams("username");
+    String email = request.queryParams("email");
 
-    if ((keyword == null) && (country == null)) {
+	String languages = request.queryParams("languages");
+	String countries = request.queryParams("countries");
+	String programs = request.queryParams("programs");
+	String ranking = request.queryParams("ranking");
+
+    if ((username == null) && (email == null)) {
       response.status(400);
       // some sort of error
-		return new DatabaseSearchHandler.SearchFailureResponse("error_bad_json: ", "missing keyword or country", keyword, country).serialize();
+		return new UserHander.UserFailureResponse("error_bad_json: ", "missing keyword or country", username, email).serialize();
     }
+
+	if (languages == null) {
+		response.status(400);
+		// some sort of error
+		return new UserHander.UserFailureResponse("error_bad_json: ", "missing language", username, email).serialize();
+	}
+
+	if (countries == null) {
+		response.status(400);
+		  // some sort of error
+		return new UserHander.UserFailureResponse("error_bad_json: ", "missing countries", username, email).serialize();
+	}
+
+	if (programs == null) {
+		response.status(400);
+		// some sort of error
+		return new UserHander.UserFailureResponse("error_bad_json: ", "missing programs", username, email).serialize();
+	}
+
+	if (ranking == null) {
+		response.status(400);
+		  // some sort of error
+		return new UserHander.UserFailureResponse("error_bad_json: ", "missing ranking", username, email).serialize();
+	}
 
     Logger.getLogger( "org.mongodb.driver" ).setLevel(Level.WARNING);
     // TODO changed hardcoded connection string so it doesn't contain the password
@@ -105,7 +114,7 @@ public class UserHander {
 
     // Name of data base and collection
     String dbName = "study-abroad";
-    String collectionName = "program-data";
+    String collectionName = "user-profile-data";
 
     // a CodecRegistry tells the Driver how to move data between Java POJOs (Plain Old Java Objects) and MongoDB documents
     CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
@@ -121,28 +130,64 @@ public class UserHander {
     try {
       mongoClient = MongoClients.create(settings);
     } catch (MongoException me) {
-		return new DatabaseSearchHandler.SearchFailureResponse("Unable to connect to the MongoDB instance due to an error", me.getMessage(), keyword, country).serialize();
+		return new UserHander.UserFailureResponse("Unable to connect to the MongoDB instance due to an error", me.getMessage(), username, email).serialize();
     }
     
     // MongoDatabase defines a connection to a specific MongoDB database
     MongoDatabase database = mongoClient.getDatabase(dbName);
 
     // MongoCollection defines a connection to a specific collection of documents in a specific database
-    MongoCollection<ProgramData> collection = database.getCollection(collectionName, ProgramData.class);
+    MongoCollection<Document> collection = database.getCollection(collectionName);
 
-    List<ProgramData> searchData = this.searchDatabase(keyword, country, collection);
+	String symbol = "~";
+	List<String> languagesParsed = splitOnSymbol(languages, symbol);
+	List<String> countriesParsed = splitOnSymbol(countries, symbol);
+	List<String> programsParsed = splitOnSymbol(programs, symbol);
+	List<String> rankingParsed = splitOnSymbol(ranking, symbol);
 
-	  return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword, country);
+	try {
+			// Inserts a sample document describing a movie into the collection
+			InsertOneResult result = collection.insertOne(new Document()
+					.append("_id", new ObjectId())
+					.append("email", email)
+					.append("username", username)
+					.append("languages", languagesParsed)
+					.append("countries", countriesParsed)
+					.append("programs", programsParsed)
+					.append("ranking", rankingParsed));
+			// Prints the ID of the inserted document
+			System.out.println("Success! Inserted document id: " + result.getInsertedId());
+		
+		// Prints a message if any exceptions occur during the operation
+		} catch (MongoException me) {
+			System.err.println("Unable to insert due to an error: " + me);
+			return new UserHander.UserFailureResponse("Unable to insert due to an error", me.getMessage(), username, email).serialize();
+		}
+
+
+	return new UserHander.UserSuccessResponse("success", username, email);
+  }
+
+  public List<String> splitOnSymbol(String input, String symbol){
+	// Split the string using the regex and convert the array to ArrayList
+	ArrayList<String> resultList = new ArrayList<>(Arrays.asList(input.split(symbol)));
+	
+	// Display the result using ArrayList
+	for (String part : resultList) {
+		System.out.println(part);
+	}
+
+	return resultList;
   }
 
   /**
-	 * SearchSuccessResponse - a class of type record that contains the success response we want to return
+	 * UserSuccessResponse - a class of type record that contains the success response we want to return
 	 * @param result - a string, can be success or failure
-	 * @param data - the data we are returning
+	 * @param username - username of the user
 	 */
-	public record SearchSuccessResponse(String result, List<ProgramData> data, String keyword, String country) {
-		public SearchSuccessResponse(List<ProgramData> data, String keyword, String country) {
-			this("success", data, keyword, country);
+	public record UserSuccessResponse(String result, String username, String email ) {
+		public UserSuccessResponse(String username, String email) {
+			this("success", username, email);
 		}
 		/**
 		 * @return this response, serialized as Json
@@ -152,8 +197,8 @@ public class UserHander {
 				// Just like in SoupAPIUtilities.
 				//   (How could we rearrange these similar methods better?)
 				Moshi moshi = new Moshi.Builder().build();
-				JsonAdapter<DatabaseSearchHandler.SearchSuccessResponse> adapter = moshi.adapter(
-						DatabaseSearchHandler.SearchSuccessResponse.class);
+				JsonAdapter<UserHander.UserSuccessResponse> adapter = moshi.adapter(
+						UserHander.UserSuccessResponse.class);
 				return adapter.toJson(this);
 			} catch(Exception e) {
 				// For debugging purposes, show in the console _why_ this fails
@@ -166,17 +211,17 @@ public class UserHander {
 	}
 
 	/**
-	 * SearchFailureResponse - a class of type record that contains the success response we want to return
+	 * UserFailureResponse - a class of type record that contains the success response we want to return
 	 * @param result - a string, can be success or failure
 	 * @param exception - the exception that caused the failure
 	 */
-	public record SearchFailureResponse(String result, String exception, String keyword, String country) {
+	public record UserFailureResponse(String result, String exception, String username, String email) {
 		//result should contain error and error code
-		public SearchFailureResponse(String result, String exception, String keyword, String country) {
+		public UserFailureResponse(String result, String exception, String username, String email) {
 			this.result = result;
 			this.exception = exception;
-			this.keyword = keyword;
-			this.country = country;
+			this.username = username;
+			this.email = email;
 		}
 
 		/**
@@ -184,33 +229,47 @@ public class UserHander {
 		 */
 		String serialize() {
 			Moshi moshi = new Moshi.Builder().build();
-			return moshi.adapter(DatabaseSearchHandler.SearchFailureResponse.class).toJson(this);
+			return moshi.adapter(UserHander.UserFailureResponse.class).toJson(this);
 		}
 	}
 
-	public static class ProgramData {
-		private String name;
-		private String link;
-		private String location;
+	public static class UserData {
+		private String email;
+		private String name; 
 
-		public ProgramData(String name, String link, String location) {
+		private String languages;
+		private String countries;
+		private String programs; 
+		private String ranking;
+
+		public UserData(String email, String name, String languages, String countries, String programs, String ranking) {
+			this.email = email;
 			this.name = name;
-			this.link = link;
-			this.location = location;
+
+			this.languages = languages;
+			this.countries = countries; 
+			this.programs = programs; 
+			this.ranking = ranking;
 		}
 
-		public ProgramData() {
-			link = "";
+		public UserData() {
+			email = "";
 			name = "";
-			location = "";
+			languages = "";
+			countries = "";
+			programs = "";
+			ranking = "";
 		}
 
 		@Override
 		public String toString() {
 			final StringBuilder sb = new StringBuilder("ProgramData{");
-			sb.append("name='").append(name).append('\'');
-			sb.append(", link='").append(link).append('\'');
-			sb.append(", location='").append(location).append('\'');
+			sb.append("email='").append(email).append('\'');
+			sb.append(", name='").append(name).append('\'');
+			sb.append(", languages='").append(languages).append('\'');
+			sb.append(", countries='").append(countries).append('\'');
+			sb.append(", programs='").append(programs).append('\'');
+			sb.append(", ranking='").append(ranking).append('\'');
 			sb.append('}');
 			return sb.toString();
 		}
@@ -225,24 +284,54 @@ public class UserHander {
 			this.name = name;
 		}
 
-		// Getter for link
-		public String getLink() {
-			return link;
+		// Getter for email
+		public String getEmail() {
+			return email;
 		}
 
-		// Setter for link
-		public void setLink(String link) {
-			this.link = link;
+		// Setter for email
+		public void setEmail(String email) {
+			this.email = email;
 		}
 
-		// Getter for location
-		public String getLocation() {
-			return location;
+		// Getter for langauges
+		public String getLanguages() {
+			return languages;
 		}
 
-		// Setter for location
-		public void setLocation(String location) {
-			this.location = location;
+		// Setter for languages
+		public void setLanguages(String languages) {
+			this.languages = languages;
+		}
+
+		// Getter for countries
+		public String getCountries() {
+			return countries;
+		}
+
+		// Setter for languages
+		public void setCountries(String countries) {
+			this.countries = countries;
+		}
+
+		// Getter for programs
+		public String setPrograms() {
+			return programs;
+		}
+
+		// Setter for languages
+		public void setPrograms(String programs) {
+			this.programs = programs;
+		}
+
+		// Getter for ranking
+		public String getRanking() {
+			return ranking;
+		}
+
+		// Setter for ranking
+		public void setRanking(String ranking) {
+			this.ranking = ranking;
 		}
 	}
 }
