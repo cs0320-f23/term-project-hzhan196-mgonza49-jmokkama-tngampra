@@ -44,6 +44,7 @@ import com.mongodb.client.result.InsertManyResult;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
+import org.eclipse.jetty.server.Authentication.User;
 import org.eclipse.jetty.util.log.Log;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -51,6 +52,84 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class ViewData implements Route {
     public ViewData() {}
+
+	private List<ProgramData> sortProgramData(List<ProgramData> programData, List<UserData> userData) {
+		Integer len = programData.size();
+		Integer i = 0;
+		Integer totalScore;
+		while (i < len) {
+			ProgramData program = programData.get(i);
+			HashMap<String, HashMap<String, Integer>> userScores = program.getUserScores();
+			List<HashMap<String, Integer>> scoreValues = new ArrayList<HashMap<String, Integer>>(userScores.values());
+			Integer lenScore = scoreValues.size();
+			Integer j = 0;
+			Integer acceptance = 0;
+			Integer safety = 0;
+			Integer minority = 0;
+			Integer learning = 0;
+			while (j < lenScore) {
+				acceptance += scoreValues.get(j).get("accpetance");
+				safety += scoreValues.get(j).get("safety");
+				minority += scoreValues.get(j).get("minority");
+				learning += scoreValues.get(j).get("learning");
+				j = j + 1;
+			}
+			acceptance = acceptance / lenScore;
+			safety = safety / lenScore;
+			minority = minority / lenScore;
+			learning = learning / lenScore;
+			
+			UserData userDataOne = userData.get(0);
+			List<String> ranks = userDataOne.getRanking();
+			Integer k = 0;
+			while (k < ranks.size()) {
+				if (k == 0) {
+					if (ranks.get(k) == "acceptance") {
+						acceptance = acceptance * 4;
+					} else if (ranks.get(k) == "safety") {
+						safety = safety * 4;
+					} else if (ranks.get(k) == "minority") {
+						minority = minority * 4;
+					} else if (ranks.get(k) == "learning") {
+						learning = learning * 4;
+					}
+				} else if (k == 1) {
+					if (ranks.get(k) == "acceptance") {
+						acceptance = acceptance * 3;
+					} else if (ranks.get(k) == "safety") {
+						safety = safety * 3;
+					} else if (ranks.get(k) == "minority") {
+						minority = minority * 3;
+					} else if (ranks.get(k) == "learning") {
+						learning = learning * 3;
+					}
+				} else if (k == 2) {
+					if (ranks.get(k) == "acceptance") {
+						acceptance = acceptance * 2;
+					} else if (ranks.get(k) == "safety") {
+						safety = safety * 2;
+					} else if (ranks.get(k) == "minority") {
+						minority = minority * 2;
+					} else if (ranks.get(k) == "learning") {
+						learning = learning * 2;
+					}
+				} else if (k == 3) {
+					if (ranks.get(k) == "acceptance") {
+						acceptance = acceptance * 1;
+					} else if (ranks.get(k) == "safety") {
+						safety = safety * 1;
+					} else if (ranks.get(k) == "minority") {
+						minority = minority * 1;
+					} else if (ranks.get(k) == "learning") {
+						learning = learning * 1;
+					}
+				}
+				k = k + 1;
+			}
+			i = i + 1;
+		}
+		return programData;
+	}
 
     public Object handle(Request request, Response response) {
         String email = request.queryParams("email");
@@ -69,6 +148,7 @@ public class ViewData implements Route {
         // Name of data base and collection
         String dbName = "study-abroad";
         String collectionName = "program-data";
+		String collectionNameUsr = "user-profile-data";
 
         // a CodecRegistry tells the Driver how to move data between Java POJOs (Plain Old Java Objects) and MongoDB documents
         CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
@@ -82,9 +162,9 @@ public class ViewData implements Route {
 
         MongoClient mongoClient = null;
         try {
-        mongoClient = MongoClients.create(settings);
+        	mongoClient = MongoClients.create(settings);
         } catch (MongoException me) {
-        return new ViewData.ViewFailureResponse("Unable to connect to the MongoDB instance due to an error", me.getMessage(), email).serialize();
+        	return new ViewData.ViewFailureResponse("Unable to connect to the MongoDB instance due to an error", me.getMessage(), email).serialize();
         }
 
         // MongoDatabase defines a connection to a specific MongoDB database
@@ -92,9 +172,25 @@ public class ViewData implements Route {
 
         // MongoCollection defines a connection to a specific collection of documents in a specific database
         MongoCollection<ProgramData> collection = database.getCollection(collectionName, ProgramData.class);
+		MongoCollection<UserData> collectionUsr = database.getCollection(collectionNameUsr, UserData.class);
 
-        List<ProgramData> results = new ArrayList<>();
+		Bson filterUsr = Filters.and(
+			Filters.eq("email", email)
+		);
+
+		List<UserData> resultsUsr = new ArrayList<>();
+		collectionUsr.find(filterUsr).forEach(resultsUsr::add);
+
+
+		// TODO: FILTERING
+		Bson filter = Filters.and(
+			Filters.ne("location", resultsUsr.get(0).getCountries())
+		);
+
+		List<ProgramData> results = new ArrayList<>();
 	    collection.find().forEach(results::add);
+
+		List<ProgramData> sorted = sortProgramData(results, resultsUsr);
 
         // Sort results
         return new ViewData.ViewSuccessResponse("success", results, email);
@@ -158,22 +254,25 @@ public class ViewData implements Route {
     // How much did you learn (learning)
     // Overall score
     // Comment
-	public static class ProgramData {
+	public static class ProgramData implements Comparable<ProgramData>{
 		private String name;
 		private String link;
         private String location;
         private HashMap<String, HashMap<String, Integer>> userScores;
         private List<String> comment; 
 		private HashMap<String, Float> average;
+		private String email;
 
 		public ProgramData(String name, String link, String location,
-            HashMap<String, HashMap<String, Integer>> userScores, List<String> comment, HashMap<String, Float> average) {
+            HashMap<String, HashMap<String, Integer>> userScores, List<String> comment, HashMap<String, Float> average,
+			String email) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
             this.userScores = userScores;
             this.comment = comment;
 			this.average = average;
+			this.email = email;
 		}
 
 		public ProgramData() {
@@ -256,6 +355,127 @@ public class ViewData implements Route {
 		// Setter for comment
 		public void setAverage(HashMap<String, Float> average) {
 			this.average = average;
+		}
+
+		// Getter for comment
+		public String getEmail() {
+			return email;
+		}
+
+		// Setter for comment
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
+		@Override
+		public int compareTo(ProgramData program) {
+			//let's sort the employee based on an id in ascending order
+			//returns a negative integer, zero, or a positive integer as this employee id
+			//is less than, equal to, or greater than the specified object.
+			return Math.round(this.getAverage().get(this.getEmail()) - program.getAverage().get(program.getEmail()));
+		}
+	}
+
+	public static class UserData {
+		private String email;
+		private String name; 
+
+		private List<String> languages;
+		private List<String> countries;
+		private List<String> programs; 
+		private List<String> ranking;
+
+		public UserData(String email, String name, 
+		List<String> languages, List<String> countries, List<String> programs, List<String> ranking) {
+			this.email = email;
+			this.name = name;
+
+			this.languages = languages;
+			this.countries = countries; 
+			this.programs = programs; 
+			this.ranking = ranking;
+		}
+
+		public UserData() {
+			email = "";
+			name = "";
+			languages = new ArrayList<>();
+			countries = new ArrayList<>();
+			programs = new ArrayList<>();
+			ranking = new ArrayList<>();
+		}
+
+		@Override
+		public String toString() {
+			final StringBuilder sb = new StringBuilder("ProgramData{");
+			sb.append("email='").append(email).append('\'');
+			sb.append(", name='").append(name).append('\'');
+			sb.append(", languages='").append(languages).append('\'');
+			sb.append(", countries='").append(countries).append('\'');
+			sb.append(", programs='").append(programs).append('\'');
+			sb.append(", ranking='").append(ranking).append('\'');
+			sb.append('}');
+			return sb.toString();
+		}
+
+		// Getter for name
+		public String getName() {
+			return name;
+		}
+
+		// Setter for name
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		// Getter for email
+		public String getEmail() {
+			return email;
+		}
+
+		// Setter for email
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
+		// Getter for langauges
+		public List<String> getLanguages() {
+			return languages;
+		}
+
+		// Setter for languages
+		public void setLanguages(List<String> languages) {
+			this.languages = languages;
+		}
+
+		// Getter for countries
+		public List<String> getCountries() {
+			return countries;
+		}
+
+		// Setter for languages
+		public void setCountries(List<String> countries) {
+			this.countries = countries;
+		}
+
+		// Getter for programs
+		public List<String> setPrograms() {
+			return programs;
+		}
+
+		// Setter for languages
+		public void setPrograms(List<String> programs) {
+			this.programs = programs;
+		}
+
+		// Getter for ranking
+		public List<String> getRanking() {
+			return ranking;
+		}
+
+		// Setter for ranking
+		public void setRanking(List<String> ranking) {
+			this.ranking = ranking;
 		}
 	}
 }
