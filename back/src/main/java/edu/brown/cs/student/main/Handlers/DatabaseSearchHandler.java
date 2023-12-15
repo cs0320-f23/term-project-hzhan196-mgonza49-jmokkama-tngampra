@@ -49,6 +49,13 @@ import org.eclipse.jetty.util.log.Log;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
+// Acceptance of participants and surrounding communities (acceptance)
+// Safety of campus and area (safety)
+// Accepting towards minorities (minority)
+// How much did you learn (learning)
+// Overall score
+// Comment
+
 //import io.realm.mongodb.App;
 //import io.realm.mongodb.AppConfiguration;
 //import io.realm.mongodb.Credentials;
@@ -196,61 +203,96 @@ public class DatabaseSearchHandler implements Route {
 		}
 	}
 
-	public static class ProgramData {
-		private String name;
-		private String link;
-		private String location;
+	// Acceptance of participants and surrounding communities (acceptance)
+  // Safety of campus and area (safety)
+  // Accepting towards minorities (minority)
+  // How much did you learn (learning)
+  // Overall score
+  // Comment
+  public static class ProgramData {
+    private String name;
+    private String link;
+        private String location;
+        private HashMap<String, HashMap<String, Integer>> userScores;
+        private List<String> comment; 
 
-		public ProgramData(String name, String link, String location) {
-			this.name = name;
-			this.link = link;
-			this.location = location;
-		}
+    public ProgramData(String name, String link, String location,
+            HashMap<String, HashMap<String, Integer>> userScores, List<String> comment) {
+      this.name = name;
+      this.link = link;
+      this.location = location;
+            this.userScores = userScores;
+            this.comment = comment;
+    }
 
-		public ProgramData() {
-			link = "";
-			name = "";
-			location = "";
-		}
+    public ProgramData() {
+      link = "";
+      name = "";
+      location = "";
+            userScores = new HashMap<>();
+            comment = new ArrayList<>();
+    }
 
-		@Override
-		public String toString() {
-			final StringBuilder sb = new StringBuilder("ProgramData{");
-			sb.append("name='").append(name).append('\'');
-			sb.append(", link='").append(link).append('\'');
-			sb.append(", location='").append(location).append('\'');
-			sb.append('}');
-			return sb.toString();
-		}
+    @Override
+    public String toString() {
+      final StringBuilder sb = new StringBuilder("ProgramData{");
+      sb.append("name='").append(name).append('\'');
+      sb.append(", link='").append(link).append('\'');
+      sb.append(", location='").append(location).append('\'');
+            sb.append(", userScores='").append(userScores).append('\'');
+            sb.append(", comment='").append(comment).append('\'');
+      sb.append('}');
+      return sb.toString();
+    }
 
-		// Getter for name
-		public String getName() {
-			return name;
-		}
+    // Getter for name
+    public String getName() {
+      return name;
+    }
 
-		// Setter for name
-		public void setName(String name) {
-			this.name = name;
-		}
+    // Setter for name
+    public void setName(String name) {
+      this.name = name;
+    }
 
-		// Getter for link
-		public String getLink() {
-			return link;
-		}
+    // Getter for link
+    public String getLink() {
+      return link;
+    }
 
-		// Setter for link
-		public void setLink(String link) {
-			this.link = link;
-		}
+    // Setter for link
+    public void setLink(String link) {
+      this.link = link;
+    }
 
-		// Getter for location
-		public String getLocation() {
-			return location;
-		}
+    // Getter for location
+    public String getLocation() {
+      return location;
+    }
 
-		// Setter for location
-		public void setLocation(String location) {
-			this.location = location;
-		}
-	}
+    // Setter for location
+    public void setLocation(String location) {
+      this.location = location;
+    }
+
+        // Getter for user scores
+    public HashMap<String, HashMap<String, Integer>> getUserScores() {
+      return userScores;
+    }
+
+    // Setter for user scores
+    public void setUserScores(HashMap<String, HashMap<String, Integer>> userScores) {
+      this.userScores = userScores;
+    }
+
+        // Getter for comment
+    public List<String> getComment() {
+      return comment;
+    }
+
+    // Setter for comment
+    public void setComment(List<String> comment) {
+      this.comment = comment;
+    }
+  }
 }

@@ -53,7 +53,16 @@ public class ViewData {
     public ViewData() {}
 
     public Object handle(Request request, Response response) {
+        String email = request.queryParams("email");
+
+        if ((email == null)) {
+            response.status(400);
+            // some sort of error
+            return new ViewData.ViewFailureResponse("error_bad_json: ", "missing keyword or country", email).serialize();
+        }
+
         Logger.getLogger( "org.mongodb.driver" ).setLevel(Level.WARNING);
+
         // TODO changed hardcoded connection string so it doesn't contain the password
         ConnectionString mongoUri = new ConnectionString("mongodb+srv://tngampra:cs0320-admin@cs0320.chqlqki.mongodb.net/?retryWrites=true&w=majority");
 
@@ -84,6 +93,156 @@ public class ViewData {
         // MongoCollection defines a connection to a specific collection of documents in a specific database
         MongoCollection<ProgramData> collection = database.getCollection(collectionName, ProgramData.class);
 
-        return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword, country);
+        List<ProgramData> results = new ArrayList<>();
+	    collection.find().forEach(results::add);
+
+        // Sort results
+
+        return new ViewData.ViewSuccessResponse("success", results, email);
     }
+
+    /**
+	 * SearchSuccessResponse - a class of type record that contains the success response we want to return
+	 * @param result - a string, can be success or failure
+	 * @param data - the data we are returning
+	 */
+	public record ViewSuccessResponse(String result, List<ProgramData> data, String email) {
+		public ViewSuccessResponse(List<ProgramData> data, String email) {
+			this("success", data, email);
+		}
+		/**
+		 * @return this response, serialized as Json
+		 */
+		String serialize() {
+			try {
+				// Just like in SoupAPIUtilities.
+				//   (How could we rearrange these similar methods better?)
+				Moshi moshi = new Moshi.Builder().build();
+				JsonAdapter<ViewData.ViewSuccessResponse> adapter = moshi.adapter(
+						ViewData.ViewSuccessResponse.class);
+				return adapter.toJson(this);
+			} catch(Exception e) {
+				// For debugging purposes, show in the console _why_ this fails
+				// Otherwise we'll just get an error 500 from the API in integration
+				// testing.
+				e.printStackTrace();
+				throw e;
+			}
+		}
+	}
+
+	/**
+	 * SearchFailureResponse - a class of type record that contains the success response we want to return
+	 * @param result - a string, can be success or failure
+	 * @param exception - the exception that caused the failure
+	 */
+	public record ViewFailureResponse(String result, String exception, String email) {
+		//result should contain error and error code
+		public ViewFailureResponse(String result, String exception, String email) {
+			this.result = result;
+			this.exception = exception;
+			this.email = email;
+		}
+
+		/**
+		 * @return this response, serialized as Json
+		 */
+		String serialize() {
+			Moshi moshi = new Moshi.Builder().build();
+			return moshi.adapter(ViewData.ViewFailureResponse.class).toJson(this);
+		}
+	}
+
+    // Acceptance of participants and surrounding communities (acceptance)
+    // Safety of campus and area (safety)
+    // Accepting towards minorities (minority)
+    // How much did you learn (learning)
+    // Overall score
+    // Comment
+	public static class ProgramData {
+		private String name;
+		private String link;
+        private String location;
+        private HashMap<String, HashMap<String, Integer>> userScores;
+        private List<String> comment; 
+
+		public ProgramData(String name, String link, String location,
+            HashMap<String, HashMap<String, Integer>> userScores, List<String> comment) {
+			this.name = name;
+			this.link = link;
+			this.location = location;
+            this.userScores = userScores;
+            this.comment = comment;
+		}
+
+		public ProgramData() {
+			link = "";
+			name = "";
+			location = "";
+            userScores = new HashMap<>();
+            comment = new ArrayList<>();
+		}
+
+		@Override
+		public String toString() {
+			final StringBuilder sb = new StringBuilder("ProgramData{");
+			sb.append("name='").append(name).append('\'');
+			sb.append(", link='").append(link).append('\'');
+			sb.append(", location='").append(location).append('\'');
+            sb.append(", userScores='").append(userScores).append('\'');
+            sb.append(", comment='").append(comment).append('\'');
+			sb.append('}');
+			return sb.toString();
+		}
+
+		// Getter for name
+		public String getName() {
+			return name;
+		}
+
+		// Setter for name
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		// Getter for link
+		public String getLink() {
+			return link;
+		}
+
+		// Setter for link
+		public void setLink(String link) {
+			this.link = link;
+		}
+
+		// Getter for location
+		public String getLocation() {
+			return location;
+		}
+
+		// Setter for location
+		public void setLocation(String location) {
+			this.location = location;
+		}
+
+        // Getter for user scores
+		public HashMap<String, HashMap<String, Integer>> getUserScores() {
+			return userScores;
+		}
+
+		// Setter for user scores
+		public void setUserScores(HashMap<String, HashMap<String, Integer>> userScores) {
+			this.userScores = userScores;
+		}
+
+        // Getter for comment
+		public List<String> getComment() {
+			return comment;
+		}
+
+		// Setter for comment
+		public void setComment(List<String> comment) {
+			this.comment = comment;
+		}
+	}
 }
