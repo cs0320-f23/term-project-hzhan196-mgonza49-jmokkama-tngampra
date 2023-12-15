@@ -22,6 +22,7 @@ export function login(): Promise<string> {
           reject("Error: No email provided");
         } else if (!user.email.endsWith("@brown.edu")) {
           console.log("not a brown email");
+          logout();
           reject("Error: You do not have access to this page");
         } else {
           console.log("success");

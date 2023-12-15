@@ -45,8 +45,8 @@ export default function Homepage({}: UserProps) {
           Study Abroad @ Brown
         </h1>
 
-        <h2 className="text-gray-300 mt-2">
-          some placeholder text here, gray bg is also temporary
+        <h2 className="text-gray-300 mt-2" >
+          Helping Students Navigate Brown's Study Abroad Programs
         </h2>
         <Search />
 

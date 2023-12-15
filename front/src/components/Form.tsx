@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
+import { Combobox, Transition } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { useFormik, Field, Formik, Form, FieldArray } from "formik";
 import "../style/interface.css";
 import { loginStatus } from "./Login";
+import Popup from "./Popup";
+
 
 function formAccess() {
   const [commentStatus, setCommentStatus] = useState<Boolean>();
@@ -21,6 +25,9 @@ function formAccess() {
   return commentStatus;
 }
 
+
+
+
 function expandedForm(isExpanded: boolean) {
   if (isExpanded) {
     return (
@@ -33,6 +40,7 @@ function expandedForm(isExpanded: boolean) {
           duration: "",
           countryBlacklist: [],
           programBlacklist: [],
+          ranking:[{id: 1, name: "safety"}, {id: 2, name: "friendliness"}, {id: 3, name: "lgbt-acceptance"}, {id: 4, name: "education-quality"}]
         }}
         onSubmit={async (values) => {
           alert(JSON.stringify(values, null, 2));
@@ -79,47 +87,20 @@ function expandedForm(isExpanded: boolean) {
                   <button
                     type="button"
                     className="review-button"
-                    onClick={() => push({ name: "", email: "" })}
+                    onClick={() => push({ name: ""})}
                   >
                     Add Language
                   </button>
                 </div>
               )}
             </FieldArray>
-            {/* <label htmlFor="country">Country</label>
-            <input
-              id="country"
-              name="country"
-              type="country"
-              onChange={handleChange}
-              value={values.country}
-            />
-            <label htmlFor="program">Program</label>
-            <input
-              id="program"
-              name="program"
-              type="program"
-              onChange={handleChange}
-              value={values.program}
-            />
-            <div>Duration</div>
-            <div role="group">
-              <label>
-                <Field type="radio" name="duration" value="Semester" />
-                Semester
-              </label>
-              <label>
-                <Field type="radio" name="duration" value="Full Year" />
-                Full Year
-              </label>
-            </div> */}
 
             <FieldArray name="countryBlacklist">
               {({ insert, remove, push }) => (
                 <div role="group">
                   <div>
                     <h2 className="border border-white p-4">
-                      What countries are you uninterested in going to?
+                      What countries are you NOT interested in going to?
                     </h2>
                     {values.countryBlacklist.length > 0 &&
                       values.countryBlacklist.map((country, index) => (
@@ -219,6 +200,84 @@ function expandedForm(isExpanded: boolean) {
                 </div>
               )}
             </FieldArray>
+<h3>Please rank the following aspects in order of how important they are to you:</h3>
+                          <h3>
+                How accepting the communities are
+              </h3>
+              <div role="group">
+                <label>
+                  (least important) 1
+                  <Field type="radio" name="friendliness" value="1" />
+                </label>
+                <Field type="radio" name="friendliness" value="2" />
+                <Field type="radio" name="friendliness" value="3" />
+                <Field type="radio" name="friendliness" value="4" />
+                <label>
+                  <Field type="radio" name="friendliness" value="5" />5
+                  (most important)
+                </label>
+              </div>              <h3>
+                Overall safety of surrounding area
+              </h3>
+              <div role="group">
+                <label>
+                  1
+                  <Field type="radio" name="friendliness" value="1" />
+                </label>
+                <Field type="radio" name="friendliness" value="2" />
+                <Field type="radio" name="friendliness" value="3" />
+                <Field type="radio" name="friendliness" value="4" />
+                <label>
+                  <Field type="radio" name="friendliness" value="5" />5
+                </label>
+              </div>              <h3>
+                How accepting would you say the participants of this program and
+                its surrounding communities are towards foreigners?
+              </h3>
+              <div role="group">
+                <label>
+                  1
+                  <Field type="radio" name="friendliness" value="1" />
+                </label>
+                <Field type="radio" name="friendliness" value="2" />
+                <Field type="radio" name="friendliness" value="3" />
+                <Field type="radio" name="friendliness" value="4" />
+                <label>
+                  <Field type="radio" name="friendliness" value="5" />5
+                </label>
+              </div>              <h3>
+                How accepting would you say the participants of this program and
+                its surrounding communities are towards foreigners?
+              </h3>
+              <div role="group">
+                <label>
+                  1 (hostile)
+                  <Field type="radio" name="friendliness" value="1" />
+                </label>
+                <Field type="radio" name="friendliness" value="2" />
+                <Field type="radio" name="friendliness" value="3" />
+                <Field type="radio" name="friendliness" value="4" />
+                <label>
+                  <Field type="radio" name="friendliness" value="5" />5
+                  (accepting)
+                </label>
+              </div>              <h3>
+                How accepting would you say the participants of this program and
+                its surrounding communities are towards foreigners?
+              </h3>
+              <div role="group">
+                <label>
+                  1 (hostile)
+                  <Field type="radio" name="friendliness" value="1" />
+                </label>
+                <Field type="radio" name="friendliness" value="2" />
+                <Field type="radio" name="friendliness" value="3" />
+                <Field type="radio" name="friendliness" value="4" />
+                <label>
+                  <Field type="radio" name="friendliness" value="5" />5
+                  (accepting)
+                </label>
+              </div>
 
             <button type="submit">Submit</button>
           </Form>

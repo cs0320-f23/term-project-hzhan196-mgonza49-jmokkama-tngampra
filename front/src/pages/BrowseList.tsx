@@ -1,11 +1,14 @@
-import React from "react";
-import { ReactNode } from "react";
-import Navbar from "../components/Navbar";
-import Search from "../components/Search";
-import Icons from "../components/Icons";
-import ProgramData from "../components/mockProgramData";
-import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
-import "../style/interface.css";
+import React from 'react'
+import { ReactNode, Fragment, useState } from "react";
+import Navbar from '../components/Navbar'
+import Search from '../components/Search'
+import Icons from "../components/Icons.tsx";
+import ProgramData from '../components/mockProgramData'
+import { Link , useParams, Outlet, useNavigate} from 'react-router-dom';
+import "../style/interface.css"
+
+import { Combobox, Transition } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 // const mockData: [string, string][] = [
 //   [
@@ -40,12 +43,13 @@ import "../style/interface.css";
 // ];
 
 function setupIcons() {
-  const totalIcons: ReactNode[] = [];
 
+  const totalIcons: ReactNode[] = [];
+    
   ProgramData.forEach((program) => {
-    totalIcons.push(
+    totalIcons.push(  
       <Icons
-        key={program.id} // Make sure to add a unique key when rendering components in a loop
+        key={program.id}  
         image={program.image}
         name={program.name}
         link={`/browse/${program.id}`}
@@ -59,21 +63,39 @@ function setupIcons() {
   return totalIcons;
 }
 
-// TODO probs just make a bunch of cards for each country here
-function BrowseList() {
+
+const people = [
+  { id: 1, name: 'Wade Cooper' },
+  { id: 2, name: 'Arlene Mccoy' },
+  { id: 3, name: 'Devon Webb' },
+  { id: 4, name: 'Tom Cook' },
+  { id: 5, name: 'Tanya Fox' },
+  { id: 6, name: 'Hellen Schmidt' },
+]
+
+function BrowseList() { 
+  
   return (
     <div>
       <div className="navbar-container">
         <Navbar />
       </div>
-
+  
       <div>
         <Search />
       </div>
 
-      <div className="icon-container">{setupIcons()}</div>
+      <div className="icon-container">
+        {setupIcons()}
+      </div>
+
+      <div className="bg-gray-500">
+sdbfhsdbfjskdbf
+      </div>
+      {/* {example()} */}
+      
     </div>
-  );
+  )
 }
 
-export default BrowseList;
+export default BrowseList

@@ -54,13 +54,12 @@ function commentDisplay() {
 
         <div className="comment-box-store">
         <p className= "comment-box-title"> 
-            Program Reviews: 
-            <Link to="/review" className="ml-2 button">
-            Leave a Review!
-          </Link></p>
+            Program Reviews: </p>
           {setupComments()}
         </div>
-        
+          <Link to="/review" className="ml-2 button">
+            Leave a Review!
+          </Link>
         
       </div>
     

@@ -1,4 +1,11 @@
-import commentData from "./mockCommentData";
+import { Fragment, useState, useEffect } from "react";
+import defaultPhoto from "../assets/blank-profile.jpeg"
+import "../style/interface.css";
+import "../style/App.css";
+import { login, logout, loginStatus, profilePhoto } from "./Login";
+import { getAuth } from "firebase/auth";
+import React from "react";
+
 import "../style/interface.css";
 
 interface CommentProps {
@@ -9,11 +16,18 @@ interface CommentProps {
 
 
 function Comment({ user, content, yearTaken }: CommentProps) {
+
   return (
     <div className="comment-container">
-      <p className="text-lg font-bold mb-2">User: {user}</p>
-      <p className="text-gray-800">{content}</p>
-      <p className="text-gray-500 mt-2">Year Taken: {yearTaken}</p>
+      <div className="flex flex-row">
+        <img className="profile-circle" src={defaultPhoto}></img>
+        <p className="text-lg font-bold mt-2 ml-2" style={{ fontWeight: 'bold' }}>{user}</p>
+        <p className="mt-2 ml-2" style={{ color: 'gray'}}> | {yearTaken} Program Alum</p>
+
+      </div>
+
+      <p className="comment-body">{content}</p>
+      
     </div>
   );
 }

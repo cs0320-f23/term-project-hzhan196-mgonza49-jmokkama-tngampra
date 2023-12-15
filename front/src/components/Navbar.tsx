@@ -3,7 +3,6 @@
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BrowserRouter, Link } from "react-router-dom";
-import photo from "../assets/blank-profile.jpeg"
 import "../style/interface.css";
 import "../style/App.css";
 import { login, logout, loginStatus } from "./Login";
