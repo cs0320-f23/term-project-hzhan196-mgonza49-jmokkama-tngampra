@@ -44,6 +44,7 @@ public class Server {
         // Setting up the handler for the GET /load and /view endpoints
         Spark.get("searchprograms", new DatabaseSearchHandler());
         Spark.get("updatedatabase", new UpdateHandler());
+        Spark.get("adduser", new UserHander());
 
         Spark.init();
         Spark.awaitInitialization();
