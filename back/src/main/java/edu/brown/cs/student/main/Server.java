@@ -3,8 +3,6 @@ package edu.brown.cs.student.main;
 import static spark.Spark.after;
 
 import edu.brown.cs.student.main.Handlers.*;
-import edu.brown.cs.student.main.api.APICall;
-import edu.brown.cs.student.main.api.BroadbandDatasource;
 import spark.Spark;
 
 //stencil taken from gearup code
@@ -14,16 +12,12 @@ import spark.Spark;
  */
 public class Server {
     static final int port = 3232;
-    private final BroadbandDatasource apiCall;
-
     /**
      * Constructor to set up Spark endpoints for api calls.
      * @param toUse - Either mock or ACS datasource object that makes API calls
      * @param cacheSize - size of cache
      */
-    public Server(BroadbandDatasource toUse, int cacheSize, String path) {
-        apiCall = toUse;
-
+    public Server() {
         Spark.port(port);
         /*
             Setting CORS headers to allow cross-origin requests from the client; this is necessary for the client to
@@ -48,14 +42,6 @@ public class Server {
         });
 
         // Setting up the handler for the GET /load and /view endpoints
-        LoadHandler loadHandler = new LoadHandler();
-        BroadbandHandler broadbandHandler = new BroadbandHandler(apiCall, cacheSize);
-
-        Spark.get("loadcsv", loadHandler);
-        Spark.get("viewcsv", new ViewHandler(loadHandler));
-        // Spark.get("searchcsv", new SearchHandler(loadHandler));
-        Spark.get("broadband", broadbandHandler);
-        Spark.get("redline", new RedLineHandler(path));
         Spark.get("searchprograms", new DatabaseSearchHandler());
         Spark.get("updatedatabase", new UpdateHandler());
 
@@ -71,18 +57,13 @@ public class Server {
      */
     public static void main(String[] args) {
         //starts port server
-        Server server = new Server(new APICall(), 10, "./back/data/geodata/fullDownload.json");
+        Server server = new Server();
     }
 
     /**
      * Takes down all endpoints mapped, used at end of testing.
      */
     public void tearDown() {
-        Spark.unmap("/loadcsv");
-        Spark.unmap("/searchcsv");
-        Spark.unmap("/viewcsv");
-        Spark.unmap("/broadband");
-        Spark.unmap("/redline");
         Spark.unmap("/searchprograms");
         Spark.unmap("/updatedatabase");
         Spark.stop();
