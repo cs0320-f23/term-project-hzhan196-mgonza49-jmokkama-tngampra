@@ -4,10 +4,10 @@ import Search from "../components/Search";
 import ProgramData from "../components/mockProgramData";
 import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
 import "../style/interface.css";
-import Comment from "../components/Comments";
+// import Comment from "../components/Comments";
 import { loginStatus } from "../components/Login";
 import commentData from "../components/mockCommentData";
-import CommentStore from "../components/CommentStore";
+import Comment from "../components/Comment";
 import BarChart from "../components/ChartComponent";
 import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
@@ -18,17 +18,7 @@ interface Program {
   // country: string;
 }
 
-function setupComments() {
-  const totalComments: ReactNode[] = [];
 
-  commentData.forEach((comment) => {
-    totalComments.push(
-      <CommentStore user={comment.user} content={comment.comment} />
-    );
-  });
-
-  return totalComments;
-}
 
 function commentDisplay() {
   const [commentStatus, setCommentStatus] = useState<Boolean>();
@@ -45,11 +35,35 @@ function commentDisplay() {
         console.error(error);
       });
   }, []);
+
+  function setupComments() {
+    const totalComments: ReactNode[] = [];
+  
+    commentData.forEach((comment) => {
+      totalComments.push(
+        <Comment user={comment.user} content={comment.comment} yearTaken={comment.yearTaken} />
+      );
+    });
+  
+    return totalComments;
+  }
+
   if (commentStatus) {
     return (
-      <Link to="/review" className="button">
-        Form
-      </Link>
+      <div>
+
+        <div className="comment-box-store">
+        <p className= "comment-box-title"> 
+            Program Reviews: 
+            <Link to="/review" className="ml-2 button">
+            Leave a Review!
+          </Link></p>
+          {setupComments()}
+        </div>
+        
+        
+      </div>
+    
     );
   }
 }

@@ -4,7 +4,7 @@ import { BrowserRouter, Link} from 'react-router-dom';
 import "../pages/ProgramDisplay"
 import "../style/interface.css";
 import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
+import { Chart as ChartJS, ChartOptions } from "chart.js/auto";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(ChartDataLabels);
@@ -41,7 +41,7 @@ function ChartComponent({ programRating }: {programRating: number[]}) {
     }]
   };
 
-  const options = {
+  const options: ChartOptions<'bar'> = {
     indexAxis: 'y', 
     scales: {
       x: { 

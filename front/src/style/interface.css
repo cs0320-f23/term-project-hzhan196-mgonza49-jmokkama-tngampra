@@ -285,13 +285,6 @@ button:hover {
   text-decoration: underline;
 }
 
-.comment-container {
-  border: 2px solid #ccc;
-  padding: 10px;
-  display: inline-block;
-  flex-direction: column;
-  align-items: center;
-}
 
 .username {
   display: block;
@@ -300,12 +293,6 @@ button:hover {
   color: #333;
 }
 
-.comment {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 16px;
-  color: #333;
-}
 
 .expand {
   position: absolute;
@@ -407,16 +394,7 @@ button:hover {
   text-align: center;
 }
 
-.comment-input {
-  align-items: flex-start;
-  justify-content: flex-start;
-  height: 10em;
-  width: 80%;
-  padding: 0.5em;
-  font-size: 16px;
-  resize: vertical;
-  box-sizing: border-box;
-}
+
 
 .chart-box {
   height: 400px;
@@ -450,3 +428,52 @@ button:hover {
   align-items: center;
   text-align: center;
 }
+
+.comment-input {
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 10em;
+  width: 80%;
+  padding: 0.5em;
+  font-size: 16px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+/* .comment {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #333;
+} */
+
+.comment-box-title{
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 2px;
+
+}
+
+.comment-box-store {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5vh;
+  justify-content: left;
+  align-items: left;
+  margin-left: 5vh;
+}
+
+.comment-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  
+}
+

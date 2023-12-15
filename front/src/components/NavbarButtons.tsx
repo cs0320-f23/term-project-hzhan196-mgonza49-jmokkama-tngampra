@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BrowserRouter, Link, useNavigate } from "react-router-dom";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import defaultPhoto from "../assets/blank-profile.jpeg"
 import "../style/interface.css";
 import "../style/App.css";
 import { login, logout, loginStatus, profilePhoto } from "./Login";
@@ -66,7 +66,7 @@ export default function NavbarButtons() {
 
   function photo(): string {
     if (photoURL === "error") {
-      return "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
+      return defaultPhoto;
     } else {
       return photoURL;
     }
