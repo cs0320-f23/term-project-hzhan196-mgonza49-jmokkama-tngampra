@@ -84,7 +84,7 @@ public class ViewData {
         try {
         mongoClient = MongoClients.create(settings);
         } catch (MongoException me) {
-        return new DatabaseSearchHandler.SearchFailureResponse("Unable to connect to the MongoDB instance due to an error", me.getMessage(), keyword, country).serialize();
+        return new ViewData.ViewFailureResponse("Unable to connect to the MongoDB instance due to an error", me.getMessage(), email).serialize();
         }
 
         // MongoDatabase defines a connection to a specific MongoDB database
