@@ -203,12 +203,13 @@ public class DatabaseSearchHandler implements Route {
 		}
 	}
 
-	// Acceptance of participants and surrounding communities (acceptance)
+  // Acceptance of participants and surrounding communities (acceptance)
   // Safety of campus and area (safety)
   // Accepting towards minorities (minority)
   // How much did you learn (learning)
   // Overall score
   // Comment
+<<<<<<< HEAD
   public static class ProgramData {
     private String name;
     private String link;
@@ -244,55 +245,106 @@ public class DatabaseSearchHandler implements Route {
       sb.append('}');
       return sb.toString();
     }
+=======
+	public static class ProgramData {
+		private String name;
+		private String link;
+    private String location;
+    private HashMap<String, HashMap<String, Integer>> userScores;
+    private List<String> comment; 
+		private HashMap<String, Float> average;
 
-    // Getter for name
-    public String getName() {
-      return name;
-    }
+		public ProgramData(String name, String link, String location,
+            HashMap<String, HashMap<String, Integer>> userScores, List<String> comment, HashMap<String, Float> average) {
+			this.name = name;
+			this.link = link;
+			this.location = location;
+      this.userScores = userScores;
+      this.comment = comment;
+			this.average = average;
+		}
 
-    // Setter for name
-    public void setName(String name) {
-      this.name = name;
-    }
+		public ProgramData() {
+			link = "";
+			name = "";
+			location = "";
+      userScores = new HashMap<>();
+      comment = new ArrayList<>();
+			average = new HashMap<>();
+		}
 
-    // Getter for link
-    public String getLink() {
-      return link;
-    }
+		@Override
+		public String toString() {
+			final StringBuilder sb = new StringBuilder("ProgramData{");
+			sb.append("name='").append(name).append('\'');
+			sb.append(", link='").append(link).append('\'');
+			sb.append(", location='").append(location).append('\'');
+      sb.append(", userScores='").append(userScores).append('\'');
+      sb.append(", comment='").append(comment).append('\'');
+			sb.append(", average='").append(comment).append('\'');
+			sb.append('}');
+			return sb.toString();
+		}
+>>>>>>> 1dd2496007ba631f189cc30915967a630b08d4c5
 
-    // Setter for link
-    public void setLink(String link) {
-      this.link = link;
-    }
+		// Getter for name
+		public String getName() {
+			return name;
+		}
 
-    // Getter for location
-    public String getLocation() {
-      return location;
-    }
+		// Setter for name
+		public void setName(String name) {
+			this.name = name;
+		}
 
-    // Setter for location
-    public void setLocation(String location) {
-      this.location = location;
-    }
+		// Getter for link
+		public String getLink() {
+			return link;
+		}
+
+		// Setter for link
+		public void setLink(String link) {
+			this.link = link;
+		}
+
+		// Getter for location
+		public String getLocation() {
+			return location;
+		}
+
+		// Setter for location
+		public void setLocation(String location) {
+			this.location = location;
+		}
 
         // Getter for user scores
-    public HashMap<String, HashMap<String, Integer>> getUserScores() {
-      return userScores;
-    }
+		public HashMap<String, HashMap<String, Integer>> getUserScores() {
+			return userScores;
+		}
 
-    // Setter for user scores
-    public void setUserScores(HashMap<String, HashMap<String, Integer>> userScores) {
-      this.userScores = userScores;
-    }
+		// Setter for user scores
+		public void setUserScores(HashMap<String, HashMap<String, Integer>> userScores) {
+			this.userScores = userScores;
+		}
 
         // Getter for comment
-    public List<String> getComment() {
-      return comment;
-    }
+		public List<String> getComment() {
+			return comment;
+		}
 
-    // Setter for comment
-    public void setComment(List<String> comment) {
-      this.comment = comment;
-    }
-  }
+		// Setter for comment
+		public void setComment(List<String> comment) {
+			this.comment = comment;
+		}
+
+		// Getter for comment
+		public HashMap<String, Float> getAverage() {
+			return average;
+		}
+
+		// Setter for comment
+		public void setAverage(HashMap<String, Float> average) {
+			this.average = average;
+		}
+	}
 }
