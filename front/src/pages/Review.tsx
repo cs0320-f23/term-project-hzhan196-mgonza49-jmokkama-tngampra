@@ -13,6 +13,10 @@ import Divider from '@mui/material/Divider';
 
 
 function dropdown({ data }) {
+  useEffect(() => {
+    // scroll to top
+    window.scrollTo(0, 0);
+  }, []);
   const [selected, setSelected] = useState(data[0])
   const [query, setQuery] = useState('')
 
@@ -120,7 +124,7 @@ function programs() {
         <Navbar />
       </div>
 
-      <div className="review-top-panel"> </div>
+      {/* <div className="review-top-panel"> </div> */}
       <div className="review">
 
       <button style={{
@@ -129,8 +133,10 @@ function programs() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                marginTop: '4vh',
+                marginBottom: '1vh',
                 }} onClick={() => navigate(-1)}> Back </button>
-        <h1 className="bold-text mt-2 text-black my-5 text-center text-2xl mb-2"> Leave a Review </h1>
+        <h1 className="review-title"> Leave a Review </h1>
           
 
         <Formik

@@ -37,6 +37,7 @@ export default function AlertDialog() {
             textAlign: 'center',
             justifyContent: 'center',
             fontSize: '1.3rem', // Adjust the font size as needed
+            color: 'black',
           }}>
             Thank you for submitting a review!
           </DialogContentText>
