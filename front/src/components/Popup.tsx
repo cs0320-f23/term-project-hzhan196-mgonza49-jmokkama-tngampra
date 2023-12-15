@@ -1,30 +1,47 @@
-import { useState, Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
-export default function Popup() {
-  let [isOpen, setIsOpen] = useState(true)
+export default function AlertDialog() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
-        <Transition
-      show={isOpen}
-      enter="transition duration-100 ease-out"
-      enterFrom="transform scale-95 opacity-0"
-      enterTo="transform scale-100 opacity-100"
-      leave="transition duration-75 ease-out"
-      leaveFrom="transform scale-100 opacity-100"
-      leaveTo="transform scale-95 opacity-0"
-      as={Fragment}
-    >
-    <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-      <Dialog.Panel>
-        <Dialog.Title>You have successfully logged in!</Dialog.Title>
+    <React.Fragment>
+      <button className="review-button" onClick={handleClickOpen}>
+        Submit
+      </button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        sx={{ '& .MuiDialog-paper': { width: '40%', height: '20%', maxWidth: 'none' } }}
+      >
 
-
-        <button onClick={() => setIsOpen(false)}>Deactivate</button>
-        <button onClick={() => setIsOpen(false)}>Cancel</button>
-      </Dialog.Panel>
-    </Dialog>
-        </Transition>
-
-  )
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description"
+          sx={{
+            display: 'flex',
+            textAlign: 'center',
+            justifyContent: 'center',
+            fontSize: '1.3rem', // Adjust the font size as needed
+          }}>
+            Thank you for submitting a review!
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
+    </React.Fragment>
+  );
 }

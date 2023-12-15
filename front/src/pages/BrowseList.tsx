@@ -88,12 +88,7 @@ function BrowseList() {
       <div className="icon-container">
         {setupIcons()}
       </div>
-
-      <div className="bg-gray-500">
-sdbfhsdbfjskdbf
-      </div>
-      {/* {example()} */}
-      
+    
     </div>
   )
 }

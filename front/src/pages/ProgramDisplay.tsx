@@ -99,9 +99,13 @@ function ProgramDisplay() {
             <div className="text-lg font-bold">
               {ProgramData[programId - 1].name}
             </div>
-            <p> {ProgramData[programId - 1].country}</p>
-            <p> {ProgramData[programId - 1].term}</p>
-            <p>{ProgramData[programId - 1].description}</p>
+
+            <div className="">
+              <p> {ProgramData[programId - 1].country}</p>
+              <p> {ProgramData[programId - 1].term}</p>
+              <p>{ProgramData[programId - 1].description}</p>
+            </div>
+            
           </div>
 
           <div className="display-stats">

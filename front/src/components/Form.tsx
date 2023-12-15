@@ -1,10 +1,14 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import {} from '@heroicons/react/24/outline'
 import { useFormik, Field, Formik, Form, FieldArray } from "formik";
 import "../style/interface.css";
 import { loginStatus } from "./Login";
+import Checkbox from "../components/CheckboxDropdown";
+import ProgramData from "../components/mockProgramData";
 import Popup from "./Popup";
+import Divider from '@mui/material/Divider';
 
 
 function formAccess() {
@@ -24,9 +28,6 @@ function formAccess() {
   }, []);
   return commentStatus;
 }
-
-
-
 
 function expandedForm(isExpanded: boolean) {
   if (isExpanded) {
@@ -52,9 +53,16 @@ function expandedForm(isExpanded: boolean) {
               {({ insert, remove, push }) => (
                 <div role="group">
                   <div>
+                          {/* <div>
+                            {dropdown({data: ProgramData })}
+                            </div> */}
+                            <div>
+                              <Checkbox />
+                            </div>
                     <h2 className="border border-white p-4">
                       What languages do you currently speak?
                     </h2>
+ 
                     {values.languages.length > 0 &&
                       values.languages.map((language, index) => (
                         <div
@@ -62,6 +70,7 @@ function expandedForm(isExpanded: boolean) {
                           key={index}
                         >
                           <div className="col">
+                          
                             <label htmlFor={`languages.${index}.name`}>
                               Language
                             </label>
@@ -279,7 +288,7 @@ function expandedForm(isExpanded: boolean) {
                 </label>
               </div>
 
-            <button type="submit">Submit</button>
+            <button className="review-button" type="submit">Submit</button>
           </Form>
         )}
         {/* </form> */}
@@ -288,7 +297,7 @@ function expandedForm(isExpanded: boolean) {
   } else {
     return (
       <div className="footer-content">
-        Want to be matched with your ideal program?
+        {/* Want to be matched with your ideal program? */}
       </div>
     );
   }
@@ -298,9 +307,9 @@ export const forms = () => {
   const [expanded, setExpanded] = useState(false);
   function label() {
     if (expanded == false) {
-      return <span className="expand-label">^</span>;
+      return <span className="expand-label"> Click to match with your ideal program! </span>;
     } else {
-      return <span className="expand-label">–</span>;
+      return <span className="expand-label2">–</span>;
     }
   }
   function expand() {

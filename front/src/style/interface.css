@@ -203,13 +203,15 @@ button:hover {
   margin: 0 7px 8px;
   padding: 10px;
   background-color: #fff;
-  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
   border-radius: 10px;
   transition: background-color 0.3s;
   overflow-y: auto;
   white-space: normal;
-  color: black;
+  font-weight: 400;
+  /* color:black; */
+  color: lightslategray;
 }
 
 .card-title {
@@ -221,14 +223,15 @@ button:hover {
 .card:hover {
   display: inline-block;
   color: black;
-  width: 300px;
+  /* width: 300px; */
   height: 250px;
-  margin: 0 7px 8px;
-  padding: 10px;
-  background-color: #fff;
-  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  border-radius: 10px;
+  font-weight: 400;
+  color: lightslategray;
+  background: rgb(255,255,255);
+  /* background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 100%); */
+  box-shadow: 2px 5px 13px rgba(0, 0, 0, 0.3);
+  /* text-align: center;
+  border-radius: 10px; */
 }
 
 .circular-image {
@@ -257,7 +260,7 @@ button:hover {
   bottom: 0;
   width: 100%;
   height: 10%;
-  background-color: black;
+  background-color: #404040;
   transition: height 0.3s ease;
   color: white;
   align-items: center;
@@ -298,7 +301,7 @@ button:hover {
 
 .expand {
   position: absolute;
-  width: 50px;
+  width: 100%;
   height: 50px;
   text-align: center;
   background-color: transparent;
@@ -378,21 +381,41 @@ button:hover {
   color: black;
 }
 
+.review-top-panel{
+  background-color: #A4A4A4;
+  height: 22vh;
+  padding-left: 6%;
+  padding-bottom: 1.5%;
+  display: flex;
+  flex-direction:column;
+  justify-content: flex-end;
+  text-align: left;
+  margin-bottom: 2vh;
+}
+
 .review {
-  background-color: black;
-  width: 100%;
+  /* background-color: ; */
+  width: 60%;
   height: 100%;
-  color: white;
+  color: black;
+  text-align: left;
+  align-items: left;
+  margin-left: 15%;
+  margin-right: 5%;
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
 }
 
 .review-button {
+  margin-top: 4vh;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  background-color: white;
-  color: black;
+  background-color: gray;
+  color: white;
   align-items: center;
   text-align: center;
 }
@@ -433,14 +456,17 @@ button:hover {
 }
 
 .comment-input {
+  margin-top: 2vh;
   align-items: flex-start;
   justify-content: flex-start;
   height: 10em;
-  width: 80%;
+  width: 100%;
   padding: 0.5em;
   font-size: 16px;
   resize: vertical;
   box-sizing: border-box;
+  outline: 2px solid lightgray;
+  border-radius: 0.75rem;
 }
 
 /* .comment {
@@ -485,37 +511,83 @@ button:hover {
   word-wrap: break-word; /* Add this to enable word wrapping */
   text-align: left;
 }
+
 .comment-body {
   margin-left: 1%;
   margin-right: 1%;
   margin-top: 5px;
 }
 
-.temp-container{
+.dropdown-wrap{
   display: flex;
-  justify-content: center;
-  width: 30%;
+  align-items: flex-start;
+  justify-content: flex-start;
+  /* background-color: red;   */
+  
 }
 
 .dropdown-container {
-  position: relative;
-  width: 100%;
+  display: flex;
+  background-color: white;
+  outline: 2px solid white;
+  width: 60%;
   cursor: default;
   overflow: hidden;
   border-radius: 0.5rem;
-  background-color: #fff;
   text-align: left;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding-left: 1%;
+  /* padding-right: 2%; */
+  height: 5vh;
+  box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.1), 0 1px 2px 2px rgba(0, 0, 0, 0.06);
+  outline: 1px solid lightgray;
+
+}
+
+.black-text {
+  color: black;
+}
+.bold-text {
+  font-weight: bold;
+  font-size: 4vh;
+  margin-top: 2%;
+}
+
+.review-question {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  font-size: large;
+  font-weight: 400;
+}
+
+.dropdown-window {
+  position: absolute;
+  z-index: 10;
+  margin-top: 6vh;
+  max-height: 60%;
+  width: 30%;
+  border-radius: 0.375rem;
+  background-color: #fff;
+  padding: 0.25rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   outline: none;
+  text-align: left;
 }
 
-.dropdown-container:focus {
-  outline: 2px solid transparent;
+.icon-holder{
+  color: #9E9E9E;
+  /* display:flex; */
+  width: 12%;
+  padding: 0.2rem; /* Equivalent to p-2 in Tailwind */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.dropdown-container:focus-visible {
-  outline-color: rgba(255, 255, 255, 0.75);
-  outline-offset: 2px;
+.rating {
+  display:flex;
+  flex-direction: row;
+  margin-left: 5vh;
+  justify-content: center;
 }
-
 

@@ -1,48 +1,42 @@
 import React from "react";
-import { ReactNode, Fragment, useState } from "react";
-import Navbar from "../components/Navbar";
-import Search from "../components/Search";
+import { ReactNode, Fragment, useState, useEffect } from "react";
+import Navbar from "../components/Navbar"; 
 import ProgramData from "../components/mockProgramData";
 import { Link, useNavigate } from "react-router-dom";
 import { Combobox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/24/solid'
 import {} from '@heroicons/react/24/outline'
 import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
+import RatingButton from '../components/Radio'
+import Popup from '../components/Popup'
+import Divider from '@mui/material/Divider';
 
-const people = [
-  { id: 1, name: 'Durward Reynolds' },
-  { id: 2, name: 'Kenton Towne' },
-  { id: 3, name: 'Therese Wunsch' },
-  { id: 4, name: 'Benedict Kessler' },
-  { id: 5, name: 'Katelyn Rohan' },
-]
 
-function example() {
-  console.log("called");
-  const [selected, setSelected] = useState(people[0])
+function dropdown({ data }) {
+  const [selected, setSelected] = useState(data[0])
   const [query, setQuery] = useState('')
 
-  const filteredPeople =
+  const filteredData =
     query === ''
-      ? people
-      : people.filter((person) =>
-          person.name
+      ? data
+      : data.filter((item) =>
+          item.name
             .toLowerCase()
             .replace(/\s+/g, '')
             .includes(query.toLowerCase().replace(/\s+/g, ''))
         )
 
   return (
-    <div className="temp-container">
+    <div className="dropdown-wrap">
         <Combobox value={selected} onChange={setSelected}>
             <div className="dropdown-container">
               <Combobox.Input
-                className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-500 focus:ring-0"
-                displayValue={(person) => person.name}
+                className="w-full py-2 pl-3 pr-10 black-text"
+                displayValue={(item) => item.name}
                 onChange={(event) => setQuery(event.target.value)}
               />
-              <Combobox.Button className="button">
-                <ChevronUpDownIcon className="h-5 w-5"/>
+              <Combobox.Button className="icon-holder">
+                <ChevronUpDownIcon className="h-6 w-5 block"/>
               </Combobox.Button>
             </div>
             <Transition
@@ -55,21 +49,21 @@ function example() {
               leaveTo="transform opacity-0 scale-95"
               afterLeave={() => setQuery('')}
             >
-              <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-                {filteredPeople.length === 0 && query !== '' ? (
+              <Combobox.Options className="dropdown-window">
+                {filteredData.length === 0 && query !== '' ? (
                   <div className="relative cursor-default select-none px-4 py-2 text-gray-500">
                     Nothing found.
                   </div>
                 ) : (
-                  filteredPeople.map((person) => (
+                  filteredData.map((item) => (
                     <Combobox.Option
-                      key={person.id}
+                      key={item.id}
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-gray-500 text-white' : 'text-black'
+                          active ? 'bg-gray-500 text-white' : 'black-text'
                         }`
                       }
-                      value={person}
+                      value={item}
                     >
                       {({ selected, active }) => (
                         <>
@@ -78,7 +72,7 @@ function example() {
                               selected ? 'font-medium' : 'font-normal'
                             }`}
                           >
-                            {person.name}
+                            {item.name}
                           </span>
                           {selected ? (
                             <span
@@ -125,9 +119,20 @@ function programs() {
       <div className="navbar-container">
         <Navbar />
       </div>
-      <p className="text-black"> Leave a Review </p>
-      <button onClick={() => navigate(-1)}> Back </button>
+
+      <div className="review-top-panel"> </div>
       <div className="review">
+
+      <button style={{
+                height: '5vh',
+                width: '8vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                }} onClick={() => navigate(-1)}> Back </button>
+        <h1 className="bold-text mt-2 text-black my-5 text-center text-2xl mb-2"> Leave a Review </h1>
+          
+
         <Formik
           className="footer-content"
           initialValues={{
@@ -145,35 +150,28 @@ function programs() {
         >
           {({ values, handleChange }) => (
             <Form className="">
-              <Field name="program]">
+              <Field name="program">
               {() => (
                 <div>
+                   <Divider sx={{ height: 2, backgroundColor: 'gray'}} />
                   <div>
-                    <h2 className="border border-white p-4">
-                      What program is this review for?
-                    </h2>
-                        <div
-                          className="flex flex-row items-center justify-center"
-                        >
-                          <div className="col">
-                            <label>
-                              Program
-                            </label>
-                            <Field as="select" name={`program`}>
-                              {programs()}
-                            </Field>
-                          </div>
-                        </div>
+                    <h2 className="review-question"> - What program is this review for? </h2> 
+                            <div>
+                            {dropdown({data: ProgramData })}
+                            </div>
+
                   </div>
                 </div>
               )}
             </Field>
-              <h3>
-                How accepting would you say the participants of this program and
+              <Divider sx={{ height: 20}} />
+              <h3 className="review-question">
+                - How accepting would you say the participants of this program and
                 its surrounding communities are towards foreigners?
               </h3>
               <div role="group">
-                <label>
+              <RatingButton first="Not Accepting" last="Very Accepting" />
+                {/* <label>
                   1 (hostile)
                   <Field type="radio" name="friendliness" value="1" />
                 </label>
@@ -183,15 +181,17 @@ function programs() {
                 <label>
                   <Field type="radio" name="friendliness" value="5" />5
                   (accepting)
-                </label>
+                </label> */}
               </div>
 
-              <h3>
-                How would you rate the safety of campus and its surrounding
+              <Divider sx={{ height: 20}} />
+              <h3 className="review-question">
+                - How would you rate the safety of campus and its surrounding
                 areas?
               </h3>
               <div role="group">
-                <label>
+              <RatingButton first="Unsafe" last="Safe" />
+                {/* <label>
                   1 (unsafe)
                   <Field type="radio" name="safety" value="1" />
                 </label>
@@ -200,16 +200,19 @@ function programs() {
                 <Field type="radio" name="safety" value="4" />
                 <label>
                   <Field type="radio" name="safety" value="5" />5 (safe)
-                </label>
+                </label> */}
               </div>
-
-              <h3>
-                How accepting was this program's community, as well as
+              
+              <Divider sx={{ height: 20}} />
+              <h3 className="review-question">
+                - How accepting was this program's community, as well as
                 surrounding comminities, towards members of the LGBTQ+
                 community?
               </h3>
+              
               <div role="group">
-                <label>
+              <RatingButton first="Not Accepting" last="Very Accepting" />
+                {/* <label>
                   1 (hostile)
                   <Field type="radio" name="queerSafety" value="1" />
                 </label>
@@ -219,14 +222,16 @@ function programs() {
                 <label>
                   <Field type="radio" name="queerSafety" value="5" />5
                   (accepting)
-                </label>
+                </label> */}
               </div>
 
-              <h3>
-                How much did you learn at your program?
+              <Divider sx={{ height: 20}} />
+              <h3 className="review-question">
+                - How did you feel about the quality of education and learning at this program?
               </h3>
-              <div role="group">
-                <label>
+              <div className="review-question" role="group">
+              <RatingButton first="Very Unsatisfied" last="Very Satisfied" />
+                {/* <label>
                   1 (very unsatisfied)
                   <Field type="radio" name="climate" value="1" />
                 </label>
@@ -235,13 +240,12 @@ function programs() {
                 <Field type="radio" name="climate" value="4" />
                 <label>
                   <Field type="radio" name="climate" value="5" />5 (very satisfied)
-                </label>
+                </label> */}
               </div>
               
-              {example()}
-
-              <div className="flex items-center justify-center flex flex-col">
-                Describe your experience:
+              <Divider sx={{ height: 20}} />
+              <div className="review-question">
+                - Describe your experience or add any tips for prospective students:
                 <Field
                   as="textarea"
                   name="comment"
@@ -250,11 +254,13 @@ function programs() {
                 />
               </div>
 
-              <h3>
-                Overall, how likely are you to recommend this program to others?
+              <Divider sx={{ height: 20}} />
+              <h3 className="review-question">
+                - Overall, how likely are you to recommend this program to others?
               </h3>
               <div role="group">
-                <label>
+              <RatingButton first="Unlikely" last="Very Likely" />
+                {/* <label>
                   1 (unlikely)
                   <Field type="radio" name="overall" value="1" />
                 </label>
@@ -263,17 +269,18 @@ function programs() {
                 <Field type="radio" name="overall" value="4" />
                 <label>
                   <Field type="radio" name="overall" value="5" />5 (very likely)
-                </label>
+                </label> */}
               </div>
 
-              <button type="submit" className="review-button">
-                Submit
-              </button>
+              <Popup />
 
             </Form>
           )}
           {/* </form> */}
         </Formik>
+      </div>
+      <div> 
+        
       </div>
     </div>
   );

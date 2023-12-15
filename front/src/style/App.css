@@ -4,6 +4,8 @@
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-style:normal;
 }
 
 .logo {
@@ -35,9 +37,11 @@
 }
 
 .card {
+  font-family: 'Roboto', sans-serif;
   padding: 2em;
 }
 
 .read-the-docs {
+  font-family: 'Roboto', sans-serif;
   color: #888;
 }
