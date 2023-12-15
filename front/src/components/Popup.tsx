@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function AlertDialog() {
+export default function AlertDialog({message}:{message:string}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -39,7 +39,7 @@ export default function AlertDialog() {
             fontSize: '1.3rem', // Adjust the font size as needed
             color: 'black',
           }}>
-            Thank you for submitting a review!
+            {message}
           </DialogContentText>
         </DialogContent>
       </Dialog>

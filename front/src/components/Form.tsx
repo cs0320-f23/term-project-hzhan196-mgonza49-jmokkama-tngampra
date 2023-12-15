@@ -10,6 +10,9 @@ import ProgramData from "../components/mockProgramData";
 import Popup from "./Popup";
 import Divider from '@mui/material/Divider';
 
+const tempData = [
+    "program1", "languages idk", "countries idk"
+];
 
 function formAccess() {
   const [commentStatus, setCommentStatus] = useState<Boolean>();
@@ -32,6 +35,9 @@ function formAccess() {
 function expandedForm(isExpanded: boolean) {
   if (isExpanded) {
     return (
+      <div className="">
+        <div className="bold-text"> Preferences Form </div>
+
       <Formik
         className="footer-content"
         initialValues={{
@@ -47,21 +53,22 @@ function expandedForm(isExpanded: boolean) {
           alert(JSON.stringify(values, null, 2));
         }}
       >
+        
+
         {({ values, handleChange }) => (
           <Form>
             <FieldArray name="languages">
               {({ insert, remove, push }) => (
                 <div role="group">
                   <div>
-                          {/* <div>
-                            {dropdown({data: ProgramData })}
-                            </div> */}
-                            <div>
-                              <Checkbox />
-                            </div>
+                        
                     <h2 className="border border-white p-4">
-                      What languages do you currently speak?
+                      1. What languages do you currently speak?
                     </h2>
+
+                    <div className="flex items-center justify-center">
+                      <Checkbox data={tempData} placeholder="Enter Languages" />
+                    </div>
  
                     {values.languages.length > 0 &&
                       values.languages.map((language, index) => (
@@ -288,11 +295,13 @@ function expandedForm(isExpanded: boolean) {
                 </label>
               </div>
 
-            <button className="review-button" type="submit">Submit</button>
+            {/* <button className="review-button" type="submit">Submit</button> */}
+            <Popup message={"Thank you for submitting your program preferences!"}/>
           </Form>
         )}
         {/* </form> */}
       </Formik>
+      </div>
     );
   } else {
     return (

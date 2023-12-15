@@ -267,6 +267,7 @@ button:hover {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   overflow-y: auto;
+  padding-top: 3vh;
 }
 
 .footer.expanded {
@@ -600,5 +601,11 @@ button:hover {
   text-align: center;
   font-size: 2.3rem; /* Adjust as needed */
   margin-bottom: 1rem;
+}
+
+.preferences-wrap{
+  display: flex;
+  flex-direction: column;
+  background-color: red;
 }
 

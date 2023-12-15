@@ -278,7 +278,7 @@ function programs() {
                 </label> */}
               </div>
 
-              <Popup />
+              <Popup message={"Thank you for submitting a review!"}/>
 
             </Form>
           )}
