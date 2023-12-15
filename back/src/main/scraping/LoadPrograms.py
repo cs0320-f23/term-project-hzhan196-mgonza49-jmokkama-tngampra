@@ -67,6 +67,7 @@ class LoadProgram:
                     "name" : program_name,
                     "link" : value_lst[0],
                     "location" : value_lst[1],
+                    "userScores": {},
                     "comments" : [] }
                 mycol.insert_one(insert_dict)
                 # print(program_name + value_lst[1])
