@@ -5,6 +5,21 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Roboto-Bold'; /* Use any name you like */
+  src: url('../assets/Roboto-Bold.ttf') format('ttf'); /* Adjust the path and format accordingly */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Panton-Semibold'; /* Use any name you like */
+  src: url('../assets/Panton-Trial-SemiBold.ttf') format('ttf'); /* Adjust the path and format accordingly */
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 #root {
   font-family: 'Roboto', sans-serif;
   width: 100%;
@@ -12,23 +27,19 @@
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
-  font-family: 'Roboto', sans-serif;
   font-style:normal;
 }
 
 .logo {
-  font-family: 'Roboto', sans-serif;
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
 .logo:hover {
-  font-family: 'Roboto', sans-serif;
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.react:hover {
-  font-family: 'Roboto', sans-serif;
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
@@ -48,11 +59,9 @@
 }
 
 .card {
-  font-family: 'Roboto', sans-serif;
   padding: 2em;
 }
 
 .read-the-docs {
-  font-family: 'Roboto', sans-serif;
   color: #888;
 }

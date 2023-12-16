@@ -21,7 +21,7 @@ function Search() {
         <input
           type="text"
           id="searchInput"
-          className="border rounded-full p-2 w-full h-12"
+          className="border rounded-full p-2 w-full h-12 shadow-lg"
           placeholder="Search for Programs..."
           value={searchString}
           onChange={(e) => setSearchString(e.target.value)}

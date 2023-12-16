@@ -40,21 +40,21 @@ export default function Homepage({}: UserProps) {
         <Navbar />
       </div>
 
-      <div className=" flex flex-col h-screen">
-        <h1 className="main-title text-2xl lg:text-6xl text-white font-semibold mt-2">
+      <div className="h-screen">
+        <h1 className="shadowed-text main-title text-2xl lg:text-6xl text-white font-semibold mt-2">
           Study Abroad @ Brown
         </h1>
 
-        <h2 className="text-gray-300 mt-2" >
+        <h2 className="shadowed-text-small font-panton-semibold text-white mt-2" >
           Helping Students Navigate Brown's Study Abroad Programs
         </h2>
         <Search />
 
         <div className="flex flex-row justify-center mt-2">
-          <span className="text-gray-300"> or</span>
+          <span className="shadowed-text-small text-gray-300"> or</span>
           <a
             href="/browse"
-            className="underlined-text ml-2 text-gray-300 hover:text-white"
+            className="shadowed-text-small underlined-text ml-2 text-gray-300 hover:text-white"
           >
             Browse Programs
           </a>
@@ -62,7 +62,7 @@ export default function Homepage({}: UserProps) {
       </div>
 
       <div className="rec-container-wrap">
-        <div className="main">Your Recommended: </div>
+        <div className="shadowed-text-small main">Your Recommended: </div>
 
         <div className="rec-icon-container">{setupIcons()}</div>
       </div>

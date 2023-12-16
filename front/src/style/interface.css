@@ -47,6 +47,8 @@ button:hover {
   justify-content: center;
   margin-top: 20px;
   /* border: 1px solid black; */
+  /* box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2); */
+  
 }
 
 #searchOverlay {
@@ -119,7 +121,10 @@ button:hover {
 .h-screen {
   display: flex;
   flex-direction: column;
-  background-color: #284B63;
+  /* background-color: #284B63; */
+  background-image:url('../assets/bg.png');
+  background-size: 100% 100%; /* Adjust as needed */
+  background-position: center; /* Adjust as needed */
   height: 65vh;
 }
 
@@ -173,8 +178,8 @@ button:hover {
   text-align: left;
   transform: translate(0, 20%);
   margin-left: 6%;
-  font-size: 20px;
-  color: lightgray;
+  font-size: 2.3vh;
+  color: white;
   padding: 0;
 }
 
@@ -185,6 +190,7 @@ button:hover {
   transform: translate(0, -45%);
   z-index: 1;
   min-height: 350px;
+  /* font-family: 'Roboto', sans-serif; */
 }
 
 .rec-icon-container {
@@ -268,7 +274,7 @@ button:hover {
   bottom: 0;
   width: 100%;
   height: 10%;
-  background-color: #28A6A0;
+  background-color: #133A6C ;
   transition: height 0.3s ease;
   color: white;
   align-items: center;
@@ -280,7 +286,7 @@ button:hover {
 
 .footer.expanded {
   height: 90%;
-  background-color: #207A7F;
+  background-color: #1C477D;
 }
 
 .footer-content {
@@ -326,11 +332,12 @@ button:hover {
 .expand-label {
   color: #ffffff;
   font-weight: bold;
+  font-size: 2.5vh;
 }
 
 .program-box {
   padding-top: 50px;
-  background-color: #0C9998;
+  background-color: #133A6C ;
   height: 80vh;
 }
 
@@ -621,4 +628,20 @@ button:hover {
   align-items: center;
   justify-content: center;
   width: 40vh
+}
+
+.font-roboto-bold {
+  font-family: 'Roboto-Bold', sans-serif;
+}
+
+.font-panton-semibold {
+  font-family: 'Panton-Semibold', sans-serif;
+}
+
+.shadowed-text {
+  text-shadow: 3px 3px 5px rgba(0.5,0.5,0.5,0.7);
+}
+
+.shadowed-text-small {
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
 }
