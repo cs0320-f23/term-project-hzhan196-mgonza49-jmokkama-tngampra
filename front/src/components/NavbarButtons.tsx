@@ -11,6 +11,9 @@ import { useEffect } from "react";
 import React from "react";
 import SignInPopup from "./SignInPopup";
 
+
+
+
 export default function NavbarButtons() {
   const navigate = useNavigate();
   const [loginState, setLoginState] = useState("");
@@ -122,7 +125,7 @@ export default function NavbarButtons() {
           </Menu.Item>
         </Menu.Items>
       </Transition>
-      <SignInPopup message={loginState} />
+      {/* <SignInPopup message={loginState} /> */}
     </Menu>
   );
 }

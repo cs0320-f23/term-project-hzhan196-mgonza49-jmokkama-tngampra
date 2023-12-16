@@ -9,6 +9,7 @@ import Checkbox from "../components/CheckboxDropdown";
 import ProgramData from "../components/mockProgramData";
 import Popup from "./Popup";
 import Divider from "@mui/material/Divider";
+import Radio2 from '../components/Radio2'
 
 const tempData = ["program1", "languages idk", "countries idk"];
 
@@ -62,9 +63,11 @@ function expandedForm(isExpanded: boolean) {
                 {() => (
                   <div role="group">
                     <div>
-                      <h2 className="border border-white p-4">
+                      <h2 style={{marginTop: "3vh",
+            marginBottom: "1vh",}}>
                         1. What languages do you currently speak?
                       </h2>
+                      <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
 
                       <div className="flex items-center justify-center">
                         <Checkbox
@@ -80,9 +83,11 @@ function expandedForm(isExpanded: boolean) {
                 {() => (
                   <div role="group">
                     <div>
-                      <h2 className="border border-white p-4">
+                    <h2 style={{marginTop: "3vh",
+            marginBottom: "1vh",}}>
                         2. What countries do you NOT want to go to?
                       </h2>
+                      <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
 
                       <div className="flex items-center justify-center">
                         <Checkbox
@@ -98,9 +103,11 @@ function expandedForm(isExpanded: boolean) {
                 {() => (
                   <div role="group">
                     <div>
-                      <h2 className="border border-white p-4">
-                        3. What programs do you NOT want to do?
+                    <h2 style={{marginTop: "3vh",
+            marginBottom: "1vh",}}>
+                         3. What programs do you NOT want to do?
                       </h2>
+                      <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
                       <div className="flex items-center justify-center">
                         <Checkbox
                           data={tempData}
@@ -111,13 +118,16 @@ function expandedForm(isExpanded: boolean) {
                   </div>
                 )}
               </FieldArray>
-              <h3>
+              <h3 className="border border-white p-4" style={{marginTop: "3vh",
+            marginBottom: "3vh",}}>
                 Please rank the following aspects in order of how important they
                 are to you:
               </h3>
-              <h3>How accepting the communities are</h3>
+              <h3>
+              How accepting the communities are</h3>
               <div role="group">
-                <label>
+                  <Radio2 first={"Least important"} last={"Most important"}/>
+                {/* <label>
                   (least important) 1
                   <Field type="radio" name="friendliness" value="1" />
                 </label>
@@ -126,36 +136,42 @@ function expandedForm(isExpanded: boolean) {
                 <label>
                   <Field type="radio" name="friendliness" value="4" />4 (most
                   important)
-                </label>
+                </label> */}
               </div>{" "}
-              <h3>Overall safety of surrounding area</h3>
-              <div role="group">
-                <Field type="radio" name="safety" value="1" />
-                <Field type="radio" name="safety" value="2" />
-                <Field type="radio" name="safety" value="3" />
-                <Field type="radio" name="safety" value="4" />
+              <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
+              
+              <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}role="group">
+                <h3>Overall safety of surrounding area</h3>
+                <Radio2 first={"Least important"} last={"Most important"}/>
+                  {/* <Field type="radio" name="safety" value="1" />
+                  <Field type="radio" name="safety" value="2" />
+                  <Field type="radio" name="safety" value="3" />
+                  <Field type="radio" name="safety" value="4" /> */}
+                  
               </div>{" "}
-              <h3>Level of acceptance of members of the LGBTQ+ community</h3>
+              <Divider sx={{height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
+              
+              <h3>Accepting towards minority groups</h3>
               <div role="group">
-                <Field type="radio" name="lgbt-acceptance" value="1" />
+              <Radio2 first={"Least important"} last={"Most important"}/>
+                {/* <Field type="radio" name="lgbt-acceptance" value="1" />
                 <Field type="radio" name="lgbt-acceptance" value="2" />
                 <Field type="radio" name="lgbt-acceptance" value="3" />
-                <Field type="radio" name="lgbt-acceptance" value="4" />
+                <Field type="radio" name="lgbt-acceptance" value="4" /> */}
               </div>{" "}
+              <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
               <h3>Quality of education</h3>
-              <div role="group">
-                <Field type="radio" name="education-quality" value="1" />
+              <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}role="group">
+              <Radio2 first={"Least important"} last={"Most important"}/>
+                {/* <Field type="radio" name="education-quality" value="1" />
                 <Field type="radio" name="education-quality" value="2" />
                 <Field type="radio" name="education-quality" value="3" />
-                <Field type="radio" name="education-quality" value="4" />
+                <Field type="radio" name="education-quality" value="4" /> */}
+                <Popup message={"Thank you for submitting your program preferences!"} />
               </div>{" "}
-              {/* <button className="review-button" type="submit">Submit</button> */}
-              <Popup
-                message={"Thank you for submitting your program preferences!"}
-              />
+              
             </Form>
           )}
-          {/* </form> */}
         </Formik>
       </div>
     );

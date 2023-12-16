@@ -28,7 +28,7 @@ export default function CheckboxesTags({data, placeholder}: {data:string[], plac
           {option}
         </li>
       )}
-      style={{ width: 500, backgroundColor: 'white', borderRadius: 8 }}
+      style={{ width: 500, height: 50, backgroundColor: 'white', borderRadius: 8 }}
       renderInput={(params) => (
         <TextField {...params} label="" placeholder= {placeholder} />
       )}

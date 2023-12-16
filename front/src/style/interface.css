@@ -3,7 +3,9 @@
 @import "tailwindcss/utilities";
 
 body {
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'BreeSerif', serif;
   margin: 0;
   padding: 0;
   display: flex;
@@ -14,7 +16,7 @@ body {
   max-width: 100%;
   min-height: 100%;
   overflow-y: auto;
-  margin-bottom: 300px;
+  margin-bottom: 100px;
 }
 
 .button-container {
@@ -115,10 +117,15 @@ button:hover {
 }
 
 .h-screen {
+  display: flex;
+  flex-direction: column;
+  background-color: #284B63;
   height: 65vh;
 }
 
 .main-title {
+  font-family: 'BreeSerif', serif;
+  font-size: 7vh;
   margin-top: 16vh;
   margin-bottom: 5px;
 }
@@ -161,6 +168,7 @@ button:hover {
 }
 
 .main {
+  font-family: 'Roboto', sans-serif;
   display: flex;
   text-align: left;
   transform: translate(0, 20%);
@@ -260,7 +268,7 @@ button:hover {
   bottom: 0;
   width: 100%;
   height: 10%;
-  background-color: #404040;
+  background-color: #28A6A0;
   transition: height 0.3s ease;
   color: white;
   align-items: center;
@@ -272,6 +280,7 @@ button:hover {
 
 .footer.expanded {
   height: 90%;
+  background-color: #207A7F;
 }
 
 .footer-content {
@@ -321,7 +330,7 @@ button:hover {
 
 .program-box {
   padding-top: 50px;
-  background-color: #4f718b;
+  background-color: #0C9998;
   height: 80vh;
 }
 
@@ -413,7 +422,7 @@ button:hover {
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  background-color: gray;
+  background-color: #333;
   color: white;
   align-items: center;
   text-align: center;
@@ -454,7 +463,7 @@ button:hover {
 
 .comment-input {
   margin-top: 2vh;
-  background-color: #9e9e9e;
+  background-color: white;
   align-items: flex-start;
   justify-content: flex-start;
   height: 10em;
@@ -602,4 +611,14 @@ button:hover {
   display: flex;
   flex-direction: column;
   background-color: red;
+}
+
+.radio2-container {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 40vh
 }

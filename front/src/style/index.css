@@ -1,6 +1,14 @@
+@font-face {
+  font-family: 'BreeSerif'; /* Use any name you like */
+  src: url('../assets/BreeSerif-Regular.ttf') format('ttf'); /* Adjust the path and format accordingly */
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'BreeSerif', serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -15,7 +23,8 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'BreeSerif', serif;
+  /* font-family: 'Roboto', sans-serif; */
   /* background-color: #202124;  */
   background-color: white;
 }

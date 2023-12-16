@@ -40,7 +40,7 @@ export default function Homepage({}: UserProps) {
         <Navbar />
       </div>
 
-      <div className="bg-gray-500 flex flex-col h-screen">
+      <div className=" flex flex-col h-screen">
         <h1 className="main-title text-2xl lg:text-6xl text-white font-semibold mt-2">
           Study Abroad @ Brown
         </h1>
