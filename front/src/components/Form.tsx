@@ -59,12 +59,11 @@ function expandedForm(isExpanded: boolean) {
         >
           {() => (
             <Form>
-              <FieldArray name="languages">
+              {/* <FieldArray name="languages">
                 {() => (
                   <div role="group">
                     <div>
-                      <h2 style={{marginTop: "3vh",
-            marginBottom: "1vh",}}>
+                      <h2 style={{marginTop: "3vh", marginBottom: "1vh",}}>
                         1. What languages do you currently speak?
                       </h2>
                       <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
@@ -78,14 +77,14 @@ function expandedForm(isExpanded: boolean) {
                     </div>
                   </div>
                 )}
-              </FieldArray>
+              </FieldArray> */}
               <FieldArray name="countryBlacklist">
                 {() => (
                   <div role="group">
                     <div>
                     <h2 style={{marginTop: "3vh",
             marginBottom: "1vh",}}>
-                        2. What countries do you NOT want to go to?
+                        1. What countries do you NOT want to go to?
                       </h2>
                       <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
 
@@ -105,7 +104,7 @@ function expandedForm(isExpanded: boolean) {
                     <div>
                     <h2 style={{marginTop: "3vh",
             marginBottom: "1vh",}}>
-                         3. What programs do you NOT want to do?
+                         1. What programs do you NOT want to do?
                       </h2>
                       <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
                       <div className="flex items-center justify-center">
@@ -120,7 +119,7 @@ function expandedForm(isExpanded: boolean) {
               </FieldArray>
               <h3 className="border border-white p-4" style={{marginTop: "3vh",
             marginBottom: "3vh",}}>
-                Please rank the following aspects in order of how important they
+                3. Please rank the following aspects in order of how important they
                 are to you:
               </h3>
               <h3>

@@ -51,10 +51,10 @@ export default function Homepage({}: UserProps) {
         <Search />
 
         <div className="flex flex-row justify-center mt-2">
-          <span className="shadowed-text-small text-gray-300"> or</span>
+          <span className="shadowed-text-small text-white"> or</span>
           <a
             href="/browse"
-            className="shadowed-text-small underlined-text ml-2 text-gray-300 hover:text-white"
+            className="shadowed-text-small underlined-text ml-2 text-white hover:text-white"
           >
             Browse Programs
           </a>
