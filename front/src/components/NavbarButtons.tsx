@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BrowserRouter, Link, useNavigate } from "react-router-dom";
-import defaultPhoto from "../assets/blank-profile.jpeg"
+import defaultPhoto from "../assets/blank-profile.jpeg";
 import "../style/interface.css";
 import "../style/App.css";
 import { login, logout, loginStatus, profilePhoto } from "./Login";
@@ -9,9 +9,11 @@ import { getAuth } from "firebase/auth";
 import app from "./firebaseInit";
 import { useEffect } from "react";
 import React from "react";
+import SignInPopup from "./SignInPopup";
 
 export default function NavbarButtons() {
   const navigate = useNavigate();
+  const [loginState, setLoginState] = useState("");
 
   const handleSignIn = async () => {
     const loggedIn = (await loginStatus()).toString();
@@ -19,22 +21,23 @@ export default function NavbarButtons() {
     if (loggedIn === "Sign In") {
       try {
         const loginStatus = (await login()).toString();
-        console.log("login status " + loginStatus);
         if (loginStatus === "success") {
-          console.log("Signed in successfully");
+          setLoginState("Signed in successfully");
         }
       } catch (error) {
         console.error(error);
+        setLoginState("Error: Please try again");
       }
     } else {
       try {
         const loginStatus = (await logout()).toString();
         console.log("login status " + loginStatus);
         if (loginStatus === "success") {
-          console.log("Signed out successfully");
+          setLoginState("Signed out successfully");
         }
       } catch (error) {
         console.error(error);
+        setLoginState("Error: Please try again");
       }
     }
   };
@@ -119,6 +122,7 @@ export default function NavbarButtons() {
           </Menu.Item>
         </Menu.Items>
       </Transition>
+      <SignInPopup message={loginState} />
     </Menu>
   );
 }
