@@ -23,7 +23,7 @@ export default function Navbar() {
       {({ open }) => (
         <>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="nav2">
+            <div className="nav2 ">
               {/* onClick={() => router.push("./")} */}
               Study Abroad @ Brown
             </div>

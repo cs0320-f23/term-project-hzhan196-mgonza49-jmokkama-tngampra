@@ -188,7 +188,7 @@ export const forms = () => {
   function label() {
     if (expanded == false) {
       return (
-        <span className="expand-label">
+        <span className="expand-label underlined-text">
           {" "}
           Click to match with your ideal program!{" "}
         </span>

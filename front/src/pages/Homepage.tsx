@@ -45,7 +45,7 @@ export default function Homepage({}: UserProps) {
           Study Abroad @ Brown
         </h1>
 
-        <h2 className="shadowed-text-small font-panton-semibold text-white mt-2" >
+        <h2 className="shadowed-text-small text-white mt-2" >
           Helping Students Navigate Brown's Study Abroad Programs
         </h2>
         <Search />
@@ -62,7 +62,7 @@ export default function Homepage({}: UserProps) {
       </div>
 
       <div className="rec-container-wrap">
-        <div className="shadowed-text-small main">Your Recommended: </div>
+        <div className="shadowed-text-small main ">Your Recommended: </div>
 
         <div className="rec-icon-container">{setupIcons()}</div>
       </div>

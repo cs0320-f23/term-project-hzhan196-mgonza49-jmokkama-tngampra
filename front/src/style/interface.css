@@ -129,16 +129,23 @@ button:hover {
 }
 
 .main-title {
-  font-family: 'BreeSerif', serif;
+  font-family: 'Roboto', sans-serif;
+    /* font-family: 'Panton-Semibold', sans-serif; */
   font-size: 7vh;
   margin-top: 16vh;
   margin-bottom: 5px;
 }
+
 .nav2 {
+  font-family: 'Roboto', sans-serif;
+    /* font-family: 'Panton-Semibold', sans-serif; */
   color: #fff;
+  font-weight: bold;
 }
 
 .nav-item {
+  /* font-family: 'Panton-Semibold', sans-serif; */
+  font-family: 'Roboto', sans-serif;
   border-radius: 0.375rem; /* rounded-md */
   padding: 0.75rem 1.125rem; /* px-3 py-2 */
   font-size: 1; /* text-sm */
@@ -631,11 +638,13 @@ button:hover {
 }
 
 .font-roboto-bold {
-  font-family: 'Roboto-Bold', sans-serif;
+  font-family: 'Roboto-Bold', sans-serif; 
 }
 
 .font-panton-semibold {
   font-family: 'Panton-Semibold', sans-serif;
+  /* font-family: 'Roboto-Bold', sans-serif;  */
+
 }
 
 .shadowed-text {
@@ -643,5 +652,6 @@ button:hover {
 }
 
 .shadowed-text-small {
+  font-family: 'Panton-Semibold', sans-serif;
   text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
 }
