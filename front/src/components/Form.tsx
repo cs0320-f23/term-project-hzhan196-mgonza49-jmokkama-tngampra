@@ -75,7 +75,7 @@ function expandedForm(isExpanded: boolean) {
                 )}
               </FieldArray> */}
               <FieldArray name="countryBlacklist">
-                {() => (
+                {({ form, push }) => (
                   <div role="group">
                     <div>
                       <h2 style={{ marginTop: "3vh", marginBottom: "1vh" }}>
@@ -93,6 +93,18 @@ function expandedForm(isExpanded: boolean) {
                         <Checkbox
                           data={tempData}
                           placeholder="Enter Countries"
+                          name="countryBlacklist"
+                          onChange={(selectedValues: string[]) => {
+                            const newValues = selectedValues.filter(
+                              (newValue) =>
+                                !form.values.countryBlacklist.includes(newValue)
+                            );
+                            if (newValues.length > 0) {
+                              newValues.forEach((item: string) => {
+                                push(item);
+                              });
+                            }
+                          }}
                         />
                       </div>
                     </div>
@@ -100,7 +112,7 @@ function expandedForm(isExpanded: boolean) {
                 )}
               </FieldArray>
               <FieldArray name="programBlacklist">
-                {() => (
+                {({ form, push }) => (
                   <div role="group">
                     <div>
                       <h2 style={{ marginTop: "3vh", marginBottom: "1vh" }}>
@@ -117,6 +129,18 @@ function expandedForm(isExpanded: boolean) {
                         <Checkbox
                           data={tempData}
                           placeholder="Enter Programs"
+                          name="programBlacklist"
+                          onChange={(selectedValues: string[]) => {
+                            const newValues = selectedValues.filter(
+                              (newValue) =>
+                                !form.values.programBlacklist.includes(newValue)
+                            );
+                            if (newValues.length > 0) {
+                              newValues.forEach((item: string) => {
+                                push(item);
+                              });
+                            }
+                          }}
                         />
                       </div>
                     </div>
