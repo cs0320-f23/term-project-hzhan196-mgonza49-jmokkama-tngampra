@@ -9,10 +9,6 @@ import { getAuth } from "firebase/auth";
 import app from "./firebaseInit";
 import { useEffect } from "react";
 import React from "react";
-import SignInPopup from "./SignInPopup";
-
-
-
 
 export default function NavbarButtons() {
   const navigate = useNavigate();

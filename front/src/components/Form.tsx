@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
-import { Combobox, Transition } from "@headlessui/react";
+import { Combobox, RadioGroup, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import {} from "@heroicons/react/24/outline";
 import { useFormik, Field, Formik, Form, FieldArray } from "formik";
@@ -9,7 +9,9 @@ import Checkbox from "../components/CheckboxDropdown";
 import ProgramData from "../components/mockProgramData";
 import Popup from "./Popup";
 import Divider from "@mui/material/Divider";
-import Radio2 from '../components/Radio2'
+import Radio2 from "../components/Radio2";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "./Radio";
 
 const tempData = ["program1", "languages idk", "countries idk"];
 
@@ -40,18 +42,13 @@ function expandedForm(isExpanded: boolean) {
         <Formik
           className="footer-content"
           initialValues={{
-            languages: [],
-            country: "",
-            program: "",
-            duration: "",
             countryBlacklist: [],
             programBlacklist: [],
-            ranking: [
-              { id: 1, name: "safety" },
-              { id: 2, name: "friendliness" },
-              { id: 3, name: "lgbt-acceptance" },
-              { id: 4, name: "education-quality" },
-            ],
+            friendliness: "",
+            safety: "",
+
+            lgbtAcceptance: "",
+            educationQuality: "",
           }}
           onSubmit={async (values) => {
             alert(JSON.stringify(values, null, 2));
@@ -82,11 +79,16 @@ function expandedForm(isExpanded: boolean) {
                 {() => (
                   <div role="group">
                     <div>
-                    <h2 style={{marginTop: "3vh",
-            marginBottom: "1vh",}}>
+                      <h2 style={{ marginTop: "3vh", marginBottom: "1vh" }}>
                         1. What countries do you NOT want to go to?
                       </h2>
-                      <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
+                      <Divider
+                        sx={{
+                          height: 0,
+                          backgroundColor: "white",
+                          marginBottom: "3vh",
+                        }}
+                      />
 
                       <div className="flex items-center justify-center">
                         <Checkbox
@@ -102,11 +104,16 @@ function expandedForm(isExpanded: boolean) {
                 {() => (
                   <div role="group">
                     <div>
-                    <h2 style={{marginTop: "3vh",
-            marginBottom: "1vh",}}>
-                         1. What programs do you NOT want to do?
+                      <h2 style={{ marginTop: "3vh", marginBottom: "1vh" }}>
+                        2. What programs do you NOT want to do?
                       </h2>
-                      <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
+                      <Divider
+                        sx={{
+                          height: 0,
+                          backgroundColor: "white",
+                          marginBottom: "3vh",
+                        }}
+                      />
                       <div className="flex items-center justify-center">
                         <Checkbox
                           data={tempData}
@@ -117,15 +124,20 @@ function expandedForm(isExpanded: boolean) {
                   </div>
                 )}
               </FieldArray>
-              <h3 className="border border-white p-4" style={{marginTop: "3vh",
-            marginBottom: "3vh",}}>
-                3. Please rank the following aspects in order of how important they
-                are to you:
+              <h3
+                className="border border-white p-4"
+                style={{ marginTop: "3vh", marginBottom: "3vh" }}
+              >
+                3. Please rank the following aspects in order of how important
+                they are to you:
               </h3>
-              <h3>
-              How accepting the communities are</h3>
+              <h3>How accepting the communities are</h3>
               <div role="group">
-                  <Radio2 first={"Least important"} last={"Most important"}/>
+                <Radio2
+                  first={"Least important"}
+                  last={"Most important"}
+                  name={"friendliness"}
+                />
                 {/* <label>
                   (least important) 1
                   <Field type="radio" name="friendliness" value="1" />
@@ -137,38 +149,82 @@ function expandedForm(isExpanded: boolean) {
                   important)
                 </label> */}
               </div>{" "}
-              <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
-              
-              <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}role="group">
+              <Divider
+                sx={{
+                  height: 0,
+                  backgroundColor: "white",
+                  marginBottom: "3vh",
+                }}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                role="group"
+              >
                 <h3>Overall safety of surrounding area</h3>
-                <Radio2 first={"Least important"} last={"Most important"}/>
-                  {/* <Field type="radio" name="safety" value="1" />
+                <Radio2
+                  first={"Least important"}
+                  last={"Most important"}
+                  name={"safety"}
+                />
+                {/* <Field type="radio" name="safety" value="1" />
                   <Field type="radio" name="safety" value="2" />
                   <Field type="radio" name="safety" value="3" />
                   <Field type="radio" name="safety" value="4" /> */}
-                  
               </div>{" "}
-              <Divider sx={{height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
-              
+              <Divider
+                sx={{
+                  height: 0,
+                  backgroundColor: "white",
+                  marginBottom: "3vh",
+                }}
+              />
               <h3>Accepting towards minority groups</h3>
               <div role="group">
-              <Radio2 first={"Least important"} last={"Most important"}/>
+                <Radio2
+                  first={"Least important"}
+                  last={"Most important"}
+                  name={"lgbtAcceptance"}
+                />
                 {/* <Field type="radio" name="lgbt-acceptance" value="1" />
                 <Field type="radio" name="lgbt-acceptance" value="2" />
                 <Field type="radio" name="lgbt-acceptance" value="3" />
                 <Field type="radio" name="lgbt-acceptance" value="4" /> */}
               </div>{" "}
-              <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
+              <Divider
+                sx={{
+                  height: 0,
+                  backgroundColor: "white",
+                  marginBottom: "3vh",
+                }}
+              />
               <h3>Quality of education</h3>
-              <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}role="group">
-              <Radio2 first={"Least important"} last={"Most important"}/>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                role="group"
+              >
+                <Radio2
+                  first={"Least important"}
+                  last={"Most important"}
+                  name={"educationQuality"}
+                />
                 {/* <Field type="radio" name="education-quality" value="1" />
                 <Field type="radio" name="education-quality" value="2" />
                 <Field type="radio" name="education-quality" value="3" />
                 <Field type="radio" name="education-quality" value="4" /> */}
-                <Popup message={"Thank you for submitting your program preferences!"} />
+                <Popup
+                  message={"Thank you for submitting your program preferences!"}
+                />
               </div>{" "}
-              
             </Form>
           )}
         </Formik>
