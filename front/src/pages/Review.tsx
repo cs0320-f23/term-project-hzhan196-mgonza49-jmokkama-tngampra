@@ -11,6 +11,10 @@ import RatingButton from "../components/Radio";
 import Popup from "../components/Popup";
 import Divider from "@mui/material/Divider";
 
+// interface DropdownProps {
+//   data:
+// }
+
 function dropdown({ data }) {
   useEffect(() => {
     // scroll to top
@@ -143,7 +147,7 @@ function Review() {
             friendliness: "",
             safety: "",
             queerSafety: "",
-            climate: "",
+            education: "",
             comment: "",
             overall: "",
           }}
@@ -173,7 +177,11 @@ function Review() {
                 and its surrounding communities are towards foreigners?
               </h3>
               <div role="group">
-                <RatingButton first="Not Accepting" last="Very Accepting" />
+                <RatingButton
+                  first="Not Accepting"
+                  last="Very Accepting"
+                  name="friendliness"
+                />
                 {/* <label>
                   1 (hostile)
                   <Field type="radio" name="friendliness" value="1" />
@@ -193,7 +201,7 @@ function Review() {
                 areas?
               </h3>
               <div role="group">
-                <RatingButton first="Unsafe" last="Safe" />
+                <RatingButton first="Unsafe" last="Safe" name="safety" />
                 {/* <label>
                   1 (unsafe)
                   <Field type="radio" name="safety" value="1" />
@@ -214,7 +222,11 @@ function Review() {
               </h3>
 
               <div role="group">
-                <RatingButton first="Not Accepting" last="Very Accepting" />
+                <RatingButton
+                  first="Not Accepting"
+                  last="Very Accepting"
+                  name="queerSafety"
+                />
                 {/* <label>
                   1 (hostile)
                   <Field type="radio" name="queerSafety" value="1" />
@@ -234,7 +246,11 @@ function Review() {
                 at this program?
               </h3>
               <div className="review-question" role="group">
-                <RatingButton first="Very Unsatisfied" last="Very Satisfied" />
+                <RatingButton
+                  first="Very Unsatisfied"
+                  last="Very Satisfied"
+                  name="education"
+                />
                 {/* <label>
                   1 (very unsatisfied)
                   <Field type="radio" name="climate" value="1" />
@@ -261,11 +277,14 @@ function Review() {
 
               <Divider sx={{ height: 20 }} />
               <h3 className="review-question">
-                - Overall, how likely are you to recommend this program to
-                others?
+                - Overall, what would you rate your experience at this program?
               </h3>
               <div role="group">
-                <RatingButton first="Unlikely" last="Very Likely" />
+                <RatingButton
+                  first="Unlikely"
+                  last="Very Likely"
+                  name="overall"
+                />
                 {/* <label>
                   1 (unlikely)
                   <Field type="radio" name="overall" value="1" />
