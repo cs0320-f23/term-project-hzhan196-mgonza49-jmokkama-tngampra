@@ -43,7 +43,6 @@ public class CheckUserHandler implements Route {
 
     List<Document> results = new ArrayList<>();
     collection.find(filter).forEach(results::add);
-    System.out.println(results.size());
 
     return results;
   }

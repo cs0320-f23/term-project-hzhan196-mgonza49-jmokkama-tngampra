@@ -64,10 +64,6 @@ function setupIcons(res: any) {
   if (res.result === "success") {
     const programs: any = res.data;
     programs.forEach((program: any) => {
-      console.log("programs: " + programs.length);
-      console.log("program: " + program.ProgramData.name);
-      console.log("link: " + program.ProgramData.link);
-      console.log("country: " + program.ProgramData.location);
       totalIcons.push(
         <Icons
           name={program.ProgramData.name}
@@ -80,38 +76,56 @@ function setupIcons(res: any) {
       );
     });
   }
-  // ProgramData.forEach((program) => {
-  //   totalIcons.push(
-  //     <Icons
-  //       key={program.id}
-  //       image={program.image}
-  //       name={program.name}
-  //       link={`/browse/${program.id}`}
-  //       id={program.id}
-  //       country={program.country}
-  //       term={program.term}
-  //     />
-  //   );
-  // });
+}
+function tempIcons() {
+  const totalIcons: ReactNode[] = [];
+
+  ProgramData.forEach((program) => {
+    totalIcons.push(
+      <Icons
+        key={program.id} // Make sure to add a unique key when rendering components in a loop
+        image={program.image}
+        name={program.name}
+        country={program.country}
+        // term={program.term}
+        link={`/browse/${program.id}`}
+        id={program.id}
+      />
+    );
+  });
 
   return totalIcons;
 }
 
+// ProgramData.forEach((program) => {
+//   totalIcons.push(
+//     <Icons
+//       key={program.id}
+//       image={program.image}
+//       name={program.name}
+//       link={`/browse/${program.id}`}
+//       id={program.id}
+//       country={program.country}
+//       term={program.term}
+//     />
+//   );
+// });
+
 function BrowseList() {
   const [icons, setIcons] = useState<React.ReactNode[]>([]);
 
-  useEffect(() => {
-    async function fetchPrograms() {
-      try {
-        const data = await getPrograms();
-        setIcons(data);
-      } catch (error) {
-        console.error("Error fetching programs:", error);
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchPrograms() {
+  //     try {
+  //       const data = await getPrograms();
+  //       setIcons(data);
+  //     } catch (error) {
+  //       console.error("Error fetching programs:", error);
+  //     }
+  //   }
 
-    fetchPrograms();
-  }, []);
+  //   fetchPrograms();
+  // }, []);
   return (
     <div>
       <div className="navbar-container">
@@ -122,7 +136,7 @@ function BrowseList() {
         <Search />
       </div>
 
-      <div className="icon-container">{icons}</div>
+      <div className="icon-container">{tempIcons()}</div>
     </div>
   );
 }

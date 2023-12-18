@@ -77,11 +77,11 @@ export function profilePhoto(): Promise<string | null> {
   });
 }
 
-export function profileName(): Promise<string | null> {
+export function profileName(): Promise<string> {
   return new Promise((resolve) => {
     const auth = getAuth(app);
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (user && user.displayName) {
         resolve(user.displayName);
       } else {
         resolve("error");
@@ -90,11 +90,11 @@ export function profileName(): Promise<string | null> {
   });
 }
 
-export function profileEmail(): Promise<string | null> {
+export function profileEmail(): Promise<string> {
   return new Promise((resolve) => {
     const auth = getAuth(app);
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (user && user.email) {
         resolve(user.email);
       } else {
         resolve("error");

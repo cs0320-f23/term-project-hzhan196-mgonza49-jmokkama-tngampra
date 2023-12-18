@@ -2,9 +2,9 @@ import React, { useEffect, useState, Fragment } from "react";
 import { Combobox, RadioGroup, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import {} from "@heroicons/react/24/outline";
-import { useFormik, Field, Formik, Form, FieldArray } from "formik";
+import { useFormik, Field, Formik, Form, FieldArray, isString } from "formik";
 import "../style/interface.css";
-import { loginStatus } from "./Login";
+import { loginStatus, profileEmail, profileName } from "./Login";
 import Checkbox from "../components/CheckboxDropdown";
 import ProgramData from "../components/mockProgramData";
 import Popup from "./Popup";
@@ -15,12 +15,63 @@ import Radio from "./Radio";
 
 const tempData = ["program1", "languages idk", "countries idk"];
 
+function userCounted(email: string): Promise<boolean> {
+  const url = "http://localhost:3232/checkuser?email=" + email;
+  return fetch(url)
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(false);
+      }
+      return res.json();
+    })
+    .then((res) => checkUser(res))
+    .catch((error) => {
+      return Promise.reject(false);
+    });
+}
+
+function checkUser(res: any): Promise<boolean> {
+  return Promise.resolve(res.isMember);
+}
+
+function getProfileEmail(): string {
+  const [email, setEmail] = useState<string>("");
+  useEffect(() => {
+    profileEmail().then((name) => {
+      setEmail(name);
+    });
+  });
+  return email;
+}
+
+function getProfileName(): string {
+  const [name, setName] = useState<string>("");
+  useEffect(() => {
+    profileName().then((name) => {
+      setName(name);
+    });
+  });
+  return name;
+}
+
+function notTakenForm(): boolean {
+  const [hasNotTakenForm, setHasNotTakenForm] = useState<boolean>(false);
+  useEffect(() => {
+    userCounted(getProfileEmail()).then((hasTaken) => {
+      setHasNotTakenForm(hasTaken);
+    });
+  });
+  return hasNotTakenForm;
+}
+
 function formAccess() {
   const [commentStatus, setCommentStatus] = useState<Boolean>();
   useEffect(() => {
     loginStatus()
       .then((name) => {
         if (name === "Sign Out") {
+          setCommentStatus(true);
+        } else if (notTakenForm()) {
           setCommentStatus(true);
         } else {
           setCommentStatus(false);
@@ -33,15 +84,85 @@ function formAccess() {
   return commentStatus;
 }
 
+function handleSubmit(
+  languages: string[],
+  countryBlacklist: string[],
+  programBlacklist: string[],
+  friendliness: string,
+  safety: string,
+  minorityAcceptance: string,
+  educationQuality: string
+) {
+  const countries: string[] = [""];
+  const programs: string[] = [""];
+  const myLanguages: string[] = [""];
+
+  languages.forEach((language, index) => {
+    const isLast = index === languages.length - 1;
+    if (isLast) {
+      myLanguages.push(language);
+    } else {
+      myLanguages.push(language + "~");
+    }
+  });
+
+  countryBlacklist.forEach((country, index) => {
+    const isLast = index === countryBlacklist.length - 1;
+    if (isLast) {
+      countries.push(country);
+    } else {
+      countries.push(country + "~");
+    }
+  });
+  programBlacklist.forEach((program, index) => {
+    const isLast = index === programBlacklist.length - 1;
+    if (isLast) {
+      programs.push(program);
+    } else {
+      programs.push(program + "~");
+    }
+  });
+  let ranking: number[] = [
+    parseInt(friendliness),
+    parseInt(safety),
+    parseInt(minorityAcceptance),
+    parseInt(educationQuality),
+  ];
+  ranking.sort((a, b) => a - b).reverse();
+  const actualRanking: string[] = [];
+  ranking.forEach((item, index) => {
+    const isLast = index === 3;
+    const itemString = item.toString();
+    if (isLast) {
+      actualRanking.push(itemString);
+    } else {
+      actualRanking.push(itemString + "~");
+    }
+  });
+  const url =
+    "http://localhost:3232/adduser?username=" +
+    getProfileName +
+    "&email=" +
+    getProfileEmail +
+    "&languages=" +
+    myLanguages.toString() +
+    "&countries=" +
+    countries.toString() +
+    "&programs=" +
+    programs.toString() +
+    "&ranking=" +
+    actualRanking.toString();
+}
+
 function expandedForm(isExpanded: boolean) {
   if (isExpanded) {
     return (
       <div className="">
         <div className="bold-text"> Preferences Form </div>
-
         <Formik
           className="footer-content"
           initialValues={{
+            languages: [],
             countryBlacklist: [],
             programBlacklist: [],
             friendliness: "",
@@ -50,30 +171,56 @@ function expandedForm(isExpanded: boolean) {
             educationQuality: "",
           }}
           onSubmit={async (values) => {
-            alert(JSON.stringify(values, null, 2));
+            handleSubmit(
+              values.languages,
+              values.countryBlacklist,
+              values.programBlacklist,
+              values.friendliness,
+              values.safety,
+              values.lgbtAcceptance,
+              values.educationQuality
+            );
           }}
         >
           {() => (
             <Form>
-              {/* <FieldArray name="languages">
-                {() => (
+              <FieldArray name="languages">
+                {({ form, push }) => (
                   <div role="group">
                     <div>
-                      <h2 style={{marginTop: "3vh", marginBottom: "1vh",}}>
+                      <h2 style={{ marginTop: "3vh", marginBottom: "1vh" }}>
                         1. What languages do you currently speak?
                       </h2>
-                      <Divider sx={{ height: 0, backgroundColor: "white", marginBottom: '3vh'}} />
+                      <Divider
+                        sx={{
+                          height: 0,
+                          backgroundColor: "white",
+                          marginBottom: "3vh",
+                        }}
+                      />
 
                       <div className="flex items-center justify-center">
                         <Checkbox
                           data={tempData}
                           placeholder="Enter Languages"
+                          name="languages"
+                          onChange={(selectedValues: string[]) => {
+                            const newValues = selectedValues.filter(
+                              (newValue) =>
+                                !form.values.languages.includes(newValue)
+                            );
+                            if (newValues.length > 0) {
+                              newValues.forEach((item: string) => {
+                                push(item);
+                              });
+                            }
+                          }}
                         />
                       </div>
                     </div>
                   </div>
                 )}
-              </FieldArray> */}
+              </FieldArray>
               <FieldArray name="countryBlacklist">
                 {({ form, push }) => (
                   <div role="group">
