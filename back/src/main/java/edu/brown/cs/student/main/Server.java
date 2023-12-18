@@ -47,6 +47,7 @@ public class Server {
         Spark.get("adduser", new UserHander());
         Spark.get("programform", new ProgramFormHander());
         Spark.get("viewdata", new ViewData());
+        Spark.get("checkuser", new CheckUserHandler());
 
 
         Spark.init();

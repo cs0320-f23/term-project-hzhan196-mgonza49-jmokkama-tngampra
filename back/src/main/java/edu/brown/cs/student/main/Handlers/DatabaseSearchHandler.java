@@ -82,7 +82,7 @@ public class DatabaseSearchHandler implements Route {
 
 	 List<ProgramData> results = new ArrayList<>();
 	 collection.find(filter).forEach(results::add);
-
+		System.out.println(results.size());
 	 for (ProgramData programData : results) {
 		 System.out.println(programData);
 	 }
