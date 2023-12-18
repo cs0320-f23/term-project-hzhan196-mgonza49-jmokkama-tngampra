@@ -213,12 +213,12 @@ public class DatabaseSearchHandler implements Route {
 		private String name;
 		private String link;
     private String location;
-    private HashMap<String, HashMap<String, Integer>> userScores;
+    private Map<String, Map<String, Integer>> userScores;
     private List<String> comment; 
-		private HashMap<String, Float> average;
+		private Map<String, Float> average;
 
 		public ProgramData(String name, String link, String location,
-            HashMap<String, HashMap<String, Integer>> userScores, List<String> comment, HashMap<String, Float> average) {
+            Map<String, Map<String, Integer>> userScores, List<String> comment, Map<String, Float> average) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
@@ -280,12 +280,12 @@ public class DatabaseSearchHandler implements Route {
 		}
 
         // Getter for user scores
-		public HashMap<String, HashMap<String, Integer>> getUserScores() {
+		public Map<String, Map<String, Integer>> getUserScores() {
 			return userScores;
 		}
 
 		// Setter for user scores
-		public void setUserScores(HashMap<String, HashMap<String, Integer>> userScores) {
+		public void setUserScores(Map<String, Map<String, Integer>> userScores) {
 			this.userScores = userScores;
 		}
 
@@ -300,12 +300,12 @@ public class DatabaseSearchHandler implements Route {
 		}
 
 		// Getter for comment
-		public HashMap<String, Float> getAverage() {
+		public Map<String, Float> getAverage() {
 			return average;
 		}
 
 		// Setter for comment
-		public void setAverage(HashMap<String, Float> average) {
+		public void setAverage(Map<String, Float> average) {
 			this.average = average;
 		}
 	}

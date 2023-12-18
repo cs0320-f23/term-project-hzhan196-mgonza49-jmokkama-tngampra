@@ -43,13 +43,13 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 // ];
 
 function getPrograms() {
-  const url = "http://localhost:3232/viewdata?email=idk@gmail.com";
+  const url = "http://localhost:3232/viewdata";
   return fetch(url)
     .then((res) => {
       if (!res.ok) {
         return Promise.reject("Error");
       }
-      return res;
+      return res.json();
     })
     .then((res) => setupIcons(res))
     .catch((error) => {
@@ -63,69 +63,38 @@ function setupIcons(res: any) {
   console.log(res);
   if (res.result === "success") {
     const programs: any = res.data;
-    programs.forEach((program: any) => {
+    programs.forEach((program: any, index: number) => {
+      const id = index;
       totalIcons.push(
         <Icons
-          name={program.ProgramData.name}
+          name={program.name}
           image={defaultPhoto}
-          link={`/browse/${program.ProgramData.link}`}
-          id={program.ProgramData.name}
-          country={program.ProgramData.location}
+          link={`/browse/${id}`}
+          id={program.name}
+          country={program.location}
           // term={program.term}
         />
       );
     });
   }
-}
-function tempIcons() {
-  const totalIcons: ReactNode[] = [];
-
-  ProgramData.forEach((program) => {
-    totalIcons.push(
-      <Icons
-        key={program.id} // Make sure to add a unique key when rendering components in a loop
-        image={program.image}
-        name={program.name}
-        country={program.country}
-        // term={program.term}
-        link={`/browse/${program.id}`}
-        id={program.id}
-      />
-    );
-  });
-
   return totalIcons;
 }
-
-// ProgramData.forEach((program) => {
-//   totalIcons.push(
-//     <Icons
-//       key={program.id}
-//       image={program.image}
-//       name={program.name}
-//       link={`/browse/${program.id}`}
-//       id={program.id}
-//       country={program.country}
-//       term={program.term}
-//     />
-//   );
-// });
 
 function BrowseList() {
   const [icons, setIcons] = useState<React.ReactNode[]>([]);
 
-  // useEffect(() => {
-  //   async function fetchPrograms() {
-  //     try {
-  //       const data = await getPrograms();
-  //       setIcons(data);
-  //     } catch (error) {
-  //       console.error("Error fetching programs:", error);
-  //     }
-  //   }
+  useEffect(() => {
+    async function fetchPrograms() {
+      try {
+        const data = await getPrograms();
+        setIcons(data);
+      } catch (error) {
+        console.error("Error fetching programs:", error);
+      }
+    }
 
-  //   fetchPrograms();
-  // }, []);
+    fetchPrograms();
+  }, []);
   return (
     <div>
       <div className="navbar-container">
@@ -136,7 +105,7 @@ function BrowseList() {
         <Search />
       </div>
 
-      <div className="icon-container">{tempIcons()}</div>
+      <div className="icon-container">{icons}</div>
     </div>
   );
 }

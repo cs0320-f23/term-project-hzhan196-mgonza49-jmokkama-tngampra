@@ -60,7 +60,7 @@ export const forms = () => {
     userCounted(email).then((hasTaken) => {
       setHasNotTakenForm(hasTaken);
     });
-  });
+  }, [email]);
   useEffect(() => {
     loginStatus()
       .then((name) => {
@@ -133,10 +133,10 @@ export const forms = () => {
       }
     });
     const url =
-      "http://localhost:3232/adduser?username=" +
-      name +
-      "&email=" +
-      email +
+      "http://localhost:3232/adduser?username=exampleName" +
+      // name +
+      "&email=example@brown.edu" +
+      // email +
       "&languages=" +
       myLanguages.toString() +
       "&countries=" +
@@ -145,7 +145,17 @@ export const forms = () => {
       programs.toString() +
       "&ranking=" +
       actualRanking.toString();
-    console.log(url);
+    return fetch(url)
+      .then((res) => {
+        if (!res.ok) {
+          return Promise.reject("Error");
+        }
+        return Promise.resolve("Success");
+      })
+      .catch((error) => {
+        console.error(error);
+        return Promise.reject("Error: " + error);
+      });
   }
 
   function expandedForm(isExpanded: boolean) {
