@@ -23,7 +23,7 @@ function setupIcons() {
         image={program.image}
         name={program.name}
         country={program.country}
-        term={program.term}
+        // term={program.term}
         link={`/browse/${program.id}`}
         id={program.id}
       />
@@ -45,7 +45,7 @@ export default function Homepage({}: UserProps) {
           Study Abroad @ Brown
         </h1>
 
-        <h2 className="shadowed-text-small text-white mt-2" >
+        <h2 className="shadowed-text-small text-white mt-2">
           Helping Students Navigate Brown's Study Abroad Programs
         </h2>
         <Search />

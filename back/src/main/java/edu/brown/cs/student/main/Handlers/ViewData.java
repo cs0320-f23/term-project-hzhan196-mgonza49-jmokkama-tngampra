@@ -1,5 +1,6 @@
 package edu.brown.cs.student.main.Handlers;
 
+import com.mongodb.client.model.Projections;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
@@ -190,14 +191,13 @@ public class ViewData implements Route {
 		Bson filter = Filters.and(
 			Filters.ne("location", resultsUsr.get(0).getCountries())
 		);
-
 		List<ProgramData> results = new ArrayList<>();
 	    collection.find().forEach(results::add);
 
-		List<ProgramData> sorted = sortProgramData(email, results, resultsUsr);
+//		List<ProgramData> sorted = sortProgramData(email, results, resultsUsr);
 
         // Sort results
-        return new ViewData.ViewSuccessResponse("success", sorted, email);
+        return new ViewData.ViewSuccessResponse("success", results, email);
     }
 
     /**

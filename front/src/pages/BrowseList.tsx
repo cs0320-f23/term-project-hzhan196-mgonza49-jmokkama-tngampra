@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useEffect } from "react";
 import { ReactNode, Fragment, useState } from "react";
-import Navbar from '../components/Navbar'
-import Search from '../components/Search'
+import Navbar from "../components/Navbar";
+import Search from "../components/Search";
 import Icons from "../components/Icons.tsx";
-import ProgramData from '../components/mockProgramData'
-import { Link , useParams, Outlet, useNavigate} from 'react-router-dom';
-import "../style/interface.css"
-
-import { Combobox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import ProgramData from "../components/mockProgramData";
+import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
+import "../style/interface.css";
+import defaultPhoto from "../assets/blank-profile.jpeg";
+import { Combobox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 // const mockData: [string, string][] = [
 //   [
@@ -42,55 +42,89 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 //   ],
 // ];
 
-function setupIcons() {
+function getPrograms() {
+  const url = "http://localhost:3232/viewdata?email=idk@gmail.com";
+  return fetch(url)
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject("Error");
+      }
+      return res;
+    })
+    .then((res) => setupIcons(res))
+    .catch((error) => {
+      console.error(error);
+      return Promise.reject("Error: " + error);
+    });
+}
 
+function setupIcons(res: any) {
   const totalIcons: ReactNode[] = [];
-    
-  ProgramData.forEach((program) => {
-    totalIcons.push(  
-      <Icons
-        key={program.id}  
-        image={program.image}
-        name={program.name}
-        link={`/browse/${program.id}`}
-        id={program.id}
-        country={program.country}
-        term={program.term}
-      />
-    );
-  });
+  console.log(res);
+  if (res.result === "success") {
+    const programs: any = res.data;
+    programs.forEach((program: any) => {
+      console.log("programs: " + programs.length);
+      console.log("program: " + program.ProgramData.name);
+      console.log("link: " + program.ProgramData.link);
+      console.log("country: " + program.ProgramData.location);
+      totalIcons.push(
+        <Icons
+          name={program.ProgramData.name}
+          image={defaultPhoto}
+          link={`/browse/${program.ProgramData.link}`}
+          id={program.ProgramData.name}
+          country={program.ProgramData.location}
+          // term={program.term}
+        />
+      );
+    });
+  }
+  // ProgramData.forEach((program) => {
+  //   totalIcons.push(
+  //     <Icons
+  //       key={program.id}
+  //       image={program.image}
+  //       name={program.name}
+  //       link={`/browse/${program.id}`}
+  //       id={program.id}
+  //       country={program.country}
+  //       term={program.term}
+  //     />
+  //   );
+  // });
 
   return totalIcons;
 }
 
+function BrowseList() {
+  const [icons, setIcons] = useState<React.ReactNode[]>([]);
 
-const people = [
-  { id: 1, name: 'Wade Cooper' },
-  { id: 2, name: 'Arlene Mccoy' },
-  { id: 3, name: 'Devon Webb' },
-  { id: 4, name: 'Tom Cook' },
-  { id: 5, name: 'Tanya Fox' },
-  { id: 6, name: 'Hellen Schmidt' },
-]
+  useEffect(() => {
+    async function fetchPrograms() {
+      try {
+        const data = await getPrograms();
+        setIcons(data);
+      } catch (error) {
+        console.error("Error fetching programs:", error);
+      }
+    }
 
-function BrowseList() { 
-  
+    fetchPrograms();
+  }, []);
   return (
     <div>
       <div className="navbar-container">
         <Navbar />
       </div>
-  
+
       <div>
         <Search />
       </div>
 
-      <div className="icon-container">
-        {setupIcons()}
-      </div>
-    
+      <div className="icon-container">{icons}</div>
     </div>
-  )
+  );
 }
 
-export default BrowseList
+export default BrowseList;
