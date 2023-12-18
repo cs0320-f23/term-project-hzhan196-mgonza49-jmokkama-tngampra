@@ -70,7 +70,7 @@ function setupIcons(res: any) {
           name={program.name}
           image={defaultPhoto}
           link={`/browse/${id}`}
-          id={program.name}
+          id={id}
           country={program.location}
           // term={program.term}
         />

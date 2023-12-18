@@ -15,7 +15,20 @@ import defaultPhoto from "../assets/blank-profile.jpeg";
 interface UserProps {}
 
 export default function Homepage({}: UserProps) {
-  const totalIcons: ReactNode[] = [];
+  const [icons, setIcons] = useState<React.ReactNode[]>([]);
+
+  useEffect(() => {
+    async function fetchPrograms() {
+      try {
+        const data = await getPrograms();
+        setIcons(data);
+      } catch (error) {
+        console.error("Error fetching programs:", error);
+      }
+    }
+
+    fetchPrograms();
+  }, []);
 
   function getPrograms() {
     const url = "http://localhost:3232/viewdata";
@@ -39,20 +52,20 @@ export default function Homepage({}: UserProps) {
       const programs: any = res.data;
       programs.forEach((program: any, index: number) => {
         const id = index;
-        totalIcons.push(
+        icons.push(
           <Icons
             key={id}
             name={program.name}
             image={defaultPhoto}
             link={`/browse/${id}`}
-            id={program.name}
+            id={id}
             country={program.location}
             // term={program.term}
           />
         );
       });
     }
-    return totalIcons;
+    return icons;
   }
   return (
     <div>
@@ -84,7 +97,7 @@ export default function Homepage({}: UserProps) {
       <div className="rec-container-wrap">
         <div className="shadowed-text-small main ">Your Recommended: </div>
 
-        <div className="rec-icon-container">{totalIcons}</div>
+        <div className="rec-icon-container">{icons}</div>
       </div>
 
       <div>{forms()}</div>
