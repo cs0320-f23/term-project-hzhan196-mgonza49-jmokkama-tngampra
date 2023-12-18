@@ -97,7 +97,7 @@ public class CheckUserHandler implements Route {
 
         boolean isMember = !this.searchDatabase(email, collection).isEmpty();
 
-        return new edu.brown.cs.student.main.Handlers.CheckUserHandler.UserSuccessResponse("success", email, isMember);
+        return new edu.brown.cs.student.main.Handlers.CheckUserHandler.UserSuccessResponse("success", email, isMember).serialize();
       }
 
       /**

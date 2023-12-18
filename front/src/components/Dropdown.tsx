@@ -12,12 +12,18 @@ import Popup from "../components/Popup";
 import Divider from "@mui/material/Divider";
 import { getValue } from "firebase/remote-config";
 
-interface DropdownProps {
+export interface DropdownProps {
   id: number;
   name: string;
 }
 
-export default function dropdown({ data }: { data: DropdownProps[] }) {
+export default function dropdown({
+  data,
+  onSelect,
+}: {
+  data: DropdownProps[];
+  onSelect: (selected: DropdownProps) => void;
+}) {
   useEffect(() => {
     // scroll to top
     window.scrollTo(0, 0);
@@ -34,6 +40,11 @@ export default function dropdown({ data }: { data: DropdownProps[] }) {
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
+
+  const handleItemSelected = (item: DropdownProps) => {
+    setSelected(item);
+    onSelect(item); // Trigger onSelect event
+  };
 
   return (
     <div className="dropdown-wrap">
@@ -73,6 +84,9 @@ export default function dropdown({ data }: { data: DropdownProps[] }) {
                     }`
                   }
                   value={item}
+                  onSelect={() => {
+                    handleItemSelected(item);
+                  }}
                 >
                   {({ selected, active }) => (
                     <>

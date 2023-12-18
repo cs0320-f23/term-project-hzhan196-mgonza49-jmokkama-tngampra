@@ -165,7 +165,7 @@ public class UserHander implements Route {
 		}
 
 
-	return new UserHander.UserSuccessResponse("success", username, email);
+	return new UserHander.UserSuccessResponse("success", username, email).serialize();
   }
 
   public List<String> splitOnSymbol(String input, String symbol){

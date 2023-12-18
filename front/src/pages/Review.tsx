@@ -17,7 +17,7 @@ import {
 import RatingButton from "../components/Radio";
 import Popup from "../components/Popup";
 import Divider from "@mui/material/Divider";
-import Dropdown from "../components/Dropdown";
+import Dropdown, { DropdownProps } from "../components/Dropdown";
 
 // interface DropdownProps {
 //   id: number;
@@ -120,6 +120,14 @@ import Dropdown from "../components/Dropdown";
 function Review() {
   const navigate = useNavigate();
 
+  const [selectedProgram, setSelectedProgram] = useState<DropdownProps | null>(
+    null
+  );
+
+  const handleDropdownChange = (selected: DropdownProps) => {
+    setSelectedProgram(selected);
+  };
+
   function programs() {
     const totalPrograms: ReactNode[] = [];
 
@@ -158,7 +166,7 @@ function Review() {
         <Formik
           className="footer-content"
           initialValues={{
-            program: "",
+            program: selectedProgram ? selectedProgram.name : "",
             friendliness: "",
             safety: "",
             queerSafety: "",
@@ -168,12 +176,13 @@ function Review() {
           }}
           onSubmit={async (values) => {
             alert(JSON.stringify(values, null, 2));
+            console.log("selected program " + selectedProgram);
           }}
         >
           {({ values, handleChange, setFieldValue }) => (
             <Form className="">
               <Field name="program">
-                {() => (
+                {({ field }: FieldProps<string>) => (
                   <div>
                     <Divider sx={{ height: 2, backgroundColor: "gray" }} />
                     <div>
@@ -182,7 +191,14 @@ function Review() {
                         - What program is this review for?{" "}
                       </h2>
                       <div>
-                        <Dropdown data={ProgramData} />
+                        <Dropdown
+                          data={ProgramData}
+                          onSelect={(selected) => {
+                            setSelectedProgram(selected);
+                            setFieldValue("program", selected.name);
+                            console.log("just selected no program " + selected);
+                          }}
+                        />
                       </div>
                       {/* <div>{dropdown({ data: ProgramData, onSelect: {(selected)} =>  })}</div> */}
                     </div>

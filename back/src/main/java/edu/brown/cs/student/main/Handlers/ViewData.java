@@ -59,8 +59,8 @@ public class ViewData implements Route {
 		Integer i = 0;
 		while (i < len) {
 			ProgramData program = programData.get(i);
-			HashMap<String, HashMap<String, Integer>> userScores = program.getUserScores();
-			List<HashMap<String, Integer>> scoreValues = new ArrayList<HashMap<String, Integer>>(userScores.values());
+			Map<String, Map<String, Integer>> userScores = program.getUserScores();
+			List<Map<String, Integer>> scoreValues = new ArrayList<Map<String, Integer>>(userScores.values());
 			Integer lenScore = scoreValues.size();
 			Integer j = 0;
 			float acceptance = 0;
@@ -128,7 +128,7 @@ public class ViewData implements Route {
 			}
 
 			i = i + 1;
-			HashMap<String, Float> average = program.getAverage();
+			Map<String, Float> average = program.getAverage();
 			average.put(email, average.get(email) + acceptance+safety+minority+learning);
 			program.setAverage(average);
 		}
@@ -202,7 +202,7 @@ public class ViewData implements Route {
 			} else {
 
 				// Sort results
-				return new ViewData.ViewSuccessResponse("success", results, "");
+				return new ViewData.ViewSuccessResponse("success", results, "").serialize();
 			}
     }
 
@@ -268,13 +268,13 @@ public class ViewData implements Route {
 		private String name;
 		private String link;
         private String location;
-        private HashMap<String, HashMap<String, Integer>> userScores;
+        private Map<String, Map<String, Integer>> userScores;
         private List<String> comment; 
-		private HashMap<String, Float> average;
+		private Map<String, Float> average;
 		private String email;
 
 		public ProgramData(String name, String link, String location,
-            HashMap<String, HashMap<String, Integer>> userScores, List<String> comment, HashMap<String, Float> average,
+            Map<String, Map<String, Integer>> userScores, List<String> comment, Map<String, Float> average,
 			String email) {
 			this.name = name;
 			this.link = link;
@@ -338,12 +338,12 @@ public class ViewData implements Route {
 		}
 
         // Getter for user scores
-		public HashMap<String, HashMap<String, Integer>> getUserScores() {
+		public Map<String, Map<String, Integer>> getUserScores() {
 			return userScores;
 		}
 
 		// Setter for user scores
-		public void setUserScores(HashMap<String, HashMap<String, Integer>> userScores) {
+		public void setUserScores(Map<String, Map<String, Integer>> userScores) {
 			this.userScores = userScores;
 		}
 
@@ -358,12 +358,12 @@ public class ViewData implements Route {
 		}
 
 		// Getter for comment
-		public HashMap<String, Float> getAverage() {
+		public Map<String, Float> getAverage() {
 			return average;
 		}
 
 		// Setter for comment
-		public void setAverage(HashMap<String, Float> average) {
+		public void setAverage(Map<String, Float> average) {
 			this.average = average;
 		}
 
