@@ -139,11 +139,11 @@ public class ViewData implements Route {
     public Object handle(Request request, Response response) {
         String email = request.queryParams("email");
 
-        if ((email == null)) {
-            response.status(400);
-            // some sort of error
-            return new ViewData.ViewFailureResponse("error_bad_json: ", "missing keyword or country", email).serialize();
-        }
+//        if ((email == null)) {
+//            response.status(400);
+//            // some sort of error
+//            return new ViewData.ViewFailureResponse("error_bad_json: ", "missing keyword or country", email).serialize();
+//        }
 
         Logger.getLogger( "org.mongodb.driver" ).setLevel(Level.WARNING);
 
@@ -179,25 +179,31 @@ public class ViewData implements Route {
         MongoCollection<ProgramData> collection = database.getCollection(collectionName, ProgramData.class);
 		MongoCollection<UserData> collectionUsr = database.getCollection(collectionNameUsr, UserData.class);
 
-		Bson filterUsr = Filters.and(
-			Filters.eq("email", email)
-		);
-
+		Bson filterUsr;
 		List<UserData> resultsUsr = new ArrayList<>();
-		collectionUsr.find(filterUsr).forEach(resultsUsr::add);
+			if (email != null) {
+			filterUsr = Filters.and(
+					Filters.eq("email", email)
+			);
+				collectionUsr.find(filterUsr).forEach(resultsUsr::add);
 
+			}
 
 		// TODO: FILTERING
-		Bson filter = Filters.and(
-			Filters.ne("location", resultsUsr.get(0).getCountries())
-		);
+//		Bson filter = Filters.and(
+//			Filters.ne("location", resultsUsr.get(0).getCountries())
+//		);
 		List<ProgramData> results = new ArrayList<>();
 	    collection.find().forEach(results::add);
 
-//		List<ProgramData> sorted = sortProgramData(email, results, resultsUsr);
+			if (email != null) {
+				List<ProgramData> sorted = sortProgramData(email, results, resultsUsr);
+				return new ViewData.ViewSuccessResponse("success", sorted, email);
+			} else {
 
-        // Sort results
-        return new ViewData.ViewSuccessResponse("success", results, email);
+				// Sort results
+				return new ViewData.ViewSuccessResponse("success", results, "");
+			}
     }
 
     /**
