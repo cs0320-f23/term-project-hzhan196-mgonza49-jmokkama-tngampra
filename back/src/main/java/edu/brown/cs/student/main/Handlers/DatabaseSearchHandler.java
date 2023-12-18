@@ -75,6 +75,7 @@ public class DatabaseSearchHandler implements Route {
        country = country.toLowerCase();
      }
 
+     // maybe can use text fields instead? 
 	 Bson filter = Filters.and(
 			 Filters.eq("name", keyword),
 			 Filters.eq("location", country)
