@@ -12,6 +12,8 @@ import BarChart from "../components/ChartComponent";
 import Chart from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
+const tempRating = [1,3,2,5,3];
+
 interface Program {
   tempId: number;
   name: string;
@@ -146,7 +148,8 @@ function ProgramDisplay() {
             </div>
             <div className="display-stats">
               Ratings:
-              <BarChart programRating={data[programId].rating} />
+              {/* <BarChart programRating={data[programId].rating} /> */}
+              <BarChart programRating={tempRating} />
             </div>
           </div>
         </div>

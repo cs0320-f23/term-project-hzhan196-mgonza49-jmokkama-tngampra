@@ -89,15 +89,15 @@ function ChartComponent({ programRating }: {programRating: number[]}) {
       padding: {
         top: 20, 
         right: 25, 
-        // bottom: 25, 
+        bottom: 30, 
         // left: 20,
       },
     },
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', height: '48vh'}}>
-      <Bar data={data} options={options} />
+    <div style={{ display: 'flex', justifyContent: 'center', height: '40vh'}}>
+      <Bar style={{ flex: 1, maxHeight: '100%' }} data={data} options={options} />
     </div>
   );
 }
