@@ -68,7 +68,7 @@ public class ViewData implements Route {
 			float minority = 0;
 			float learning = 0;
 			while (j < lenScore) {
-				acceptance += scoreValues.get(j).get("accpetance");
+				acceptance += scoreValues.get(j).get("acceptance");
 				safety += scoreValues.get(j).get("safety");
 				minority += scoreValues.get(j).get("minority");
 				learning += scoreValues.get(j).get("learning");

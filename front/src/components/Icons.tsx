@@ -6,7 +6,6 @@ interface IconsProps {
   image: string;
   name: string;
   country: string;
-  // term: string;
   link: string;
   id: number;
 }

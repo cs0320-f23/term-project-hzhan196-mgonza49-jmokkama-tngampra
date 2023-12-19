@@ -64,7 +64,7 @@ function setupIcons(res: any) {
   if (res.result === "success") {
     const programs: any = res.data;
     programs.forEach((program: any, index: number) => {
-      const id = index;
+      const id = index + 1;
       totalIcons.push(
         <Icons
           name={program.name}
@@ -72,7 +72,6 @@ function setupIcons(res: any) {
           link={`/browse/${id}`}
           id={id}
           country={program.location}
-          // term={program.term}
         />
       );
     });

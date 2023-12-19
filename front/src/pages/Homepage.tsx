@@ -47,12 +47,12 @@ export default function Homepage({}: UserProps) {
   }
 
   function setupIcons(res: any) {
-    console.log(res);
+    const totalIcons: ReactNode[] = [];
     if (res.result === "success") {
       const programs: any = res.data;
       programs.forEach((program: any, index: number) => {
-        const id = index;
-        icons.push(
+        const id = index + 1;
+        totalIcons.push(
           <Icons
             key={id}
             name={program.name}
@@ -60,12 +60,12 @@ export default function Homepage({}: UserProps) {
             link={`/browse/${id}`}
             id={id}
             country={program.location}
-            // term={program.term}
           />
         );
       });
     }
-    return icons;
+    setIcons(totalIcons);
+    return totalIcons;
   }
   return (
     <div>
