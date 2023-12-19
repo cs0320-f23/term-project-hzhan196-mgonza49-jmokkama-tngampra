@@ -17,7 +17,6 @@ function AlertDialog({ message }: { message: string }) {
   const handleClose = () => {
     setOpen(false);
     window.location.reload();
-    useNavigate(-1);
   };
 
   return (
