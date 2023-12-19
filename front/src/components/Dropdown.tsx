@@ -43,12 +43,15 @@ export default function dropdown({
 
   const handleItemSelected = (item: DropdownProps) => {
     setSelected(item);
-    onSelect(item); // Trigger onSelect event
+    onSelect(item);
   };
 
   return (
     <div className="dropdown-wrap">
-      <Combobox value={selected} onChange={setSelected}>
+      <Combobox
+        value={selected}
+        onChange={(value) => handleItemSelected(value)}
+      >
         <div className="dropdown-container">
           <Combobox.Input
             className="w-full py-2 pl-3 pr-10 black-text bg-white"
@@ -85,6 +88,7 @@ export default function dropdown({
                   }
                   value={item}
                   onSelect={() => {
+                    console.log(item);
                     handleItemSelected(item);
                   }}
                 >
