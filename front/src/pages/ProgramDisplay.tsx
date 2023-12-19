@@ -70,6 +70,11 @@ function commentDisplay() {
 }
 
 function ProgramDisplay() {
+  useEffect(() => {
+        // scroll to top
+        window.scrollTo(0, 0);
+      }, []);
+
   const { id } = useParams();
   const programId = id ? parseInt(id, 10) : 0;
   // const data = ProgramData();

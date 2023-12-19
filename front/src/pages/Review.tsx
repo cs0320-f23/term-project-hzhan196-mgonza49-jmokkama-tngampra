@@ -18,6 +18,9 @@ import RatingButton from "../components/Radio";
 import Popup from "../components/Popup";
 import Divider from "@mui/material/Divider";
 import Dropdown, { DropdownProps } from "../components/Dropdown";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import Dialog from "@mui/material/Dialog";
 
 // interface DropdownProps {
 //   id: number;
@@ -119,6 +122,19 @@ import Dropdown, { DropdownProps } from "../components/Dropdown";
 
 function Review() {
   const navigate = useNavigate();
+
+  //---popup stuff
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+    
+  };
+  const handleClose = () => {
+    setOpen(false);
+    window.location.reload();
+    navigate(-1);
+  };
+  //---
 
   const [selectedProgram, setSelectedProgram] = useState<DropdownProps | null>(
     null
@@ -326,7 +342,43 @@ function Review() {
                 </label> */}
               </div>
 
-              <Popup message={"Thank you for submitting a review!"} />
+              {/* <Popup message={"Thank you for submitting a review!"} /> */}
+
+              <React.Fragment>
+                <button className="review-button" onClick={handleClickOpen}>
+                  Submit
+                </button>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                  sx={{
+                    "& .MuiDialog-paper": {
+                      width: "40%",
+                      height: "20%",
+                      maxWidth: "none",
+                    },
+                  }}
+                >
+                  <DialogContent>
+                    <DialogContentText
+                      id="alert-dialog-description"
+                      sx={{
+                        display: "flex",
+                        textAlign: "center",
+                        justifyContent: "center",
+                        fontSize: "1.3rem", // Adjust the font size as needed
+                        color: "black",
+                      }}
+                    >
+                      "Thank you for submitting a review!"
+                    </DialogContentText>
+                  </DialogContent>
+                </Dialog>
+              </React.Fragment>
+
+
             </Form>
           )}
           {/* </form> */}

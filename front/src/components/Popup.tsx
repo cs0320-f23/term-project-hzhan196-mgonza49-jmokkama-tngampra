@@ -5,8 +5,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
 
-export default function AlertDialog({ message }: { message: string }) {
+function AlertDialog({ message }: { message: string }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -16,6 +17,7 @@ export default function AlertDialog({ message }: { message: string }) {
   const handleClose = () => {
     setOpen(false);
     window.location.reload();
+    useNavigate(-1);
   };
 
   return (
@@ -54,3 +56,5 @@ export default function AlertDialog({ message }: { message: string }) {
     </React.Fragment>
   );
 }
+
+export default AlertDialog;
