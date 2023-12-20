@@ -12,7 +12,7 @@ import Divider from "@mui/material/Divider";
 import Radio2 from "../components/Radio2";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "./Radio";
-// import { getCountries } from "./Countries";
+import { countries } from "./Countries";
 
 const tempData = ["program1", "languages idk", "countries idk"];
 
@@ -243,7 +243,7 @@ export const forms = () => {
 
                         <div className="flex items-center justify-center">
                           <Checkbox
-                            data={tempData}
+                            data={countries}
                             placeholder="Enter Countries"
                             name="countryBlacklist"
                             onChange={(selectedValues: string[]) => {
