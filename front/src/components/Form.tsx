@@ -12,6 +12,7 @@ import Divider from "@mui/material/Divider";
 import Radio2 from "../components/Radio2";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "./Radio";
+// import { getCountries } from "./Countries";
 
 const tempData = ["program1", "languages idk", "countries idk"];
 
@@ -110,9 +111,9 @@ export const forms = () => {
     programBlacklist.forEach((program, index) => {
       const isLast = index === programBlacklist.length - 1;
       if (isLast) {
-        programs + program;
+        programs = programs + program;
       } else {
-        programs + program + "~";
+        programs = programs + program + "~";
       }
     });
     let ranking: [number, string][] = [
@@ -132,10 +133,10 @@ export const forms = () => {
       }
     });
     const url =
-      "http://localhost:3232/adduser?username=" +
-      name +
-      "&email=" +
-      email +
+      "http://localhost:3232/adduser?username=Tired" +
+      // name +
+      "&email=tired@brown.edu" +
+      // email +
       "&languages=" +
       myLanguages +
       "&countries=" +
@@ -144,21 +145,21 @@ export const forms = () => {
       programs +
       "&ranking=" +
       actualRanking;
-    console.log(url);
-    // return fetch(url)
-    //   .then((res) => {
-    //     if (!res.ok) {
-    //       return Promise.reject("Error");
-    //     }
-    //     return Promise.resolve("Success");
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //     return Promise.reject("Error: " + error);
-    //   });
+    return fetch(url)
+      .then((res) => {
+        if (!res.ok) {
+          return Promise.reject("Error");
+        }
+        return Promise.resolve("Success");
+      })
+      .catch((error) => {
+        console.error(error);
+        return Promise.reject("Error: " + error);
+      });
   }
-
   function expandedForm(isExpanded: boolean) {
+    // const countries = getCountries();
+    // console.log(countries);
     if (isExpanded) {
       return (
         <div className="">

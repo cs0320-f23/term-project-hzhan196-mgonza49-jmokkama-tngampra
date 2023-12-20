@@ -67,6 +67,7 @@ function Review() {
       })
       .catch((error) => {
         console.error(error);
+        return Promise.resolve(error.message);
       });
   }
 
@@ -91,9 +92,12 @@ function Review() {
       try {
         const res = await fetch(url);
         if (!res.ok) {
-          throw new Error("Error");
+          return Promise.reject("Error");
         }
         const jsonData = await res.json();
+        if (name in jsonData.data.userScores) {
+          return Promise.reject("Error: Already commented on this program");
+        }
         const programs = toProgram(jsonData);
         setData(programs);
       } catch (error) {
