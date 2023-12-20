@@ -15,5 +15,6 @@ To install the bar charts, run:
 `npm install chart.js react-chartjs-2 chartjs-plugin-datalabels`
 
 To install materialui and headlessui, run:
+
 `npm install @headlessui/react @heroicons/react @mui/material @mui/icons-material`
 
