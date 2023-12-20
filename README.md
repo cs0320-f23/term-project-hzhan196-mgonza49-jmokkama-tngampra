@@ -1,7 +1,8 @@
-How to run the web scraper:
+How to run tests and web scraper (this should not be neceassary if you are using UpdateHandler in the server):
 
 - Download a chrome driver corresponding to your chrome version https://sites.google.com/chromium.org/driver/getting-started?authuser=0
 - pip install selenium and beautiful soup
+- pip install pymongo
 - Unzip the downloaded chrome driver zip in the bin directory
 
 To install tailwindCSS, run:
