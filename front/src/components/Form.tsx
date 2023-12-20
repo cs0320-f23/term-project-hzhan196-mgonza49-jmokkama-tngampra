@@ -86,76 +86,76 @@ export const forms = () => {
     minorityAcceptance: string,
     educationQuality: string
   ) {
-    const countries: string[] = [""];
-    const programs: string[] = [""];
-    const myLanguages: string[] = [""];
+    let countries: string = "";
+    let programs: string = "";
+    let myLanguages: string = "";
 
     languages.forEach((language, index) => {
       const isLast = index === languages.length - 1;
       if (isLast) {
-        myLanguages.push(language);
+        myLanguages = myLanguages + language;
       } else {
-        myLanguages.push(language + "~");
+        myLanguages = myLanguages + language + "~";
       }
     });
 
     countryBlacklist.forEach((country, index) => {
       const isLast = index === countryBlacklist.length - 1;
       if (isLast) {
-        countries.push(country);
+        countries = countries + country;
       } else {
-        countries.push(country + "~");
+        countries = countries + country + "~";
       }
     });
     programBlacklist.forEach((program, index) => {
       const isLast = index === programBlacklist.length - 1;
       if (isLast) {
-        programs.push(program);
+        programs + program;
       } else {
-        programs.push(program + "~");
+        programs + program + "~";
       }
     });
-    let ranking: number[] = [
-      parseInt(friendliness),
-      parseInt(safety),
-      parseInt(minorityAcceptance),
-      parseInt(educationQuality),
+    let ranking: [number, string][] = [
+      [parseInt(friendliness), "acceptance"],
+      [parseInt(safety), "safety"],
+      [parseInt(minorityAcceptance), "minority"],
+      [parseInt(educationQuality), "learning"],
     ];
-    ranking.sort((a, b) => a - b).reverse();
-    const actualRanking: string[] = [];
+    ranking.sort((a, b) => a[0] - b[0]).reverse();
+    let actualRanking: string = "";
     ranking.forEach((item, index) => {
       const isLast = index === 3;
-      const itemString = item.toString();
       if (isLast) {
-        actualRanking.push(itemString);
+        actualRanking = actualRanking + item[1];
       } else {
-        actualRanking.push(itemString + "~");
+        actualRanking = actualRanking + item[1] + "~";
       }
     });
     const url =
-      "http://localhost:3232/adduser?username=exampleName" +
-      // name +
-      "&email=example@brown.edu" +
-      // email +
+      "http://localhost:3232/adduser?username=" +
+      name +
+      "&email=" +
+      email +
       "&languages=" +
-      myLanguages.toString() +
+      myLanguages +
       "&countries=" +
-      countries.toString() +
+      countries +
       "&programs=" +
-      programs.toString() +
+      programs +
       "&ranking=" +
-      actualRanking.toString();
-    return fetch(url)
-      .then((res) => {
-        if (!res.ok) {
-          return Promise.reject("Error");
-        }
-        return Promise.resolve("Success");
-      })
-      .catch((error) => {
-        console.error(error);
-        return Promise.reject("Error: " + error);
-      });
+      actualRanking;
+    console.log(url);
+    // return fetch(url)
+    //   .then((res) => {
+    //     if (!res.ok) {
+    //       return Promise.reject("Error");
+    //     }
+    //     return Promise.resolve("Success");
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     return Promise.reject("Error: " + error);
+    //   });
   }
 
   function expandedForm(isExpanded: boolean) {

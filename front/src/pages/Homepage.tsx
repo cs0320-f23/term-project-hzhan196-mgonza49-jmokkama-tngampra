@@ -37,16 +37,16 @@ export default function Homepage({}: UserProps) {
     });
   });
 
-  const [hasNotTakenForm, setHasNotTakenForm] = useState<boolean>(false);
+  const [isMember, setIsMember] = useState<boolean>(false);
   useEffect(() => {
     userCounted(email).then((hasTaken) => {
-      setHasNotTakenForm(hasTaken);
+      setIsMember(hasTaken);
     });
   }, [email]);
 
   function getPrograms() {
     let url;
-    if (!hasNotTakenForm) {
+    if (isMember) {
       url = "http://localhost:3232/viewdata?email=" + email;
     } else {
       url = "http://localhost:3232/viewdata";
