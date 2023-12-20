@@ -79,7 +79,7 @@ export const forms = () => {
   }, []);
 
   function handleSubmit(
-    languages: string[],
+    // languages: string[],
     countryBlacklist: string[],
     programBlacklist: string[],
     friendliness: string,
@@ -89,16 +89,16 @@ export const forms = () => {
   ) {
     let countries: string = "";
     let programs: string = "";
-    let myLanguages: string = "";
+    // let myLanguages: string = "";
 
-    languages.forEach((language, index) => {
-      const isLast = index === languages.length - 1;
-      if (isLast) {
-        myLanguages = myLanguages + language;
-      } else {
-        myLanguages = myLanguages + language + "~";
-      }
-    });
+    // languages.forEach((language, index) => {
+    //   const isLast = index === languages.length - 1;
+    //   if (isLast) {
+    //     myLanguages = myLanguages + language;
+    //   } else {
+    //     myLanguages = myLanguages + language + "~";
+    //   }
+    // });
 
     countryBlacklist.forEach((country, index) => {
       const isLast = index === countryBlacklist.length - 1;
@@ -138,7 +138,7 @@ export const forms = () => {
       "&email=tired@brown.edu" +
       // email +
       "&languages=" +
-      myLanguages +
+      // myLanguages +
       "&countries=" +
       countries +
       "&programs=" +
@@ -167,7 +167,7 @@ export const forms = () => {
           <Formik
             className="footer-content"
             initialValues={{
-              languages: [],
+              // languages: [],
               countryBlacklist: [],
               programBlacklist: [],
               friendliness: "",
@@ -177,7 +177,7 @@ export const forms = () => {
             }}
             onSubmit={async (values) => {
               handleSubmit(
-                values.languages,
+                // values.languages,
                 values.countryBlacklist,
                 values.programBlacklist,
                 values.friendliness,
@@ -189,7 +189,7 @@ export const forms = () => {
           >
             {() => (
               <Form>
-                <FieldArray name="languages">
+                {/* <FieldArray name="languages">
                   {({ form, push }) => (
                     <div role="group">
                       <div>
@@ -225,7 +225,7 @@ export const forms = () => {
                       </div>
                     </div>
                   )}
-                </FieldArray>
+                </FieldArray> */}
                 <FieldArray name="countryBlacklist">
                   {({ form, push }) => (
                     <div role="group">

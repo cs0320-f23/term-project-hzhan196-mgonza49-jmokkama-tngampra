@@ -89,7 +89,6 @@ function ProgramDisplay() {
 
   function toProgram(res: any) {
     const programArray: Program[] = [];
-    const commentArray: CommentList[] = [];
     if (res.result === "success") {
       const programs: any = res.data;
       programs.forEach((program: any, index: number) => {
@@ -101,15 +100,10 @@ function ProgramDisplay() {
           link: program.link,
           rating: program.average,
         });
-        // commentArray.push({
-        //   user: programs.comments,
-        // })
       });
     }
     return programArray;
   }
-
-  function toComment(res: any) {}
 
   useEffect(() => {
     async function fetchPrograms() {
