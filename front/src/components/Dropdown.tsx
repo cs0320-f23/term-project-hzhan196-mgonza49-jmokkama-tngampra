@@ -24,12 +24,14 @@ export default function dropdown({
   data: DropdownProps[];
   onSelect: (selected: DropdownProps) => void;
 }) {
+  const [selected, setSelected] = useState<DropdownProps>(data[0]);
+  const [query, setQuery] = useState("");
+
   useEffect(() => {
     // scroll to top
     window.scrollTo(0, 0);
+    handleItemSelected(selected);
   }, []);
-  const [selected, setSelected] = useState<DropdownProps>(data[0]);
-  const [query, setQuery] = useState("");
 
   const filteredData =
     query === ""

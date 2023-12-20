@@ -15,7 +15,7 @@ import Radio from "./Radio";
 
 const tempData = ["program1", "languages idk", "countries idk"];
 
-function userCounted(email: string): Promise<boolean> {
+export function userCounted(email: string): Promise<boolean> {
   const url = "http://localhost:3232/checkuser?email=" + email;
   return fetch(url)
     .then((res) => {

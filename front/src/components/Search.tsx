@@ -13,6 +13,7 @@ function Search() {
   function handleSearch() {
     console.log(searchString);
     setSearchString("");
+    const url = "http://localhost:3232/searchprograms";
   }
 
   return (

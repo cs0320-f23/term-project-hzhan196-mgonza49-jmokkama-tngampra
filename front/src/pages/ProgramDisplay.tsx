@@ -12,7 +12,7 @@ import BarChart from "../components/ChartComponent";
 import Chart from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
-const tempRating = [1,3,2,5,3];
+const tempRating = [1, 3, 2, 5, 3];
 
 interface Program {
   tempId: number;
@@ -22,7 +22,13 @@ interface Program {
   rating: number[];
 }
 
-function commentDisplay() {
+interface CommentList {
+  user: string;
+  comment: string;
+  yearTaken: string;
+}
+
+function commentDisplay(data: CommentList[]) {
   const [commentStatus, setCommentStatus] = useState<Boolean>();
   useEffect(() => {
     loginStatus()
@@ -41,7 +47,7 @@ function commentDisplay() {
   function setupComments() {
     const totalComments: ReactNode[] = [];
 
-    commentData.forEach((comment) => {
+    data.forEach((comment) => {
       totalComments.push(
         <Comment
           user={comment.user}
@@ -71,17 +77,19 @@ function commentDisplay() {
 
 function ProgramDisplay() {
   useEffect(() => {
-        // scroll to top
-        window.scrollTo(0, 0);
-      }, []);
+    // scroll to top
+    window.scrollTo(0, 0);
+  }, []);
 
   const { id } = useParams();
   const programId = id ? parseInt(id, 10) : 0;
   // const data = ProgramData();
   const [data, setData] = useState<Program[]>([]);
+  const [commentData, setCommentData] = useState<CommentList[]>([]);
 
   function toProgram(res: any) {
     const programArray: Program[] = [];
+    const commentArray: CommentList[] = [];
     if (res.result === "success") {
       const programs: any = res.data;
       programs.forEach((program: any, index: number) => {
@@ -93,10 +101,15 @@ function ProgramDisplay() {
           link: program.link,
           rating: program.average,
         });
+        // commentArray.push({
+        //   user: programs.comments,
+        // })
       });
     }
     return programArray;
   }
+
+  function toComment(res: any) {}
 
   useEffect(() => {
     async function fetchPrograms() {
@@ -110,7 +123,6 @@ function ProgramDisplay() {
         const programs = toProgram(jsonData);
         setData(programs);
       } catch (error) {
-        console.log("erroring");
         console.error("Error fetching programs:", error);
       }
     }
@@ -160,7 +172,7 @@ function ProgramDisplay() {
         </div>
       )}
 
-      {commentDisplay()}
+      {commentDisplay(commentData)}
     </div>
   );
 }

@@ -6,9 +6,9 @@ import Icons from "../components/Icons";
 import Recommended from "../components/mockRecommended";
 import { Link, useParams, Outlet } from "react-router-dom";
 import { ReactNode } from "react";
-import { forms } from "../components/Form";
+import { forms, userCounted } from "../components/Form";
 import "../style/interface.css";
-import { loginStatus } from "../components/Login";
+import { loginStatus, profileEmail, profileName } from "../components/Login";
 import React from "react";
 import defaultPhoto from "../assets/blank-profile.jpeg";
 
@@ -30,8 +30,27 @@ export default function Homepage({}: UserProps) {
     fetchPrograms();
   }, []);
 
+  const [email, setEmail] = useState<string>("");
+  useEffect(() => {
+    profileEmail().then((name) => {
+      setEmail(name);
+    });
+  });
+
+  const [hasNotTakenForm, setHasNotTakenForm] = useState<boolean>(false);
+  useEffect(() => {
+    userCounted(email).then((hasTaken) => {
+      setHasNotTakenForm(hasTaken);
+    });
+  }, [email]);
+
   function getPrograms() {
-    const url = "http://localhost:3232/viewdata";
+    let url;
+    if (!hasNotTakenForm) {
+      url = "http://localhost:3232/viewdata?email=" + email;
+    } else {
+      url = "http://localhost:3232/viewdata";
+    }
     return fetch(url)
       .then((res) => {
         if (!res.ok) {
