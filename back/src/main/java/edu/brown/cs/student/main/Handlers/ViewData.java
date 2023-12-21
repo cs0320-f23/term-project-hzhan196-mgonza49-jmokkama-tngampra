@@ -127,10 +127,23 @@ public class ViewData implements Route {
 				k = k + 1;
 			}
 
+			float average_value = acceptance + safety + minority + learning;
+
 			i = i + 1;
-			Map<String, Float> average = program.getAverage();
-			average.put(email, average.get(email) + acceptance+safety+minority+learning);
-			program.setAverage(average);
+			Map<String, Float> average;
+			if (program.getAverage() == null) {
+				average = new HashMap<>();
+				average.put(email, average_value);
+				program.setAverage(average);
+			} else {
+				average = program.getAverage();
+				if (average.get(email) == null) {
+					average.put(email, average_value);
+					program.setAverage(average);
+				} else {
+					// I don't think anything needs to be done here? Average is already set... or do we want to replace the old value?
+				}				
+			}
 		}
 		Collections.sort(programData);
 		return programData;
