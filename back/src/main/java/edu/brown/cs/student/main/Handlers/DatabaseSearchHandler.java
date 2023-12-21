@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 
 import com.squareup.moshi.JsonAdapter;
@@ -67,27 +68,23 @@ public class DatabaseSearchHandler implements Route {
 
   public DatabaseSearchHandler() {}
 
-  private List<ProgramData> searchDatabase(String keyword, String country, MongoCollection<ProgramData> collection) {
+	private List<ProgramData> searchDatabase(String keyword, MongoCollection<ProgramData> collection) {
+		List<ProgramData> results = new ArrayList<>();
 
-     // check nullness too
-     keyword = keyword.toLowerCase();
-     if (country != null) {
-       country = country.toLowerCase();
-     }
+		if (keyword == null) {
+			return results;
+		}
 
-	 Bson filter = Filters.and(
-			 Filters.eq("name", keyword),
-			 Filters.eq("location", country)
-	 );
+		keyword = Pattern.quote(keyword);
 
-	 List<ProgramData> results = new ArrayList<>();
-	 collection.find(filter).forEach(results::add);
-		System.out.println(results.size());
-	 for (ProgramData programData : results) {
-		 System.out.println(programData);
-	 }
+		Bson filter = Filters.or(
+				Filters.regex("name", Pattern.compile(".*" + keyword + ".*", Pattern.CASE_INSENSITIVE)),
+				Filters.regex("location", Pattern.compile(".*" + keyword + ".*", Pattern.CASE_INSENSITIVE))
+		);
 
-	 return results;
+		collection.find(filter).forEach(results::add);
+
+		return results;
    }
 
   // Maps the state codes to their names by calling the 2010 census API
@@ -106,12 +103,11 @@ public class DatabaseSearchHandler implements Route {
   public Object handle(Request request, Response response) {
     // Query parameters for the API call, county code is optional
     String keyword = request.queryParams("keyword");
-    String country = request.queryParams("country");
 
-    if ((keyword == null) && (country == null)) {
+    if (keyword == null) {
       response.status(400);
       // some sort of error
-		  return new DatabaseSearchHandler.SearchFailureResponse("error_bad_json: ", "missing keyword or country", keyword, country).serialize();
+		  return new DatabaseSearchHandler.SearchFailureResponse("error_bad_json: ", "missing keyword", keyword).serialize();
     }
 
     Logger.getLogger( "org.mongodb.driver" ).setLevel(Level.WARNING);
@@ -136,7 +132,7 @@ public class DatabaseSearchHandler implements Route {
     try {
       mongoClient = MongoClients.create(settings);
     } catch (MongoException me) {
-		return new DatabaseSearchHandler.SearchFailureResponse("Unable to connect to the MongoDB instance due to an error", me.getMessage(), keyword, country).serialize();
+		return new DatabaseSearchHandler.SearchFailureResponse("Unable to connect to the MongoDB instance due to an error", me.getMessage(), keyword).serialize();
     }
     
     // MongoDatabase defines a connection to a specific MongoDB database
@@ -145,9 +141,9 @@ public class DatabaseSearchHandler implements Route {
     // MongoCollection defines a connection to a specific collection of documents in a specific database
     MongoCollection<ProgramData> collection = database.getCollection(collectionName, ProgramData.class);
 
-    List<ProgramData> searchData = this.searchDatabase(keyword, country, collection);
+    List<ProgramData> searchData = this.searchDatabase(keyword, collection);
 
-	return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword, country);
+	return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword);
   }
 
   /**
@@ -155,9 +151,9 @@ public class DatabaseSearchHandler implements Route {
 	 * @param result - a string, can be success or failure
 	 * @param data - the data we are returning
 	 */
-	public record SearchSuccessResponse(String result, List<ProgramData> data, String keyword, String country) {
-		public SearchSuccessResponse(List<ProgramData> data, String keyword, String country) {
-			this("success", data, keyword, country);
+	public record SearchSuccessResponse(String result, List<ProgramData> data, String keyword) {
+		public SearchSuccessResponse(List<ProgramData> data, String keyword) {
+			this("success", data, keyword);
 		}
 		/**
 		 * @return this response, serialized as Json
@@ -185,13 +181,12 @@ public class DatabaseSearchHandler implements Route {
 	 * @param result - a string, can be success or failure
 	 * @param exception - the exception that caused the failure
 	 */
-	public record SearchFailureResponse(String result, String exception, String keyword, String country) {
+	public record SearchFailureResponse(String result, String exception, String keyword) {
 		//result should contain error and error code
-		public SearchFailureResponse(String result, String exception, String keyword, String country) {
+		public SearchFailureResponse(String result, String exception, String keyword) {
 			this.result = result;
 			this.exception = exception;
 			this.keyword = keyword;
-			this.country = country;
 		}
 
 		/**
@@ -212,13 +207,13 @@ public class DatabaseSearchHandler implements Route {
 	public static class ProgramData {
 		private String name;
 		private String link;
-    private String location;
-    private Map<String, Map<String, Integer>> userScores;
-    private List<String> comment; 
-		private Map<String, Float> average;
+		private String location;
+		private HashMap<String, HashMap<String, Integer>> userScores;
+		private List<HashMap<String, String>> comment;
+		private HashMap<String, Float> average;
 
 		public ProgramData(String name, String link, String location,
-            Map<String, Map<String, Integer>> userScores, List<String> comment, Map<String, Float> average) {
+            HashMap<String, HashMap<String, Integer>> userScores, List<HashMap<String, String>> comment, HashMap<String, Float> average) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
@@ -242,8 +237,8 @@ public class DatabaseSearchHandler implements Route {
 			sb.append("name='").append(name).append('\'');
 			sb.append(", link='").append(link).append('\'');
 			sb.append(", location='").append(location).append('\'');
-      sb.append(", userScores='").append(userScores).append('\'');
-      sb.append(", comment='").append(comment).append('\'');
+			sb.append(", userScores='").append(userScores).append('\'');
+			sb.append(", comment='").append(comment).append('\'');
 			sb.append(", average='").append(comment).append('\'');
 			sb.append('}');
 			return sb.toString();
@@ -280,22 +275,22 @@ public class DatabaseSearchHandler implements Route {
 		}
 
         // Getter for user scores
-		public Map<String, Map<String, Integer>> getUserScores() {
+		public Map<String, HashMap<String, Integer>> getUserScores() {
 			return userScores;
 		}
 
 		// Setter for user scores
-		public void setUserScores(Map<String, Map<String, Integer>> userScores) {
+		public void setUserScores(HashMap<String, HashMap<String, Integer>> userScores) {
 			this.userScores = userScores;
 		}
 
         // Getter for comment
-		public List<String> getComment() {
+		public List<HashMap<String, String>> getComment() {
 			return comment;
 		}
 
 		// Setter for comment
-		public void setComment(List<String> comment) {
+		public void setComment(List<HashMap<String, String>> comment) {
 			this.comment = comment;
 		}
 
@@ -305,7 +300,7 @@ public class DatabaseSearchHandler implements Route {
 		}
 
 		// Setter for comment
-		public void setAverage(Map<String, Float> average) {
+		public void setAverage(HashMap<String, Float> average) {
 			this.average = average;
 		}
 	}

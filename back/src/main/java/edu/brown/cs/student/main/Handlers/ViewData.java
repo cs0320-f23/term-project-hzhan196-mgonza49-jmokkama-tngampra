@@ -142,6 +142,8 @@ public class ViewData implements Route {
 					program.setAverage(average);
 				} else {
 					// I don't think anything needs to be done here? Average is already set... or do we want to replace the old value?
+					average.put(email, average_value);
+					program.setAverage(average);
 				}				
 			}
 		}
