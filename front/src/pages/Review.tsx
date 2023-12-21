@@ -95,9 +95,7 @@ function Review() {
           return Promise.reject("Error");
         }
         const jsonData = await res.json();
-        if (name in jsonData.data.userScores) {
-          return Promise.reject("Error: Already commented on this program");
-        }
+
         const programs = toProgram(jsonData);
         setData(programs);
       } catch (error) {
