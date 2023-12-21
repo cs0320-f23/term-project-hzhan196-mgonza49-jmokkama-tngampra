@@ -28,6 +28,7 @@ public class UpdateHandler implements Route {
 	/**
 	 * Constructor that initializes loadCalled as false.
 	 */
+	public UpdateHandler() {}
 	public UpdateHandler(String path, String envPath) {
 		this.path = path;
 		this.envPath = envPath;
