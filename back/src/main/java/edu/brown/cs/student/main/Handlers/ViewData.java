@@ -267,15 +267,10 @@ public class ViewData implements Route {
 		private String name;
 		private String link;
         private String location;
-<<<<<<< HEAD
-        private HashMap<String, HashMap<String, Integer>> userScores;
-        private List<String> comment;
-		private HashMap<String, Float> average;
-=======
+
         private Map<String, Map<String, Integer>> userScores;
         private List<String> comment; 
 		private Map<String, Float> average;
->>>>>>> bfc816dff9b7ff3c238477d0ff43a6bdbf6dc02b
 		private String email;
 
 		public ProgramData(String name, String link, String location,
