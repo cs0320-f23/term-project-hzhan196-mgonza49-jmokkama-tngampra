@@ -11,6 +11,7 @@ import "../style/interface.css";
 import { loginStatus, profileEmail, profileName } from "../components/Login";
 import React from "react";
 import defaultPhoto from "../assets/blank-profile.jpeg";
+import { handleSearch } from "./BrowseList";
 
 interface UserProps {}
 
@@ -86,6 +87,14 @@ export default function Homepage({}: UserProps) {
     setIcons(totalIcons);
     return totalIcons;
   }
+  const updateIcons = async (searchString: string) => {
+    try {
+      const data = await handleSearch(searchString);
+      setIcons(data);
+    } catch (error) {
+      console.error("Error fetching programs:", error);
+    }
+  };
   return (
     <div>
       <div className="navbar-container">
@@ -100,7 +109,7 @@ export default function Homepage({}: UserProps) {
         <h2 className="shadowed-text-small text-white mt-2">
           Helping Students Navigate Brown's Study Abroad Programs
         </h2>
-        <Search />
+        <Search updateIcons={updateIcons} />
 
         <div className="flex flex-row justify-center mt-2">
           <span className="shadowed-text-small text-white"> or</span>

@@ -48,7 +48,7 @@ export function setupIcons(res: any) {
   return totalIcons;
 }
 
-const handleSearch = async (
+export const handleSearch = async (
   searchString: string
 ): Promise<React.ReactNode[]> => {
   try {
