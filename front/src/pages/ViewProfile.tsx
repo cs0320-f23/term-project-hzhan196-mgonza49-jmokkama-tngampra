@@ -58,7 +58,6 @@ function ViewProfile() {
     <div>
       <div className="navbar-container">
         <Navbar />
-        View Profile
       </div>
       <div className="profile-page">
         <img src={photoURL} className="profile-page-photo"></img>

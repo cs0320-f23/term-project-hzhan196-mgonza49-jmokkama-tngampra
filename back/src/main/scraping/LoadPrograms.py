@@ -19,7 +19,10 @@ class LoadProgram:
     def webScrape(self):
         if self.t_body:
             # Find all divs with class "sc-1mdqp61-0 euqYpv views-row dsf-item" inside the outer div
-            inner_divs = self.t_body.find_elements(By.CLASS_NAME, 'dsf-item')
+            try: 
+                inner_divs = self.t_body.find_elements(By.CLASS_NAME, 'dsf-item')
+            except:
+                raise Exception('Wrong link provided')
 
             # Loop through the inner divs and do something
             for inner_div in inner_divs:

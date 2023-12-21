@@ -1,5 +1,6 @@
 package edu.brown.cs.student.main.Handlers;
 
+import com.mongodb.client.model.Projections;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
@@ -53,22 +54,21 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 public class ViewData implements Route {
     public ViewData() {}
 
-	private List<ProgramData> sortProgramData(List<ProgramData> programData, List<UserData> userData) {
+	private List<ProgramData> sortProgramData(String email, List<ProgramData> programData, List<UserData> userData) {
 		Integer len = programData.size();
 		Integer i = 0;
-		Integer totalScore;
 		while (i < len) {
 			ProgramData program = programData.get(i);
-			HashMap<String, HashMap<String, Integer>> userScores = program.getUserScores();
-			List<HashMap<String, Integer>> scoreValues = new ArrayList<HashMap<String, Integer>>(userScores.values());
+			Map<String, Map<String, Integer>> userScores = program.getUserScores();
+			List<Map<String, Integer>> scoreValues = new ArrayList<Map<String, Integer>>(userScores.values());
 			Integer lenScore = scoreValues.size();
 			Integer j = 0;
-			Integer acceptance = 0;
-			Integer safety = 0;
-			Integer minority = 0;
-			Integer learning = 0;
+			float acceptance = 0;
+			float safety = 0;
+			float minority = 0;
+			float learning = 0;
 			while (j < lenScore) {
-				acceptance += scoreValues.get(j).get("accpetance");
+				acceptance += scoreValues.get(j).get("acceptance");
 				safety += scoreValues.get(j).get("safety");
 				minority += scoreValues.get(j).get("minority");
 				learning += scoreValues.get(j).get("learning");
@@ -126,19 +126,24 @@ public class ViewData implements Route {
 				}
 				k = k + 1;
 			}
+
 			i = i + 1;
+			Map<String, Float> average = program.getAverage();
+			average.put(email, average.get(email) + acceptance+safety+minority+learning);
+			program.setAverage(average);
 		}
+		Collections.sort(programData);
 		return programData;
 	}
 
     public Object handle(Request request, Response response) {
         String email = request.queryParams("email");
 
-        if ((email == null)) {
-            response.status(400);
-            // some sort of error
-            return new ViewData.ViewFailureResponse("error_bad_json: ", "missing keyword or country", email).serialize();
-        }
+//        if ((email == null)) {
+//            response.status(400);
+//            // some sort of error
+//            return new ViewData.ViewFailureResponse("error_bad_json: ", "missing keyword or country", email).serialize();
+//        }
 
         Logger.getLogger( "org.mongodb.driver" ).setLevel(Level.WARNING);
 
@@ -174,26 +179,30 @@ public class ViewData implements Route {
         MongoCollection<ProgramData> collection = database.getCollection(collectionName, ProgramData.class);
 		MongoCollection<UserData> collectionUsr = database.getCollection(collectionNameUsr, UserData.class);
 
-		Bson filterUsr = Filters.and(
-			Filters.eq("email", email)
-		);
-
+		Bson filterUsr;
 		List<UserData> resultsUsr = new ArrayList<>();
-		collectionUsr.find(filterUsr).forEach(resultsUsr::add);
-
+		if (email != null) {
+			filterUsr = Filters.and(
+					Filters.eq("email", email)
+			);
+			collectionUsr.find(filterUsr).forEach(resultsUsr::add);
+		}
 
 		// TODO: FILTERING
-		Bson filter = Filters.and(
-			Filters.ne("location", resultsUsr.get(0).getCountries())
-		);
-
+//		Bson filter = Filters.and(
+//			Filters.ne("location", resultsUsr.get(0).getCountries())
+//		);
 		List<ProgramData> results = new ArrayList<>();
 	    collection.find().forEach(results::add);
 
-		List<ProgramData> sorted = sortProgramData(results, resultsUsr);
+			if (email != null) {
+				List<ProgramData> sorted = sortProgramData(email, results, resultsUsr);
+				return new ViewData.ViewSuccessResponse("success", sorted, email);
+			} else {
 
-        // Sort results
-        return new ViewData.ViewSuccessResponse("success", results, email);
+				// Sort results
+				return new ViewData.ViewSuccessResponse("success", results, "").serialize();
+			}
     }
 
     /**
@@ -258,13 +267,19 @@ public class ViewData implements Route {
 		private String name;
 		private String link;
         private String location;
+<<<<<<< HEAD
         private HashMap<String, HashMap<String, Integer>> userScores;
         private List<String> comment;
 		private HashMap<String, Float> average;
+=======
+        private Map<String, Map<String, Integer>> userScores;
+        private List<String> comment; 
+		private Map<String, Float> average;
+>>>>>>> bfc816dff9b7ff3c238477d0ff43a6bdbf6dc02b
 		private String email;
 
 		public ProgramData(String name, String link, String location,
-            HashMap<String, HashMap<String, Integer>> userScores, List<String> comment, HashMap<String, Float> average,
+            Map<String, Map<String, Integer>> userScores, List<String> comment, Map<String, Float> average,
 			String email) {
 			this.name = name;
 			this.link = link;
@@ -328,12 +343,12 @@ public class ViewData implements Route {
 		}
 
         // Getter for user scores
-		public HashMap<String, HashMap<String, Integer>> getUserScores() {
+		public Map<String, Map<String, Integer>> getUserScores() {
 			return userScores;
 		}
 
 		// Setter for user scores
-		public void setUserScores(HashMap<String, HashMap<String, Integer>> userScores) {
+		public void setUserScores(Map<String, Map<String, Integer>> userScores) {
 			this.userScores = userScores;
 		}
 
@@ -348,12 +363,12 @@ public class ViewData implements Route {
 		}
 
 		// Getter for comment
-		public HashMap<String, Float> getAverage() {
+		public Map<String, Float> getAverage() {
 			return average;
 		}
 
 		// Setter for comment
-		public void setAverage(HashMap<String, Float> average) {
+		public void setAverage(Map<String, Float> average) {
 			this.average = average;
 		}
 

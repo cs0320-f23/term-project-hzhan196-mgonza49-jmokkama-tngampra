@@ -20,22 +20,40 @@ function ChartComponent({ programRating }: {programRating: number[]}) {
       data: programRating,
       fill: false,
       backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
+        // 'rgba(255, 99, 132, 0.2)',
+        // 'rgba(255, 159, 64, 0.2)',
+        // 'rgba(255, 205, 86, 0.2)',
+        // 'rgba(75, 192, 192, 0.2)',
+        // 'rgba(54, 162, 235, 0.2)',
+        // 'rgba(153, 102, 255, 0.2)',
+        // 'rgba(201, 203, 207, 0.2)'
+        // 'rgba(255, 205, 86, 0.2)',
+        // 'rgba(255, 205, 86, 0.2)',
+        // 'rgba(255, 205, 86, 0.2)',
+        // 'rgba(255, 205, 86, 0.2)',
+        // 'rgba(255, 205, 86, 0.2)',
+        // 'rgba(255, 205, 86, 0.2)',
+        'rgba(111, 209, 23, 0.2)',
+        'rgba(111, 209, 23, 0.2)',
+        'rgba(111, 209, 23, 0.2)',
+        'rgba(111, 209, 23, 0.2)',
+        'rgba(111, 209, 23, 0.2)',
+        'rgba(111, 209, 23, 0.2)',
       ],
       borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(54, 162, 235)',
-        'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
+        // 'rgb(255, 99, 132)',
+        // 'rgb(255, 159, 64)',
+        // 'rgb(255, 205, 86)',
+        // 'rgb(75, 192, 192)',
+        // 'rgb(54, 162, 235)',
+        // 'rgb(153, 102, 255)',
+        // 'rgb(201, 203, 207)'
+        'rgb(13, 174, 76)',
+        'rgb(13, 174, 76)',
+        'rgb(13, 174, 76)',
+        'rgb(13, 174, 76)',
+        'rgb(13, 174, 76)',
+       
       ],
       borderWidth: 1
     }]
@@ -71,7 +89,7 @@ function ChartComponent({ programRating }: {programRating: number[]}) {
       padding: {
         top: 20, 
         right: 25, 
-        // bottom: 20, 
+        bottom: 30, 
         // left: 20,
       },
     },
@@ -79,7 +97,7 @@ function ChartComponent({ programRating }: {programRating: number[]}) {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', height: '40vh'}}>
-      <Bar data={data} options={options} />
+      <Bar style={{ flex: 1, maxHeight: '100%' }} data={data} options={options} />
     </div>
   );
 }

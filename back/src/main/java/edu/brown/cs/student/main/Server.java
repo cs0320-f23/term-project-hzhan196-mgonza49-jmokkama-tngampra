@@ -43,10 +43,11 @@ public class Server {
 
         // Setting up the handler for the GET /load and /view endpoints
         Spark.get("searchprograms", new DatabaseSearchHandler());
-        Spark.get("updatedatabase", new UpdateHandler());
+        Spark.get("updatedatabase", new UpdateHandler("./back/src/main/scraping/LoadPrograms.py", "./back/src/main/scraping/scrape_venv/bin/python3"));
         Spark.get("adduser", new UserHander());
         Spark.get("programform", new ProgramFormHander());
         Spark.get("viewdata", new ViewData());
+        Spark.get("checkuser", new CheckUserHandler());
 
 
         Spark.init();

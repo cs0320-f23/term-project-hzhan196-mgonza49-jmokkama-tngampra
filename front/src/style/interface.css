@@ -3,7 +3,9 @@
 @import "tailwindcss/utilities";
 
 body {
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'BreeSerif', serif;
   margin: 0;
   padding: 0;
   display: flex;
@@ -14,7 +16,7 @@ body {
   max-width: 100%;
   min-height: 100%;
   overflow-y: auto;
-  margin-bottom: 300px;
+  margin-bottom: 100px;
 }
 
 .button-container {
@@ -45,6 +47,8 @@ button:hover {
   justify-content: center;
   margin-top: 20px;
   /* border: 1px solid black; */
+  /* box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2); */
+  
 }
 
 #searchOverlay {
@@ -115,17 +119,33 @@ button:hover {
 }
 
 .h-screen {
+  display: flex;
+  flex-direction: column;
+  /* background-color: #284B63; */
+  background-image:url('../assets/bg.png');
+  background-size: 100% 100%; /* Adjust as needed */
+  background-position: center; /* Adjust as needed */
   height: 65vh;
 }
 
 .main-title {
-  margin-top: 14vh;
+  font-family: 'Roboto', sans-serif;
+    /* font-family: 'Panton-Semibold', sans-serif; */
+  font-size: 7vh;
+  margin-top: 16vh;
+  margin-bottom: 5px;
 }
+
 .nav2 {
+  font-family: 'Roboto', sans-serif;
+    /* font-family: 'Panton-Semibold', sans-serif; */
   color: #fff;
+  font-weight: bold;
 }
 
 .nav-item {
+  /* font-family: 'Panton-Semibold', sans-serif; */
+  font-family: 'Roboto', sans-serif;
   border-radius: 0.375rem; /* rounded-md */
   padding: 0.75rem 1.125rem; /* px-3 py-2 */
   font-size: 1; /* text-sm */
@@ -160,12 +180,13 @@ button:hover {
 }
 
 .main {
+  font-family: 'Roboto', sans-serif;
   display: flex;
   text-align: left;
   transform: translate(0, 20%);
   margin-left: 6%;
-  font-size: 20px;
-  color: lightgray;
+  font-size: 2.3vh;
+  color: white;
   padding: 0;
 }
 
@@ -176,6 +197,7 @@ button:hover {
   transform: translate(0, -45%);
   z-index: 1;
   min-height: 350px;
+  /* font-family: 'Roboto', sans-serif; */
 }
 
 .rec-icon-container {
@@ -197,18 +219,20 @@ button:hover {
 
 .card {
   display: inline-block;
-  width: 300px;
+  width: 280px;
   height: 250px;
   margin: 0 7px 8px;
   padding: 10px;
   background-color: #fff;
-  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
   border-radius: 10px;
   transition: background-color 0.3s;
   overflow-y: auto;
   white-space: normal;
-  color: black;
+  font-weight: 400;
+  /* color:black; */
+  color: lightslategray;
 }
 
 .card-title {
@@ -220,14 +244,15 @@ button:hover {
 .card:hover {
   display: inline-block;
   color: black;
-  width: 300px;
+  width: 280px;
   height: 250px;
-  margin: 0 7px 8px;
-  padding: 10px;
-  background-color: #fff;
-  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  border-radius: 10px;
+  font-weight: 400;
+  color: lightslategray;
+  background: rgb(255, 255, 255);
+  /* background: linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(237,237,237,1) 100%); */
+  box-shadow: 2px 5px 13px rgba(0, 0, 0, 0.3);
+  /* text-align: center;
+  border-radius: 10px; */
 }
 
 .circular-image {
@@ -256,16 +281,19 @@ button:hover {
   bottom: 0;
   width: 100%;
   height: 10%;
-  background-color: black;
+  background-color: #133A6C ;
   transition: height 0.3s ease;
   color: white;
   align-items: center;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+  overflow-y: auto;
+  padding-top: 3vh;
 }
 
 .footer.expanded {
-  height: 70%;
+  height: 90%;
+  background-color: #1C477D;
 }
 
 .footer-content {
@@ -285,7 +313,6 @@ button:hover {
   text-decoration: underline;
 }
 
-
 .username {
   display: block;
   margin-bottom: 5px;
@@ -293,10 +320,9 @@ button:hover {
   color: #333;
 }
 
-
 .expand {
   position: absolute;
-  width: 50px;
+  width: 100%;
   height: 50px;
   text-align: center;
   background-color: transparent;
@@ -313,11 +339,12 @@ button:hover {
 .expand-label {
   color: #ffffff;
   font-weight: bold;
+  font-size: 2.5vh;
 }
 
 .program-box {
   padding-top: 50px;
-  background-color: #4f718b;
+  background-color: #133A6C ;
   height: 80vh;
 }
 
@@ -376,25 +403,44 @@ button:hover {
   color: black;
 }
 
+.review-top-panel {
+  background-color: #a4a4a4;
+  height: 22vh;
+  padding-left: 6%;
+  padding-bottom: 1.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: left;
+  margin-bottom: 2vh;
+}
+
 .review {
-  background-color: black;
-  width: 100%;
+  /* background-color: ; */
+  width: 60%;
   height: 100%;
+  color: black;
+  text-align: left;
+  align-items: left;
+  margin-left: 15%;
+  margin-right: 5%;
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
 }
 
 .review-button {
+  margin-top: 4vh;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  background-color: white;
-  color: black;
+  background-color: #333;
+  color: white;
   align-items: center;
   text-align: center;
 }
-
-
 
 .chart-box {
   height: 400px;
@@ -430,14 +476,18 @@ button:hover {
 }
 
 .comment-input {
+  margin-top: 2vh;
+  background-color: white;
   align-items: flex-start;
   justify-content: flex-start;
   height: 10em;
-  width: 80%;
+  width: 100%;
   padding: 0.5em;
   font-size: 16px;
   resize: vertical;
   box-sizing: border-box;
+  outline: 2px solid lightgray;
+  border-radius: 0.75rem;
 }
 
 /* .comment {
@@ -447,7 +497,7 @@ button:hover {
   color: #333;
 } */
 
-.comment-box-title{
+.comment-box-title {
   color: black;
   display: flex;
   flex-direction: row;
@@ -455,7 +505,7 @@ button:hover {
   font-weight: bold;
   font-size: 1.5em;
   padding: 2px;
-
+  margin-bottom: 2vh;
 }
 
 .comment-box-store {
@@ -468,12 +518,142 @@ button:hover {
 }
 
 .comment-container {
+  width: 95%;
+  height: 30%;
   border: 1px solid #ccc;
   padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
-  
+  color: black;
+  border-radius: 0.375rem;
+  margin-bottom: 3vh;
+  word-wrap: break-word; /* Add this to enable word wrapping */
+  text-align: left;
 }
 
+.comment-body {
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 5px;
+}
+
+.dropdown-wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  /* background-color: red;   */
+}
+
+.dropdown-container {
+  display: flex;
+  background-color: white;
+  outline: 2px solid white;
+  width: 60%;
+  cursor: default;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  text-align: left;
+  padding-left: 1%;
+  /* padding-right: 2%; */
+  height: 5vh;
+  box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.1),
+    0 1px 2px 2px rgba(0, 0, 0, 0.06);
+  outline: 1px solid lightgray;
+}
+
+.black-text {
+  color: black;
+}
+.bold-text {
+  font-weight: bold;
+  font-size: 4vh;
+  margin-top: 2%;
+}
+
+.review-question {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  font-size: large;
+  font-weight: 400;
+}
+
+.dropdown-window {
+  position: absolute;
+  z-index: 10;
+  margin-top: 6vh;
+  max-height: 60%;
+  width: 30%;
+  border-radius: 0.375rem;
+  background-color: #fff;
+  padding: 0.25rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  outline: none;
+  text-align: left;
+}
+
+.icon-holder {
+  color: #9e9e9e;
+  /* display:flex; */
+  width: 12%;
+  padding: 0.2rem; /* Equivalent to p-2 in Tailwind */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row;
+  margin-left: 5vh;
+  justify-content: center;
+}
+
+.review-title {
+  display: flex;
+  margin-bottom: 20vh;
+  font-weight: bold;
+  margin-top: 5vh;
+  color: black;
+  text-align: center;
+  font-size: 2.3rem; /* Adjust as needed */
+  margin-bottom: 1rem;
+}
+
+.preferences-wrap {
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+}
+
+.radio2-container {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 40vh
+}
+
+.font-roboto-bold {
+  font-family: 'Roboto-Bold', sans-serif; 
+}
+
+.font-panton-semibold {
+  font-family: 'Panton-Semibold', sans-serif;
+  /* font-family: 'Roboto-Bold', sans-serif;  */
+
+}
+
+.shadowed-text {
+  text-shadow: 3px 3px 5px rgba(0.5,0.5,0.5,0.7);
+ 
+}
+
+.shadowed-text-small {
+  font-weight: 500;
+  font-family: 'Panton-Semibold', sans-serif;
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+}

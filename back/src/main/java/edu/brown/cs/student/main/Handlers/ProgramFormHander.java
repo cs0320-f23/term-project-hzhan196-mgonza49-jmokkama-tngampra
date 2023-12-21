@@ -77,7 +77,7 @@ public class ProgramFormHander implements Route {
 
 		String acceptance = request.queryParams("acceptance");
 		String safety = request.queryParams("safety");
-		String minorities = request.queryParams("min");
+		String minority = request.queryParams("min");
 		String learning = request.queryParams("learning");
 		String overall = request.queryParams("overall");
 		String comment = request.queryParams("comment");
@@ -120,15 +120,15 @@ public class ProgramFormHander implements Route {
 		MongoCollection<ProgramData> collection = database.getCollection(collectionName, ProgramData.class);
 
 		try {
-			HashMap<String, Integer> scoreMap = new HashMap<>();
+			Map<String, Integer> scoreMap = new HashMap<>();
 
 			scoreMap.put("acceptance", parseInt(acceptance));
 			scoreMap.put("safety", parseInt(safety));
-			scoreMap.put("minorities", parseInt(minorities));
+			scoreMap.put("minority", parseInt(minority));
 			scoreMap.put("learning", parseInt(learning));
 			scoreMap.put("overall", parseInt(overall));
 
-			HashMap<String, String> commentMap = new HashMap<>();
+			Map<String, String> commentMap = new HashMap<>();
 			commentMap.put("username", username);
 			commentMap.put("comment", comment);
 
@@ -140,7 +140,7 @@ public class ProgramFormHander implements Route {
 			}
 
 			// Extract the current HashMap from the document
-			HashMap<String, HashMap<String, Integer>> existingHashMap = programDoc.userScores;
+			Map<String, Map<String, Integer>> existingHashMap = programDoc.userScores;
 
 			existingHashMap.put(username, scoreMap);
 
@@ -154,7 +154,7 @@ public class ProgramFormHander implements Route {
 
 			// Check if the document was modified
 			if (result.getModifiedCount() > 0) {
-				return new ProgramFormHander.ProgramFormSuccessResponse("success", program);
+				return new ProgramFormHander.ProgramFormSuccessResponse("success", program).serialize();
 			} else {
 				return new ProgramFormHander.ProgramFormFailureResponse("input_bad_json: ", "matching document not found", program).serialize();
 			}
@@ -222,11 +222,11 @@ public class ProgramFormHander implements Route {
 		private String name;
 		private String link;
 		private String location;
-		private HashMap<String, HashMap<String, Integer>> userScores;
+		private Map<String, Map<String, Integer>> userScores;
 		private List<String> comment;
 
 		public ProgramData(String name, String link, String location,
-						   HashMap<String, HashMap<String, Integer>> userScores, List<String> comment) {
+						   Map<String, Map<String, Integer>> userScores, List<String> comment) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
@@ -285,12 +285,12 @@ public class ProgramFormHander implements Route {
 		}
 
 		// Getter for user scores
-		public HashMap<String, HashMap<String, Integer>> getUserScores() {
+		public Map<String, Map<String, Integer>> getUserScores() {
 			return userScores;
 		}
 
 		// Setter for user scores
-		public void setUserScores(HashMap<String, HashMap<String, Integer>> userScores) {
+		public void setUserScores(Map<String, Map<String, Integer>> userScores) {
 			this.userScores = userScores;
 		}
 

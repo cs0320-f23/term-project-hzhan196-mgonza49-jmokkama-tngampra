@@ -1,9 +1,33 @@
+@font-face {
+  font-family: 'BreeSerif'; /* Use any name you like */
+  src: url('../assets/BreeSerif-Regular.ttf') format('ttf'); /* Adjust the path and format accordingly */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto-Bold'; /* Use any name you like */
+  src: url('../assets/Roboto-Bold.ttf') format('ttf'); /* Adjust the path and format accordingly */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Panton-Semibold'; /* Use any name you like */
+  src: url('../assets/Panton-Trial-SemiBold.ttf') format('ttf'); /* Adjust the path and format accordingly */
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 #root {
+  font-family: 'Roboto', sans-serif;
   width: 100%;
   height: 100%;
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
+  font-style:normal;
 }
 
 .logo {

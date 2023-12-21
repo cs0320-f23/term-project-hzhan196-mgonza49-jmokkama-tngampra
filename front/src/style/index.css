@@ -1,8 +1,28 @@
+@font-face {
+  font-family: 'BreeSerif'; /* Use any name you like */
+  src: url('../assets/BreeSerif-Regular.ttf') format('ttf'); /* Adjust the path and format accordingly */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto-Bold'; /* Use any name you like */
+  src: url('../assets/Roboto-Bold.ttf') format('ttf'); /* Adjust the path and format accordingly */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Panton-Semibold'; /* Use any name you like */
+  src: url('../assets/Panton-Trial-SemiBold.ttf') format('ttf'); /* Adjust the path and format accordingly */
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
+  font-family: 'Panton-Semibold', sans-serif;
   /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
-  --font-family-sans: 'Roboto', sans-serif;
-  --font-family-serif: 'Roboto Slab', serif;
-  --font-family-body: 'Roboto', sans-serif;
+  /* font-family: 'BreeSerif', serif; */
   line-height: 1.5;
   font-weight: 400;
 
@@ -17,20 +37,26 @@
 }
 
 body {
+  font-family: 'Panton-Semibold', sans-serif;
+  /* font-family: 'BreeSerif', serif; */
   /* background-color: #202124;  */
   background-color: white;
 }
 
 a {
+  font-family: 'Panton-Semibold', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
 a:hover {
+  font-family: 'Panton-Semibold', sans-serif;
   color: #535bf2;
 }
 
 body {
+  font-family: 'Panton-Semibold', sans-serif;
   margin: 0;
   display: flex;
   place-items: center;
@@ -39,11 +65,14 @@ body {
 }
 
 h1 {
+  font-family: 'Panton-Semibold', sans-serif;
   font-size: 3.2em;
   line-height: 1.1;
 }
 
 button {
+
+  font-family: 'Roboto', sans-serif;
   font-family: var(--font-family-body);
   border-radius: 8px;
   border: 1px solid transparent;
@@ -58,6 +87,7 @@ button {
 }
 button:focus,
 button:focus-visible {
+  font-family: 'Roboto', sans-serif;
   outline: 4px auto -webkit-focus-ring-color;
 }
 

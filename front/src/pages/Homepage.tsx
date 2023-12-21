@@ -6,55 +6,107 @@ import Icons from "../components/Icons";
 import Recommended from "../components/mockRecommended";
 import { Link, useParams, Outlet } from "react-router-dom";
 import { ReactNode } from "react";
-import { forms } from "../components/Form";
+import { forms, userCounted } from "../components/Form";
 import "../style/interface.css";
-import { loginStatus } from "../components/Login";
+import { loginStatus, profileEmail, profileName } from "../components/Login";
 import React from "react";
+import defaultPhoto from "../assets/blank-profile.jpeg";
 
 interface UserProps {}
 
-function setupIcons() {
-  const totalIcons: ReactNode[] = [];
+export default function Homepage({}: UserProps) {
+  const [icons, setIcons] = useState<React.ReactNode[]>([]);
 
-  Recommended.forEach((program) => {
-    totalIcons.push(
-      <Icons
-        key={program.id} // Make sure to add a unique key when rendering components in a loop
-        image={program.image}
-        name={program.name}
-        country={program.country}
-        term={program.term}
-        link={`/browse/${program.id}`}
-        id={program.id}
-      />
-    );
+  useEffect(() => {
+    async function fetchPrograms() {
+      try {
+        const data = await getPrograms();
+        setIcons(data);
+      } catch (error) {
+        console.error("Error fetching programs:", error);
+      }
+    }
+
+    fetchPrograms();
+  }, []);
+
+  const [email, setEmail] = useState<string>("");
+  useEffect(() => {
+    profileEmail().then((name) => {
+      setEmail(name);
+    });
   });
 
-  return totalIcons;
-}
+  const [isMember, setIsMember] = useState<boolean>(false);
+  useEffect(() => {
+    userCounted(email).then((hasTaken) => {
+      setIsMember(hasTaken);
+    });
+  }, [email]);
 
-export default function Homepage({}: UserProps) {
+  function getPrograms() {
+    let url;
+    if (isMember) {
+      url = "http://localhost:3232/viewdata?email=" + email;
+    } else {
+      url = "http://localhost:3232/viewdata";
+    }
+    return fetch(url)
+      .then((res) => {
+        if (!res.ok) {
+          return Promise.reject("Error");
+        }
+        return res.json();
+      })
+      .then((res) => setupIcons(res))
+      .catch((error) => {
+        console.error(error);
+        return Promise.reject("Error: " + error);
+      });
+  }
+
+  function setupIcons(res: any) {
+    const totalIcons: ReactNode[] = [];
+    if (res.result === "success") {
+      const programs: any = res.data;
+      programs.forEach((program: any, index: number) => {
+        const id = index + 1;
+        totalIcons.push(
+          <Icons
+            key={id}
+            name={program.name}
+            image={defaultPhoto}
+            link={`/browse/${id}`}
+            id={id}
+            country={program.location}
+          />
+        );
+      });
+    }
+    setIcons(totalIcons);
+    return totalIcons;
+  }
   return (
     <div>
       <div className="navbar-container">
         <Navbar />
       </div>
 
-      <div className="bg-gray-500 flex flex-col h-screen">
-        <h1 className="main-title text-2xl lg:text-6xl text-white font-semibold mt-2">
+      <div className="h-screen">
+        <h1 className="shadowed-text main-title text-2xl lg:text-6xl text-white font-semibold mt-2">
           Study Abroad @ Brown
         </h1>
 
-        <h2 className="text-gray-300 mt-2">
-          some placeholder text here, gray bg is also temporary
+        <h2 className="shadowed-text-small text-white mt-2">
+          Helping Students Navigate Brown's Study Abroad Programs
         </h2>
         <Search />
 
         <div className="flex flex-row justify-center mt-2">
-          <span className="text-gray-300"> or</span>
+          <span className="shadowed-text-small text-white"> or</span>
           <a
             href="/browse"
-            className="underlined-text ml-2 text-gray-300 hover:text-white"
+            className="shadowed-text-small underlined-text ml-2 text-white hover:text-white"
           >
             Browse Programs
           </a>
@@ -62,9 +114,9 @@ export default function Homepage({}: UserProps) {
       </div>
 
       <div className="rec-container-wrap">
-        <div className="main">Your Recommended: </div>
+        <div className="shadowed-text-small main ">Your Recommended: </div>
 
-        <div className="rec-icon-container">{setupIcons()}</div>
+        <div className="rec-icon-container">{icons}</div>
       </div>
 
       <div>{forms()}</div>

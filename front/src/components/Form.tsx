@@ -1,14 +1,73 @@
-import React, { useEffect, useState } from "react";
-import { useFormik, Field, Formik, Form, FieldArray } from "formik";
+import React, { useEffect, useState, Fragment } from "react";
+import { Combobox, RadioGroup, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import {} from "@heroicons/react/24/outline";
+import { useFormik, Field, Formik, Form, FieldArray, isString } from "formik";
 import "../style/interface.css";
-import { loginStatus } from "./Login";
+import { loginStatus, profileEmail, profileName } from "./Login";
+import Checkbox from "../components/CheckboxDropdown";
+import ProgramData from "../components/mockProgramData";
+import Popup from "./Popup";
+import Divider from "@mui/material/Divider";
+import Radio2 from "../components/Radio2";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "./Radio";
+import { countries } from "./Countries";
 
-function formAccess() {
+const tempData = ["program1", "languages idk", "countries idk"];
+
+export function userCounted(email: string): Promise<boolean> {
+  const url = "http://localhost:3232/checkuser?email=" + email;
+  return fetch(url)
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(false);
+      }
+      return res.json();
+    })
+    .then((res) => checkUser(res))
+    .catch((error) => {
+      console.error(error);
+      return Promise.reject(false);
+    });
+}
+
+function checkUser(res: any): Promise<boolean> {
+  return Promise.resolve(res.isMember);
+}
+
+export const forms = () => {
+  const [expanded, setExpanded] = useState(false);
   const [commentStatus, setCommentStatus] = useState<Boolean>();
+
+  // username
+  const [name, setName] = useState<string>("");
+  useEffect(() => {
+    profileName().then((name) => {
+      setName(name);
+    });
+  });
+
+  //user email
+  const [email, setEmail] = useState<string>("");
+  useEffect(() => {
+    profileEmail().then((name) => {
+      setEmail(name);
+    });
+  });
+  // not taken form
+  const [hasNotTakenForm, setHasNotTakenForm] = useState<boolean>(false);
+  useEffect(() => {
+    userCounted(email).then((hasTaken) => {
+      setHasNotTakenForm(hasTaken);
+    });
+  }, [email]);
   useEffect(() => {
     loginStatus()
       .then((name) => {
         if (name === "Sign Out") {
+          setCommentStatus(true);
+        } else if (hasNotTakenForm) {
           setCommentStatus(true);
         } else {
           setCommentStatus(false);
@@ -18,236 +77,365 @@ function formAccess() {
         console.error(error);
       });
   }, []);
-  return commentStatus;
-}
 
-function expandedForm(isExpanded: boolean) {
-  if (isExpanded) {
-    return (
-      <Formik
-        className="footer-content"
-        initialValues={{
-          languages: [],
-          country: "",
-          program: "",
-          duration: "",
-          countryBlacklist: [],
-          programBlacklist: [],
-        }}
-        onSubmit={async (values) => {
-          alert(JSON.stringify(values, null, 2));
-        }}
-      >
-        {({ values, handleChange }) => (
-          <Form>
-            <FieldArray name="languages">
-              {({ insert, remove, push }) => (
-                <div role="group">
-                  <div>
-                    <h2 className="border border-white p-4">
-                      What languages do you currently speak?
-                    </h2>
-                    {values.languages.length > 0 &&
-                      values.languages.map((language, index) => (
-                        <div
-                          className="flex flex-row items-center justify-center"
-                          key={index}
-                        >
-                          <div className="col">
-                            <label htmlFor={`languages.${index}.name`}>
-                              Language
-                            </label>
-                            <Field as="select" name={`languages.${index}.name`}>
-                              <option value="English">English</option>
-                              <option value="Mandarin">Mandarin</option>
-                              <option value="Tagalog">Tagalog</option>
-                            </Field>
-                          </div>
-                          <div className="col">
-                            <button
-                              type="button"
-                              className="review-button"
-                              onClick={() => remove(index)}
-                            >
-                              X
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
+  function handleSubmit(
+    // languages: string[],
+    countryBlacklist: string[],
+    programBlacklist: string[],
+    friendliness: string,
+    safety: string,
+    minorityAcceptance: string,
+    educationQuality: string
+  ) {
+    let countries: string = "";
+    let programs: string = "";
+    // let myLanguages: string = "";
 
-                  <button
-                    type="button"
-                    className="review-button"
-                    onClick={() => push({ name: "", email: "" })}
-                  >
-                    Add Language
-                  </button>
-                </div>
-              )}
-            </FieldArray>
-            {/* <label htmlFor="country">Country</label>
-            <input
-              id="country"
-              name="country"
-              type="country"
-              onChange={handleChange}
-              value={values.country}
-            />
-            <label htmlFor="program">Program</label>
-            <input
-              id="program"
-              name="program"
-              type="program"
-              onChange={handleChange}
-              value={values.program}
-            />
-            <div>Duration</div>
-            <div role="group">
-              <label>
-                <Field type="radio" name="duration" value="Semester" />
-                Semester
-              </label>
-              <label>
-                <Field type="radio" name="duration" value="Full Year" />
-                Full Year
-              </label>
-            </div> */}
+    // languages.forEach((language, index) => {
+    //   const isLast = index === languages.length - 1;
+    //   if (isLast) {
+    //     myLanguages = myLanguages + language;
+    //   } else {
+    //     myLanguages = myLanguages + language + "~";
+    //   }
+    // });
 
-            <FieldArray name="countryBlacklist">
-              {({ insert, remove, push }) => (
-                <div role="group">
-                  <div>
-                    <h2 className="border border-white p-4">
-                      What countries are you uninterested in going to?
-                    </h2>
-                    {values.countryBlacklist.length > 0 &&
-                      values.countryBlacklist.map((country, index) => (
-                        <div
-                          className="flex flex-row items-center justify-center"
-                          key={index}
-                        >
-                          <div className="col">
-                            <label htmlFor={`countryBlacklist.${index}.name`}>
-                              Country
-                            </label>
-                            <Field
-                              as="select"
-                              name={`countryBlacklist.${index}.name`}
-                              placeholder="Country"
-                            >
-                              <option value="USA">USA</option>
-                              <option value="Canada">Canada</option>
-                              <option value="UK">UK</option>
-                            </Field>
-                          </div>
-                          <div className="col">
-                            <button
-                              type="button"
-                              className="review-button"
-                              onClick={() => remove(index)}
-                            >
-                              X
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-
-                  <button
-                    type="button"
-                    className="review-button"
-                    onClick={() => push({ name: "", email: "" })}
-                  >
-                    Add Country
-                  </button>
-                </div>
-              )}
-            </FieldArray>
-
-            <FieldArray name="programBlacklist">
-              {({ insert, remove, push }) => (
-                <div role="group">
-                  <div>
-                    <h2 className="border border-white p-4">
-                      Are there any programs that you've looked at and decided
-                      are not for you?
-                    </h2>
-                    {values.programBlacklist.length > 0 &&
-                      values.programBlacklist.map((program, index) => (
-                        <div
-                          className="flex flex-row items-center justify-center"
-                          key={index}
-                        >
-                          <div className="col">
-                            <label htmlFor={`programBlacklist.${index}.name`}>
-                              Program
-                            </label>
-                            <Field
-                              as="select"
-                              name={`programBlacklist.${index}.name`}
-                              placeholder="Program"
-                            >
-                              <option value="Ben-Gurion University">
-                                Ben-Gurion University
-                              </option>
-                              <option value="Another program">
-                                Something else
-                              </option>
-                            </Field>
-                          </div>
-                          <div className="col">
-                            <button
-                              type="button"
-                              className="review-button"
-                              onClick={() => remove(index)}
-                            >
-                              X
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-
-                  <button
-                    type="button"
-                    className="review-button"
-                    onClick={() => push({ name: "", email: "" })}
-                  >
-                    Add Program
-                  </button>
-                </div>
-              )}
-            </FieldArray>
-
-            <button type="submit">Submit</button>
-          </Form>
-        )}
-        {/* </form> */}
-      </Formik>
-    );
-  } else {
-    return (
-      <div className="footer-content">
-        Want to be matched with your ideal program?
-      </div>
-    );
+    countryBlacklist.forEach((country, index) => {
+      const isLast = index === countryBlacklist.length - 1;
+      if (isLast) {
+        countries = countries + country;
+      } else {
+        countries = countries + country + "~";
+      }
+    });
+    programBlacklist.forEach((program, index) => {
+      const isLast = index === programBlacklist.length - 1;
+      if (isLast) {
+        programs = programs + program;
+      } else {
+        programs = programs + program + "~";
+      }
+    });
+    let ranking: [number, string][] = [
+      [parseInt(friendliness), "acceptance"],
+      [parseInt(safety), "safety"],
+      [parseInt(minorityAcceptance), "minority"],
+      [parseInt(educationQuality), "learning"],
+    ];
+    ranking.sort((a, b) => a[0] - b[0]).reverse();
+    let actualRanking: string = "";
+    ranking.forEach((item, index) => {
+      const isLast = index === 3;
+      if (isLast) {
+        actualRanking = actualRanking + item[1];
+      } else {
+        actualRanking = actualRanking + item[1] + "~";
+      }
+    });
+    const url =
+      "http://localhost:3232/adduser?username=Tired" +
+      // name +
+      "&email=tired@brown.edu" +
+      // email +
+      "&languages=" +
+      // myLanguages +
+      "&countries=" +
+      countries +
+      "&programs=" +
+      programs +
+      "&ranking=" +
+      actualRanking;
+    return fetch(url)
+      .then((res) => {
+        if (!res.ok) {
+          return Promise.reject("Error");
+        }
+        return Promise.resolve("Success");
+      })
+      .catch((error) => {
+        console.error(error);
+        return Promise.reject("Error: " + error);
+      });
   }
-}
+  function expandedForm(isExpanded: boolean) {
+    // const countries = getCountries();
+    // console.log(countries);
+    if (isExpanded) {
+      return (
+        <div className="">
+          <div className="bold-text"> Preferences Form </div>
+          <Formik
+            className="footer-content"
+            initialValues={{
+              // languages: [],
+              countryBlacklist: [],
+              programBlacklist: [],
+              friendliness: "",
+              safety: "",
+              lgbtAcceptance: "",
+              educationQuality: "",
+            }}
+            onSubmit={async (values) => {
+              handleSubmit(
+                // values.languages,
+                values.countryBlacklist,
+                values.programBlacklist,
+                values.friendliness,
+                values.safety,
+                values.lgbtAcceptance,
+                values.educationQuality
+              );
+            }}
+          >
+            {() => (
+              <Form>
+                {/* <FieldArray name="languages">
+                  {({ form, push }) => (
+                    <div role="group">
+                      <div>
+                        <h2 style={{ marginTop: "3vh", marginBottom: "1vh" }}>
+                          1. What languages do you currently speak?
+                        </h2>
+                        <Divider
+                          sx={{
+                            height: 0,
+                            backgroundColor: "white",
+                            marginBottom: "3vh",
+                          }}
+                        />
 
-export const forms = () => {
-  const [expanded, setExpanded] = useState(false);
+                        <div className="flex items-center justify-center">
+                          <Checkbox
+                            data={tempData}
+                            placeholder="Enter Languages"
+                            name="languages"
+                            onChange={(selectedValues: string[]) => {
+                              const newValues = selectedValues.filter(
+                                (newValue) =>
+                                  !form.values.languages.includes(newValue)
+                              );
+                              if (newValues.length > 0) {
+                                newValues.forEach((item: string) => {
+                                  push(item);
+                                });
+                              }
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </FieldArray> */}
+                <FieldArray name="countryBlacklist">
+                  {({ form, push }) => (
+                    <div role="group">
+                      <div>
+                        <h2 style={{ marginTop: "3vh", marginBottom: "1vh" }}>
+                          1. What countries do you NOT want to go to?
+                        </h2>
+                        <Divider
+                          sx={{
+                            height: 0,
+                            backgroundColor: "white",
+                            marginBottom: "3vh",
+                          }}
+                        />
+
+                        <div className="flex items-center justify-center">
+                          <Checkbox
+                            data={countries}
+                            placeholder="Enter Countries"
+                            name="countryBlacklist"
+                            onChange={(selectedValues: string[]) => {
+                              const newValues = selectedValues.filter(
+                                (newValue) =>
+                                  !form.values.countryBlacklist.includes(
+                                    newValue
+                                  )
+                              );
+                              if (newValues.length > 0) {
+                                newValues.forEach((item: string) => {
+                                  push(item);
+                                });
+                              }
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </FieldArray>
+                <FieldArray name="programBlacklist">
+                  {({ form, push }) => (
+                    <div role="group">
+                      <div>
+                        <h2 style={{ marginTop: "3vh", marginBottom: "1vh" }}>
+                          2. What programs do you NOT want to do?
+                        </h2>
+                        <Divider
+                          sx={{
+                            height: 0,
+                            backgroundColor: "white",
+                            marginBottom: "3vh",
+                          }}
+                        />
+                        <div className="flex items-center justify-center">
+                          <Checkbox
+                            data={tempData}
+                            placeholder="Enter Programs"
+                            name="programBlacklist"
+                            onChange={(selectedValues: string[]) => {
+                              const newValues = selectedValues.filter(
+                                (newValue) =>
+                                  !form.values.programBlacklist.includes(
+                                    newValue
+                                  )
+                              );
+                              if (newValues.length > 0) {
+                                newValues.forEach((item: string) => {
+                                  push(item);
+                                });
+                              }
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </FieldArray>
+                <h3
+                  className="border border-white p-4"
+                  style={{ marginTop: "3vh", marginBottom: "3vh" }}
+                >
+                  3. Please rank the following aspects in order of how important
+                  they are to you:
+                </h3>
+                <h3>How accepting the communities are</h3>
+                <div role="group">
+                  <Radio2
+                    first={"Least important"}
+                    last={"Most important"}
+                    name={"friendliness"}
+                  />
+                  {/* <label>
+                  (least important) 1
+                  <Field type="radio" name="friendliness" value="1" />
+                </label>
+                <Field type="radio" name="friendliness" value="2" />
+                <Field type="radio" name="friendliness" value="3" />
+                <label>
+                  <Field type="radio" name="friendliness" value="4" />4 (most
+                  important)
+                </label> */}
+                </div>{" "}
+                <Divider
+                  sx={{
+                    height: 0,
+                    backgroundColor: "white",
+                    marginBottom: "3vh",
+                  }}
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  role="group"
+                >
+                  <h3>Overall safety of surrounding area</h3>
+                  <Radio2
+                    first={"Least important"}
+                    last={"Most important"}
+                    name={"safety"}
+                  />
+                  {/* <Field type="radio" name="safety" value="1" />
+                  <Field type="radio" name="safety" value="2" />
+                  <Field type="radio" name="safety" value="3" />
+                  <Field type="radio" name="safety" value="4" /> */}
+                </div>{" "}
+                <Divider
+                  sx={{
+                    height: 0,
+                    backgroundColor: "white",
+                    marginBottom: "3vh",
+                  }}
+                />
+                <h3>Accepting towards minority groups</h3>
+                <div role="group">
+                  <Radio2
+                    first={"Least important"}
+                    last={"Most important"}
+                    name={"lgbtAcceptance"}
+                  />
+                  {/* <Field type="radio" name="lgbt-acceptance" value="1" />
+                <Field type="radio" name="lgbt-acceptance" value="2" />
+                <Field type="radio" name="lgbt-acceptance" value="3" />
+                <Field type="radio" name="lgbt-acceptance" value="4" /> */}
+                </div>{" "}
+                <Divider
+                  sx={{
+                    height: 0,
+                    backgroundColor: "white",
+                    marginBottom: "3vh",
+                  }}
+                />
+                <h3>Quality of education</h3>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  role="group"
+                >
+                  <Radio2
+                    first={"Least important"}
+                    last={"Most important"}
+                    name={"educationQuality"}
+                  />
+                  {/* <Field type="radio" name="education-quality" value="1" />
+                <Field type="radio" name="education-quality" value="2" />
+                <Field type="radio" name="education-quality" value="3" />
+                <Field type="radio" name="education-quality" value="4" /> */}
+                  <Popup
+                    message={
+                      "Thank you for submitting your program preferences!"
+                    }
+                  />
+                </div>{" "}
+              </Form>
+            )}
+          </Formik>
+        </div>
+      );
+    } else {
+      return (
+        <div className="footer-content">
+          {/* Want to be matched with your ideal program? */}
+        </div>
+      );
+    }
+  }
+
   function label() {
     if (expanded == false) {
-      return <span className="expand-label">^</span>;
+      return (
+        <span className="expand-label underlined-text">
+          {" "}
+          Click to match with your ideal program!{" "}
+        </span>
+      );
     } else {
-      return <span className="expand-label">–</span>;
+      return <span className="expand-label2">–</span>;
     }
   }
   function expand() {
     setExpanded(!expanded);
   }
-  if (formAccess()) {
+  if (commentStatus) {
     return (
       <div className={"footer" + (expanded ? " expanded" : "")}>
         <div className="footer-content">

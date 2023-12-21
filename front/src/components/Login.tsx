@@ -22,6 +22,7 @@ export function login(): Promise<string> {
           reject("Error: No email provided");
         } else if (!user.email.endsWith("@brown.edu")) {
           console.log("not a brown email");
+          logout();
           reject("Error: You do not have access to this page");
         } else {
           console.log("success");
@@ -76,11 +77,11 @@ export function profilePhoto(): Promise<string | null> {
   });
 }
 
-export function profileName(): Promise<string | null> {
+export function profileName(): Promise<string> {
   return new Promise((resolve) => {
     const auth = getAuth(app);
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (user && user.displayName) {
         resolve(user.displayName);
       } else {
         resolve("error");
@@ -89,11 +90,11 @@ export function profileName(): Promise<string | null> {
   });
 }
 
-export function profileEmail(): Promise<string | null> {
+export function profileEmail(): Promise<string> {
   return new Promise((resolve) => {
     const auth = getAuth(app);
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (user && user.email) {
         resolve(user.email);
       } else {
         resolve("error");

@@ -1,11 +1,14 @@
-import React from "react";
-import { ReactNode } from "react";
+import React, { useEffect } from "react";
+import { ReactNode, Fragment, useState } from "react";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
-import Icons from "../components/Icons";
+import Icons from "../components/Icons.tsx";
 import ProgramData from "../components/mockProgramData";
 import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
 import "../style/interface.css";
+import defaultPhoto from "../assets/blank-profile.jpeg";
+import { Combobox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 // const mockData: [string, string][] = [
 //   [
@@ -39,28 +42,58 @@ import "../style/interface.css";
 //   ],
 // ];
 
-function setupIcons() {
+function getPrograms() {
+  const url = "http://localhost:3232/viewdata";
+  return fetch(url)
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject("Error");
+      }
+      return res.json();
+    })
+    .then((res) => setupIcons(res))
+    .catch((error) => {
+      console.error(error);
+      return Promise.reject("Error: " + error);
+    });
+}
+
+function setupIcons(res: any) {
   const totalIcons: ReactNode[] = [];
-
-  ProgramData.forEach((program) => {
-    totalIcons.push(
-      <Icons
-        key={program.id} // Make sure to add a unique key when rendering components in a loop
-        image={program.image}
-        name={program.name}
-        link={`/browse/${program.id}`}
-        id={program.id}
-        country={program.country}
-        term={program.term}
-      />
-    );
-  });
-
+  console.log(res);
+  if (res.result === "success") {
+    const programs: any = res.data;
+    programs.forEach((program: any, index: number) => {
+      const id = index + 1;
+      totalIcons.push(
+        <Icons
+          name={program.name}
+          image={defaultPhoto}
+          link={`/browse/${id}`}
+          id={id}
+          country={program.location}
+        />
+      );
+    });
+  }
   return totalIcons;
 }
 
-// TODO probs just make a bunch of cards for each country here
 function BrowseList() {
+  const [icons, setIcons] = useState<React.ReactNode[]>([]);
+
+  useEffect(() => {
+    async function fetchPrograms() {
+      try {
+        const data = await getPrograms();
+        setIcons(data);
+      } catch (error) {
+        console.error("Error fetching programs:", error);
+      }
+    }
+
+    fetchPrograms();
+  }, []);
   return (
     <div>
       <div className="navbar-container">
@@ -71,7 +104,7 @@ function BrowseList() {
         <Search />
       </div>
 
-      <div className="icon-container">{setupIcons()}</div>
+      <div className="icon-container">{icons}</div>
     </div>
   );
 }

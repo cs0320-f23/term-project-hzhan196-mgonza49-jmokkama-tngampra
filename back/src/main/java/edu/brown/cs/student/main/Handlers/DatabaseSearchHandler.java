@@ -275,7 +275,7 @@ public class DatabaseSearchHandler implements Route {
 		}
 
         // Getter for user scores
-		public HashMap<String, HashMap<String, Integer>> getUserScores() {
+		public Map<String, HashMap<String, Integer>> getUserScores() {
 			return userScores;
 		}
 
@@ -295,7 +295,7 @@ public class DatabaseSearchHandler implements Route {
 		}
 
 		// Getter for comment
-		public HashMap<String, Float> getAverage() {
+		public Map<String, Float> getAverage() {
 			return average;
 		}
 
