@@ -259,20 +259,13 @@ public class ViewData implements Route {
 		private String link;
         private String location;
         private HashMap<String, HashMap<String, Integer>> userScores;
-<<<<<<< HEAD
-        private List<HashMap<String, String>> comment;
-
-		public ProgramData(String name, String link, String location,
-            HashMap<String, HashMap<String, Integer>> userScores, List<HashMap<String, String>> comment) {
-=======
-        private List<String> comment; 
+        private List<String> comment;
 		private HashMap<String, Float> average;
 		private String email;
 
 		public ProgramData(String name, String link, String location,
             HashMap<String, HashMap<String, Integer>> userScores, List<String> comment, HashMap<String, Float> average,
 			String email) {
->>>>>>> 1dd2496007ba631f189cc30915967a630b08d4c5
 			this.name = name;
 			this.link = link;
 			this.location = location;
@@ -345,12 +338,12 @@ public class ViewData implements Route {
 		}
 
         // Getter for comment
-		public List<HashMap<String, String>> getComment() {
+		public List<String> getComment() {
 			return comment;
 		}
 
 		// Setter for comment
-		public void setComment(List<HashMap<String, String>> comment) {
+		public void setComment(List<String> comment) {
 			this.comment = comment;
 		}
 
