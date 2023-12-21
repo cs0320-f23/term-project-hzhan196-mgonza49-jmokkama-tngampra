@@ -30,7 +30,6 @@ export default function dropdown({
   useEffect(() => {
     // scroll to top
     window.scrollTo(0, 0);
-    handleItemSelected(selected);
   }, []);
 
   const filteredData =

@@ -25,7 +25,7 @@ interface Program {
 interface CommentList {
   user: string;
   comment: string;
-  yearTaken: string;
+  // yearTaken: string;
 }
 
 function commentDisplay(data: CommentList[]) {
@@ -52,7 +52,7 @@ function commentDisplay(data: CommentList[]) {
         <Comment
           user={comment.user}
           content={comment.comment}
-          yearTaken={comment.yearTaken}
+          // yearTaken={comment.yearTaken}
         />
       );
     });
