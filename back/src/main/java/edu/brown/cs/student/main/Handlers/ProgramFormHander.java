@@ -77,7 +77,7 @@ public class ProgramFormHander implements Route {
 
 		String acceptance = request.queryParams("acceptance");
 		String safety = request.queryParams("safety");
-		String minorities = request.queryParams("min");
+		String minority = request.queryParams("min");
 		String learning = request.queryParams("learning");
 		String overall = request.queryParams("overall");
 		String comment = request.queryParams("comment");
@@ -124,7 +124,7 @@ public class ProgramFormHander implements Route {
 
 			scoreMap.put("acceptance", parseInt(acceptance));
 			scoreMap.put("safety", parseInt(safety));
-			scoreMap.put("minorities", parseInt(minorities));
+			scoreMap.put("minority", parseInt(minority));
 			scoreMap.put("learning", parseInt(learning));
 			scoreMap.put("overall", parseInt(overall));
 

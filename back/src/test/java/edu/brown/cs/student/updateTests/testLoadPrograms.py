@@ -6,6 +6,7 @@ def test_test():
 
 def test_webscrape_different_site():
     load_program = LoadProgram()
+    
 
 
 if __name__ == "__main__":
