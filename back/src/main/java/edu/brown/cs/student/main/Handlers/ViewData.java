@@ -147,7 +147,9 @@ public class ViewData implements Route {
 				}				
 			}
 		}
-		Collections.sort(programData);
+		// Collections.sort(programData);
+		Sort sort = new Sort(email);
+		sort.mergeSort(programData, 0, programData.size() - 1);
 		return programData;
 	}
 
@@ -272,31 +274,142 @@ public class ViewData implements Route {
 		}
 	}
 
+	public class Sort {
+		private String email;
+
+		public Sort(String email) {
+			this.email = email;
+		}
+
+		private void merge(List<ProgramData> arr, int left, int middle, int right)
+		{
+			int low = middle - left + 1;                    //size of the left subarray
+			int high = right - middle;                      //size of the right subarray
+	
+			List<ProgramData> L = new ArrayList<>();                             //create the left and right subarray
+			List<ProgramData> R = new ArrayList<>();
+
+			int i = 0, j = 0;
+	
+			for (i = 0; i < low; i++)                               //copy elements into left subarray
+			{
+				L.add(i, arr.get(left + i));
+			}
+			for (j = 0; j < high; j++)                              //copy elements into right subarray
+			{
+				R.add(j, arr.get(middle+1+j));
+			}
+			
+	
+			int k = left;                                           //get starting index for sort
+			i = 0;                                             //reset loop variables before performing merge
+			j = 0;
+
+			while (i < low && j < high)                     //merge the left and right subarrays
+			{
+				float left_val;
+				Map<String, Float> left_avg = L.get(i).getAverage();
+				if (left_avg == null) {
+					left_val = -1;
+				} else {
+					if (left_avg.get(this.email) == null) {
+						left_val = -1;
+					} else {
+						left_val = left_avg.get(this.email);
+					}
+				}
+
+				float right_val;
+				Map<String, Float> right_avg = R.get(j).getAverage();
+				if (right_avg == null) {
+					right_val = -1;
+				} else {
+					if (right_avg.get(this.email) == null) {
+						right_val = -1;
+					} else {
+						right_val = right_avg.get(this.email);
+					}
+				}
+				if (left_val <= right_val) {
+					arr.set(k, L.get(i));
+					i++;
+				} else {
+					arr.set(k, R.get(j));
+					j++;
+				}
+				k++;
+			}
+	
+			while (i < low)                             //merge the remaining elements from the left subarray
+			{
+				arr.set(k, L.get(i));
+				i++;
+				k++;
+			}
+	
+			while (j < high)                           //merge the remaining elements from right subarray
+			{
+				arr.set(k, R.get(j));
+				j++;
+				k++;
+			}
+		}
+	
+
+		public void mergeSort(List<ProgramData> arr, int left, int right)       //helper function that creates the sub cases for sorting
+		{
+			int middle;
+			if (left < right) {                             //sort only if the left index is lesser than the right index (meaning that sorting is done)
+				middle = (left + right) / 2;
+	
+				mergeSort(arr, left, middle);                    //left subarray
+				mergeSort(arr, middle + 1, right);               //right subarray
+	
+				merge(arr, left, middle, right);                //merge the two subarrays
+			}
+		}
+	
+		// void display(int arr[])                 //display the array
+		// {  
+		// 	for (int i=0; i<arr.length; ++i) 
+		// 	{
+		// 		System.out.print(arr[i]+" ");
+		// 	} 
+		// } 
+
+		// public static void main(String args[])
+		// {
+		// 	int arr[] = { 9, 3, 1, 5, 13, 12 };
+		// 	Sort ob = new Sort();
+		// 	ob.mergeSort(arr, 0, arr.length - 1);
+		// 	ob.display(arr);
+		// }
+	}
+
     // Acceptance of participants and surrounding communities (acceptance)
     // Safety of campus and area (safety)
     // Accepting towards minorities (minority)
     // How much did you learn (learning)
     // Overall score
     // Comment
-	public static class ProgramData implements Comparable<ProgramData>{
+	public static class ProgramData {
 		private String name;
 		private String link;
         private String location;
         private Map<String, Map<String, Integer>> userScores;
         private List<String> comment; 
 		private Map<String, Float> average;
-		private String email;
+		// private String email;
 
 		public ProgramData(String name, String link, String location,
-            Map<String, Map<String, Integer>> userScores, List<String> comment, Map<String, Float> average,
-			String email) {
+            Map<String, Map<String, Integer>> userScores, List<String> comment, Map<String, Float> average) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
             this.userScores = userScores;
             this.comment = comment;
 			this.average = average;
-			this.email = email;
+			// this.email = email;
 		}
 
 		public ProgramData() {
@@ -381,23 +494,27 @@ public class ViewData implements Route {
 			this.average = average;
 		}
 
-		// Getter for comment
-		public String getEmail() {
-			return email;
-		}
+		// // Getter for comment
+		// public String getEmail() {
+		// 	return email;
+		// }
 
-		// Setter for comment
-		public void setEmail(String email) {
-			this.email = email;
-		}
+		// // Setter for comment
+		// public void setEmail(String email) {
+		// 	this.email = email;
+		// }
 
-		@Override
-		public int compareTo(ProgramData program) {
-			//let's sort the employee based on an id in ascending order
-			//returns a negative integer, zero, or a positive integer as this employee id
-			//is less than, equal to, or greater than the specified object.
-			return Math.round(this.getAverage().get(this.getEmail()) - program.getAverage().get(program.getEmail()));
-		}
+		// @Override
+		// public int compareTo(ProgramData program) {
+		// 	//let's sort the employee based on an id in ascending order
+		// 	//returns a negative integer, zero, or a positive integer as this employee id
+		// 	//is less than, equal to, or greater than the specified object.
+		// 	if (this.getAverage() == null) {
+		// 		return -1;
+		// 	} else {
+		// 		return Math.round(this.getAverage().get(this.getEmail()) - program.getAverage().get(program.getEmail()));
+		// 	}
+		// }
 	}
 
 	public static class UserData {
