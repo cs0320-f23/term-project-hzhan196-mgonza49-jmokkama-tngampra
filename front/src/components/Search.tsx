@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import "../style/interface.css";
 
-function Search() {
+interface SearchProps {
+  updateIcons: (searchString: string) => Promise<void>;
+}
+
+function Search({ updateIcons }: SearchProps) {
   const [searchString, setSearchString] = useState("");
 
   const handleKeyPress = (event: any) => {
     if (event.key === "Enter") {
-      handleSearch();
+      updateIcons(searchString);
+      setSearchString("");
     }
   };
-
-  function handleSearch() {
-    console.log(searchString);
-    setSearchString("");
-    const url = "http://localhost:3232/searchprograms";
-  }
 
   return (
     <div className="flex items-center justify-center">

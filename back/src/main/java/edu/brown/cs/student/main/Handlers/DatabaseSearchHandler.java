@@ -143,7 +143,7 @@ public class DatabaseSearchHandler implements Route {
 
     List<ProgramData> searchData = this.searchDatabase(keyword, collection);
 
-	return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword);
+	return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword).serialize();
   }
 
   /**
@@ -208,12 +208,12 @@ public class DatabaseSearchHandler implements Route {
 		private String name;
 		private String link;
 		private String location;
-		private HashMap<String, HashMap<String, Integer>> userScores;
-		private List<HashMap<String, String>> comment;
-		private HashMap<String, Float> average;
+		private Map<String, Map<String, Integer>> userScores;
+		private List<Map<String, String>> comment;
+		private Map<String, Float> average;
 
 		public ProgramData(String name, String link, String location,
-            HashMap<String, HashMap<String, Integer>> userScores, List<HashMap<String, String>> comment, HashMap<String, Float> average) {
+            Map<String, Map<String, Integer>> userScores, List<Map<String, String>> comment, Map<String, Float> average) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
@@ -275,22 +275,22 @@ public class DatabaseSearchHandler implements Route {
 		}
 
         // Getter for user scores
-		public Map<String, HashMap<String, Integer>> getUserScores() {
+		public Map<String, Map<String, Integer>> getUserScores() {
 			return userScores;
 		}
 
 		// Setter for user scores
-		public void setUserScores(HashMap<String, HashMap<String, Integer>> userScores) {
+		public void setUserScores(Map<String, Map<String, Integer>> userScores) {
 			this.userScores = userScores;
 		}
 
         // Getter for comment
-		public List<HashMap<String, String>> getComment() {
+		public List<Map<String, String>> getComment() {
 			return comment;
 		}
 
 		// Setter for comment
-		public void setComment(List<HashMap<String, String>> comment) {
+		public void setComment(List<Map<String, String>> comment) {
 			this.comment = comment;
 		}
 
@@ -300,7 +300,7 @@ public class DatabaseSearchHandler implements Route {
 		}
 
 		// Setter for comment
-		public void setAverage(HashMap<String, Float> average) {
+		public void setAverage(Map<String, Float> average) {
 			this.average = average;
 		}
 	}
