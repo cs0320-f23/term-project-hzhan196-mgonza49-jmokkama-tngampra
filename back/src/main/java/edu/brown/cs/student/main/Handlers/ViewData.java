@@ -181,13 +181,12 @@ public class ViewData implements Route {
 
 		Bson filterUsr;
 		List<UserData> resultsUsr = new ArrayList<>();
-			if (email != null) {
+		if (email != null) {
 			filterUsr = Filters.and(
 					Filters.eq("email", email)
 			);
-				collectionUsr.find(filterUsr).forEach(resultsUsr::add);
-
-			}
+			collectionUsr.find(filterUsr).forEach(resultsUsr::add);
+		}
 
 		// TODO: FILTERING
 //		Bson filter = Filters.and(

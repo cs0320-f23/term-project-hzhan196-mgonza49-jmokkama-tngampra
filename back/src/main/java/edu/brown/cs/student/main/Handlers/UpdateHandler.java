@@ -23,10 +23,15 @@ import java.util.concurrent.TimeUnit;
  * Handler class for handling the /loadcsv endpoint, implements Route
  */
 public class UpdateHandler implements Route {
+	private String path;
+	private String envPath;
 	/**
 	 * Constructor that initializes loadCalled as false.
 	 */
-	public UpdateHandler() {}
+	public UpdateHandler(String path, String envPath) {
+		this.path = path;
+		this.envPath = envPath;
+	}
 
 	/**
 	 * Handles the load api call.
@@ -44,12 +49,12 @@ public class UpdateHandler implements Route {
 		}
 
         //return serialized filepath and success message if successful
-        String path = "./back/src/main/scraping/LoadPrograms.py";
+        String path = this.path;
         // "./back/src/main/java/edu/brown/cs/student/main/Handlers/python.py"
         // "./back/src/main/scraping/LoadPrograms.py";
 
 		try {
-			String env_path = "./back/src/main/scraping/scrape_venv/bin/python3";
+			String env_path = this.envPath;
             String command = env_path + " " + path;
             Process p = Runtime.getRuntime().exec(command);
             TimeUnit.SECONDS.sleep(60);
