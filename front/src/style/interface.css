@@ -591,6 +591,7 @@ button:hover {
   border: 1px solid rgba(0, 0, 0, 0.1);
   outline: none;
   text-align: left;
+  overflow-y: scroll;
 }
 
 .icon-holder {

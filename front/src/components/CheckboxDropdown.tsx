@@ -46,10 +46,14 @@ export default function CheckboxesTags({
         </li>
       )}
       style={{
-        width: 500,
+        maxWidth: 500,
+        width: '100%',
         height: 50,
         backgroundColor: "white",
         borderRadius: 8,
+        overflowX: 'scroll',
+        display: 'flex',
+        flexDirection: 'row',
       }}
       renderInput={(params) => (
         <TextField {...params} label="" placeholder={placeholder} />
