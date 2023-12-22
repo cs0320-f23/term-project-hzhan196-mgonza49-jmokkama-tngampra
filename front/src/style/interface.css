@@ -355,6 +355,7 @@ button:hover {
   margin-bottom: 2vh;
   margin-left: 1vh;
   color: white;
+  text-align: left;
 }
 
 .program-display {
