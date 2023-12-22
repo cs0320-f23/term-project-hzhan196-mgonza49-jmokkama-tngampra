@@ -26,6 +26,19 @@ function getPrograms() {
     });
 }
 
+function getCountryFlag(location:string):string {
+  // just to change ex ISRAEL to Israel so i can search it in Countries.tsx
+  const uncapitalizedLocation = location.charAt(0).toUpperCase() + location.slice(1).toLowerCase();
+  
+  const flagMapping: Record<string, string> = {
+  };
+
+  const flagURL = flagMapping[location] || defaultPhoto;
+
+  return flagURL;
+}
+
+
 export function setupIcons(res: any) {
   const totalIcons: ReactNode[] = [];
   console.log(res);
@@ -37,7 +50,7 @@ export function setupIcons(res: any) {
         <Icons
           key={id}
           name={program.name}
-          image={defaultPhoto}
+          image={getCountryFlag(program.location)}
           link={`/browse/${id}`}
           id={id}
           country={program.location}

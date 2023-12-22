@@ -1,6 +1,4 @@
 import React, { useEffect, useState, Fragment } from "react";
-import { Combobox, RadioGroup, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import {} from "@heroicons/react/24/outline";
 import { useFormik, Field, Formik, Form, FieldArray, isString } from "formik";
 import "../style/interface.css";
@@ -10,13 +8,13 @@ import ProgramData from "../components/mockProgramData";
 import Popup from "./Popup";
 import Divider from "@mui/material/Divider";
 import Radio2 from "../components/Radio2";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Radio from "./Radio";
 import { countries } from "./Countries";
 
 const tempData = ["program1", "languages idk", "countries idk"];
 
 export function userCounted(email: string): Promise<boolean> {
+
+
   const url = "http://localhost:3232/checkuser?email=" + email;
   return fetch(url)
     .then((res) => {
@@ -39,6 +37,39 @@ function checkUser(res: any): Promise<boolean> {
 export const forms = () => {
   const [expanded, setExpanded] = useState(false);
   const [commentStatus, setCommentStatus] = useState<Boolean>();
+  const [programData, setProgramData] = useState<string[]>([]);
+
+  function toProgram(res: any) {
+    const programArray: string[] = [];
+    if (res.result === "success") {
+      const programs: any = res.data;
+      programs.forEach((program: any, index: number) => {
+        const id = index + 1;
+        programArray.push(program.name);
+      });
+    }
+    return programArray;
+  }
+
+  useEffect(() => {
+    async function fetchPrograms() {
+      const url = "http://localhost:3232/viewdata";
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          return Promise.reject("Error");
+        }
+        const jsonData = await res.json();
+
+        const programs = toProgram(jsonData);
+        setProgramData(programs);
+      } catch (error) {
+        console.error("Error fetching programs:", error);
+      }
+    }
+
+    fetchPrograms();
+  }, []);
 
   // username
   const [name, setName] = useState<string>("");
@@ -243,7 +274,7 @@ export const forms = () => {
 
                         <div className="flex items-center justify-center">
                           <Checkbox
-                            data={countries}
+                            data={Object.keys(countries)}
                             placeholder="Enter Countries"
                             name="countryBlacklist"
                             onChange={(selectedValues: string[]) => {
@@ -281,7 +312,7 @@ export const forms = () => {
                         />
                         <div className="flex items-center justify-center">
                           <Checkbox
-                            data={tempData}
+                            data={programData}
                             placeholder="Enter Programs"
                             name="programBlacklist"
                             onChange={(selectedValues: string[]) => {

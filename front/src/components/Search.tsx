@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../style/interface.css";
 
 interface SearchProps {
@@ -7,9 +8,11 @@ interface SearchProps {
 
 function Search({ updateIcons }: SearchProps) {
   const [searchString, setSearchString] = useState("");
+  const navigate = useNavigate();
 
   const handleKeyPress = (event: any) => {
     if (event.key === "Enter") {
+      // navigate("/browse/")
       updateIcons(searchString);
       setSearchString("");
     }
