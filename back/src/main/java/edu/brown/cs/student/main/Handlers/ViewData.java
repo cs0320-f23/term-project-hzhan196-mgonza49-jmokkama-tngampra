@@ -397,12 +397,12 @@ public class ViewData implements Route {
 		private String link;
         private String location;
         private Map<String, Map<String, Integer>> userScores;
-        private List<String> comment; 
+        private List<Map<String, String>> comment;
 		private Map<String, Float> average;
 		// private String email;
 
 		public ProgramData(String name, String link, String location,
-            Map<String, Map<String, Integer>> userScores, List<String> comment, Map<String, Float> average) {
+            Map<String, Map<String, Integer>> userScores, List<Map<String, String>> comment, Map<String, Float> average) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
@@ -475,12 +475,12 @@ public class ViewData implements Route {
 		}
 
         // Getter for comment
-		public List<String> getComment() {
+		public List<Map<String, String>> getComment() {
 			return comment;
 		}
 
 		// Setter for comment
-		public void setComment(List<String> comment) {
+		public void setComment(List<Map<String, String>> comment) {
 			this.comment = comment;
 		}
 
