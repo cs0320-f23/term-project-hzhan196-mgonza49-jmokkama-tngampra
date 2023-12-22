@@ -10,7 +10,7 @@ function Search({ updateIcons }: SearchProps) {
   const [searchString, setSearchString] = useState("");
   const navigate = useNavigate();
 
-  const handleKeyPress = (event: any) => {
+  const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       // navigate("/browse/")
       updateIcons(searchString);

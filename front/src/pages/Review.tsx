@@ -12,6 +12,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Dialog from "@mui/material/Dialog";
 import { profileName } from "../components/Login";
+import { ActualProgram } from "./Homepage";
 
 function Review() {
   const [data, setData] = useState<DropdownProps[]>([]);
@@ -65,7 +66,7 @@ function Review() {
     const programArray: DropdownProps[] = [];
     if (res.result === "success") {
       const programs: any = res.data;
-      programs.forEach((program: any, index: number) => {
+      programs.forEach((program: ActualProgram, index: number) => {
         const id = index + 1;
         programArray.push({
           id: id,

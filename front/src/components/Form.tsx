@@ -1,6 +1,6 @@
-import React, { useEffect, useState, Fragment } from "react";
+import { useEffect, useState } from "react";
 import {} from "@heroicons/react/24/outline";
-import { useFormik, Field, Formik, Form, FieldArray, isString } from "formik";
+import { Formik, Form, FieldArray } from "formik";
 import "../style/interface.css";
 import { loginStatus, profileEmail, profileName } from "./Login";
 import Checkbox from "../components/CheckboxDropdown";
@@ -9,12 +9,9 @@ import Popup from "./Popup";
 import Divider from "@mui/material/Divider";
 import Radio2 from "../components/Radio2";
 import { countries } from "./Countries";
-
-const tempData = ["program1", "languages idk", "countries idk"];
+import { ActualProgram } from "../pages/Homepage";
 
 export function userCounted(email: string): Promise<boolean> {
-
-
   const url = "http://localhost:3232/checkuser?email=" + email;
   return fetch(url)
     .then((res) => {
@@ -43,8 +40,7 @@ export const forms = () => {
     const programArray: string[] = [];
     if (res.result === "success") {
       const programs: any = res.data;
-      programs.forEach((program: any, index: number) => {
-        const id = index + 1;
+      programs.forEach((program: ActualProgram) => {
         programArray.push(program.name);
       });
     }
@@ -164,10 +160,10 @@ export const forms = () => {
       }
     });
     const url =
-      "http://localhost:3232/adduser?username=Tired" +
-      // name +
-      "&email=tired@brown.edu" +
-      // email +
+      "http://localhost:3232/adduser?username=" +
+      name +
+      "&email=" +
+      email +
       "&languages=" +
       // myLanguages +
       "&countries=" +

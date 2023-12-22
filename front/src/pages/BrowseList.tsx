@@ -7,6 +7,7 @@ import ProgramData from "../mockedData/mockProgramData.tsx";
 import "../style/interface.css";
 import defaultPhoto from "../assets/blank-profile.jpeg";
 import { countries } from "../components/Countries.tsx";
+import { ActualProgram } from "./Homepage.tsx";
 
 function getPrograms() {
   const url = "http://localhost:3232/viewdata";
@@ -43,7 +44,7 @@ export function setupIcons(res: any) {
   console.log(res);
   if (res.result === "success") {
     const programs: any = res.data;
-    programs.forEach((program: any, index: number) => {
+    programs.forEach((program: ActualProgram, index: number) => {
       const id = index + 1;
       totalIcons.push(
         <Icons

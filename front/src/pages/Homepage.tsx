@@ -14,6 +14,22 @@ import { handleSearch } from "./BrowseList";
 import { countries } from "../components/Countries";
 
 interface UserProps {}
+export interface ActualProgram {
+  name: string;
+  link: string;
+  location: string;
+  userScores: {
+    username: {
+      acceptance: number;
+      safety: number;
+      overall: number;
+      learning: number;
+      minority: number;
+    };
+  };
+  comments: { comment: string; username: string }[];
+  average: number[];
+}
 
 export default function Homepage({}: UserProps) {
   const [icons, setIcons] = useState<React.ReactNode[]>([]);
@@ -86,7 +102,7 @@ export default function Homepage({}: UserProps) {
     const totalIcons: ReactNode[] = [];
     if (res.result === "success") {
       const programs: any = res.data;
-      programs.forEach((program: any, index: number) => {
+      programs.forEach((program: ActualProgram, index: number) => {
         const id = index + 1;
         totalIcons.push(
           <Icons

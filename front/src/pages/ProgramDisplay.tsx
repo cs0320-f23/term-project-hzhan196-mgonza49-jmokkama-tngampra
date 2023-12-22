@@ -8,6 +8,7 @@ import { loginStatus } from "../components/Login";
 // import commentData from "../components/mockCommentData";
 import Comment from "../components/Comment";
 import BarChart from "../components/ChartComponent";
+import { ActualProgram } from "./Homepage";
 
 let tempRating = [0, 0, 0, 0, 0];
 
@@ -93,7 +94,7 @@ function ProgramDisplay() {
 
     if (res.result === "success") {
       const programs: any = res.data;
-      programs.forEach((program: any, index: number) => {
+      programs.forEach((program: ActualProgram, index: number) => {
         const id = index + 1;
         programArray.push({
           tempId: id,

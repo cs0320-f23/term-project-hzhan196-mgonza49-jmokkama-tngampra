@@ -1,6 +1,3 @@
-import React from "react";
-import { ReactNode, useRef, useEffect } from "react";
-import { BrowserRouter, Link } from "react-router-dom";
 import "../pages/ProgramDisplay";
 import "../style/interface.css";
 import { Bar } from "react-chartjs-2";
