@@ -83,10 +83,10 @@ public class DatabaseSearchHandler implements Route {
 		);
 
 		collection.find(filter).forEach(results::add);
-
-		for (ProgramData programData : results) {
-			System.out.println(programData);
-		}
+//
+//		for (ProgramData programData : results) {
+//			System.out.println(programData);
+//		}
 
 		return results;
    }
@@ -109,9 +109,8 @@ public class DatabaseSearchHandler implements Route {
     String keyword = request.queryParams("keyword");
 
     if (keyword == null) {
-      response.status(400);
       // some sort of error
-		  return new DatabaseSearchHandler.SearchFailureResponse("error_bad_json: ", "missing keyword", keyword).serialize();
+		return new DatabaseSearchHandler.SearchFailureResponse("error_bad_json: ", "missing keyword", keyword).serialize();
     }
 
     Logger.getLogger( "org.mongodb.driver" ).setLevel(Level.WARNING);
@@ -146,6 +145,8 @@ public class DatabaseSearchHandler implements Route {
     MongoCollection<ProgramData> collection = database.getCollection(collectionName, ProgramData.class);
 
     List<ProgramData> searchData = this.searchDatabase(keyword, collection);
+
+	mongoClient.close();
 
 	return new DatabaseSearchHandler.SearchSuccessResponse("success", searchData, keyword).serialize();
   }

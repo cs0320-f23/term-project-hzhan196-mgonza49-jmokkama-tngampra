@@ -78,32 +78,27 @@ public class UserHander implements Route {
 	String programs = request.queryParams("programs");
 	String ranking = request.queryParams("ranking");
 
-    if ((username == null) && (email == null)) {
-      response.status(400);
+    if ((username == null) || (email == null)) {
       // some sort of error
-		return new UserHander.UserFailureResponse("error_bad_json: ", "missing keyword or country", username, email).serialize();
+		return new UserHander.UserFailureResponse("error_bad_json: ", "missing username or email", username, email).serialize();
     }
 
 	if (languages == null) {
-		response.status(400);
 		// some sort of error
 		return new UserHander.UserFailureResponse("error_bad_json: ", "missing language", username, email).serialize();
 	}
 
 	if (countries == null) {
-		response.status(400);
 		  // some sort of error
 		return new UserHander.UserFailureResponse("error_bad_json: ", "missing countries", username, email).serialize();
 	}
 
 	if (programs == null) {
-		response.status(400);
 		// some sort of error
 		return new UserHander.UserFailureResponse("error_bad_json: ", "missing programs", username, email).serialize();
 	}
 
 	if (ranking == null) {
-		response.status(400);
 		  // some sort of error
 		return new UserHander.UserFailureResponse("error_bad_json: ", "missing ranking", username, email).serialize();
 	}
