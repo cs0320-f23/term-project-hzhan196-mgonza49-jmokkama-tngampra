@@ -1,14 +1,11 @@
 import { Fragment, useState } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BrowserRouter, Link, useNavigate } from "react-router-dom";
+import { Menu, Transition } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
 import defaultPhoto from "../assets/blank-profile.jpeg";
 import "../style/interface.css";
 import "../style/App.css";
 import { login, logout, loginStatus, profilePhoto } from "./Login";
-import { getAuth } from "firebase/auth";
-import app from "./firebaseInit";
 import { useEffect } from "react";
-import React from "react";
 
 export default function NavbarButtons() {
   const navigate = useNavigate();
@@ -77,6 +74,7 @@ export default function NavbarButtons() {
   return (
     <Menu as="div">
       <Menu.Button
+        id="profile-button"
         className="ml-2 relative flex rounded-full custom-dark-gray focus:outline-none"
         // style={{ background: "transparent", border: "none" }}
       >
@@ -97,6 +95,7 @@ export default function NavbarButtons() {
           <Menu.Item>
             {({ active }) => (
               <button
+                id="view-profile-button"
                 className={`${
                   active ? "bg-gray-200" : "bg-white"
                 } w-full text-left block px-4 py-2 text-gray-700`}
@@ -110,6 +109,7 @@ export default function NavbarButtons() {
           <Menu.Item>
             {({ active }) => (
               <button
+                id="login-button"
                 onClick={handleSignIn}
                 className={`${
                   active ? "bg-gray-200" : "bg-white"

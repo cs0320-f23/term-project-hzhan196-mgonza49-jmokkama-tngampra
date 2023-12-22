@@ -1,15 +1,10 @@
 "use client";
 // import { Fragment, useState } from "react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BrowserRouter, Link } from "react-router-dom";
+import { Disclosure } from "@headlessui/react";
+import { Link } from "react-router-dom";
 import "../style/interface.css";
 import "../style/App.css";
-import { login, logout, loginStatus } from "./Login";
-import { getAuth } from "firebase/auth";
-import app from "./firebaseInit";
 import NavbarButtons from "./NavbarButtons";
-import React from "react";
 
 const navigation = [
   { name: "Home", href: "/", current: true },

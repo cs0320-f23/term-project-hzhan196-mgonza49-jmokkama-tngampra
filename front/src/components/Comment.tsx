@@ -1,10 +1,6 @@
-import { Fragment, useState, useEffect } from "react";
 import defaultPhoto from "../assets/blank-profile.jpeg";
 import "../style/interface.css";
 import "../style/App.css";
-import { login, logout, loginStatus, profilePhoto } from "./Login";
-import { getAuth } from "firebase/auth";
-import React from "react";
 
 import "../style/interface.css";
 
@@ -21,7 +17,7 @@ function Comment({
 CommentProps) {
   return (
     <div className="comment-container">
-      <div className="flex flex-row">
+      <div className="comment-container2">
         <img className="profile-circle" src={defaultPhoto}></img>
         <p
           className="text-lg font-bold mt-2 ml-2"

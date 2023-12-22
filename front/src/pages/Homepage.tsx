@@ -3,27 +3,44 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 import Icons from "../components/Icons";
-import Recommended from "../components/mockRecommended";
-import { Link, useParams, Outlet } from "react-router-dom";
+import Recommended from "../mockedData/mockRecommended";
 import { ReactNode } from "react";
 import { forms, userCounted } from "../components/Form";
 import "../style/interface.css";
-import { loginStatus, profileEmail, profileName } from "../components/Login";
+import { profileEmail } from "../components/Login";
 import React from "react";
 import defaultPhoto from "../assets/blank-profile.jpeg";
 import { handleSearch } from "./BrowseList";
-import {countries} from "../components/Countries";
+import { countries } from "../components/Countries";
 
 interface UserProps {}
+export interface ActualProgram {
+  name: string;
+  link: string;
+  location: string;
+  userScores: {
+    username: {
+      acceptance: number;
+      safety: number;
+      overall: number;
+      learning: number;
+      minority: number;
+    };
+  };
+  comments: { comment: string; username: string }[];
+  average: number[];
+}
 
 export default function Homepage({}: UserProps) {
   const [icons, setIcons] = useState<React.ReactNode[]>([]);
 
-  function getCountryFlag(location:string):string {
+  function getCountryFlag(location: string): string {
     function capitalizeWords(str: string): string {
       return str
         .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        )
         .join(" ");
     }
     // just to change ex ISRAEL to Israel so i can search it in Countries.tsx
@@ -85,7 +102,7 @@ export default function Homepage({}: UserProps) {
     const totalIcons: ReactNode[] = [];
     if (res.result === "success") {
       const programs: any = res.data;
-      programs.forEach((program: any, index: number) => {
+      programs.forEach((program: ActualProgram, index: number) => {
         const id = index + 1;
         totalIcons.push(
           <Icons
@@ -112,11 +129,11 @@ export default function Homepage({}: UserProps) {
   };
   return (
     <div>
-      <div className="navbar-container">
+      <div id="navbar" className="navbar-container">
         <Navbar />
       </div>
 
-      <div className="h-screen">
+      <div id="homepage" className="h-screen">
         <h1 className="shadowed-text main-title text-2xl lg:text-6xl text-white font-semibold mt-2">
           Study Abroad @ Brown
         </h1>

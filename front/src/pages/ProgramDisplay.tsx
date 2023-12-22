@@ -1,18 +1,16 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import Search from "../components/Search";
 // import ProgramData from "../components/mockProgramData";
-import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../style/interface.css";
 // import Comment from "../components/Comments";
 import { loginStatus } from "../components/Login";
-import commentData from "../components/mockCommentData";
+// import commentData from "../components/mockCommentData";
 import Comment from "../components/Comment";
 import BarChart from "../components/ChartComponent";
-import Chart from "chart.js/auto";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+import { ActualProgram } from "./Homepage";
 
-const tempRating = [1, 3, 2, 5, 3];
+let tempRating = [0, 0, 0, 0, 0];
 
 interface Program {
   tempId: number;
@@ -48,9 +46,10 @@ function commentDisplay(data: CommentList[]) {
   function setupComments() {
     const totalComments: ReactNode[] = [];
 
-    data.forEach((comment) => {
+    data.forEach((comment, index: number) => {
       totalComments.push(
         <Comment
+          key={index}
           user={comment.user}
           content={comment.comment}
           // yearTaken={comment.yearTaken}
@@ -87,13 +86,15 @@ function ProgramDisplay() {
   // const data = ProgramData();
   const [data, setData] = useState<Program[]>([]);
   const [commentData, setCommentData] = useState<CommentList[]>([]);
+  const rateCounted: string[] = [];
 
   function toProgram(res: any) {
     const programArray: Program[] = [];
     const commentArray: CommentList[] = [];
+
     if (res.result === "success") {
       const programs: any = res.data;
-      programs.forEach((program: any, index: number) => {
+      programs.forEach((program: ActualProgram, index: number) => {
         const id = index + 1;
         programArray.push({
           tempId: id,
@@ -103,11 +104,28 @@ function ProgramDisplay() {
           rating: program.average,
         });
       });
-      commentArray.push({
-        key: programId - 1,
-        user: programs[programId - 1].comments[0].username,
-        comment: programs[programId - 1].comments[0].comment,
-      });
+      if (programs[programId - 1].comments.length !== 0) {
+        programs[programId - 1].comments.forEach(
+          (comment: { username: string; comment: string }) =>
+            commentArray.push({
+              key: programId - 1,
+              user: comment.username,
+              comment: comment.comment,
+            })
+        );
+      }
+      Object.entries(programs[programId - 1].userScores).forEach(
+        ([user, rating]) => {
+          if (rating && typeof [user, rating] === "object") {
+            Object.entries(rating).forEach(([key, value]) => {
+              if (key === "overall" && !rateCounted.includes(user)) {
+                tempRating[value - 1] = tempRating[value - 1] + 1;
+                rateCounted.push(user);
+              }
+            });
+          }
+        }
+      );
     }
     setCommentData(commentArray);
     return programArray;
