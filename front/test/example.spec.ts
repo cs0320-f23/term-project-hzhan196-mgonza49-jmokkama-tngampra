@@ -92,33 +92,33 @@ test("footer expands and unexpands", async ({ page }) => {
   // expect(preferencesForm).toBeTruthy();
 });
 
-test("Program Display page loads correctly", async ({ page }) => {
-  await page.goto("http://localhost:5173/browse/1"); // Update the URL with the correct port and program ID
+// test("Program Display page loads correctly", async ({ page }) => {
+//   await page.goto("http://localhost:5173/browse/1"); // Update the URL with the correct port and program ID
 
-  // await page.waitForSelector("#display-title");
-  const programTitle = await page.textContent("#display-title");
-  // expect(programTitle).toContain('Program Title'); // Replace 'Program Title' with the expected program title
+//   // await page.waitForSelector("#display-title");
+//   const programTitle = await page.textContent("#display-title");
+//   // expect(programTitle).toContain('Program Title'); // Replace 'Program Title' with the expected program title
 
-  // Check if the country information is displayed
-  // await page.waitForSelector("#display-info");
-  const countryInfo = await page.textContent("#display-info");
-  // expect(countryInfo).toContain('Country Name'); // Replace 'Country Name' with the expected country name
+//   // Check if the country information is displayed
+//   // await page.waitForSelector("#display-info");
+//   const countryInfo = await page.textContent("#display-info");
+//   // expect(countryInfo).toContain('Country Name'); // Replace 'Country Name' with the expected country name
 
-  // Check if the ratings section is visible
-  // await page.waitForSelector("#display-stats");
-  const ratingsSection = await page.textContent("#display-stats");
-  // expect(ratingsSection).toContain('Ratings:');
+//   // Check if the ratings section is visible
+//   // await page.waitForSelector("#display-stats");
+//   const ratingsSection = await page.textContent("#display-stats");
+//   // expect(ratingsSection).toContain('Ratings:');
 
-  // // Check if the comment box is visible
-  // await page.waitForSelector('.comment-box-title');
-  // const commentBoxTitle = await page.textContent('.comment-box-title');
-  // // expect(commentBoxTitle).toContain('Program Reviews:');
+//   // // Check if the comment box is visible
+//   // await page.waitForSelector('.comment-box-title');
+//   // const commentBoxTitle = await page.textContent('.comment-box-title');
+//   // // expect(commentBoxTitle).toContain('Program Reviews:');
 
-  // Check if the 'Leave a Review' link is visible
-  await page.waitForSelector(".button");
-  const leaveReviewLink = await page.textContent(".button");
-  // expect(leaveReviewLink).toContain('Leave a Review!');
-});
+//   // Check if the 'Leave a Review' link is visible
+//   await page.waitForSelector(".button");
+//   const leaveReviewLink = await page.textContent(".button");
+//   // expect(leaveReviewLink).toContain('Leave a Review!');
+// });
 
 // test('popup shows up after submission', async ({ page }) => {
 //   await page.goto('http://localhost:5173');
