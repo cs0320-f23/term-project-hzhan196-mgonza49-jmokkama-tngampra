@@ -60,91 +60,106 @@ public class ViewData implements Route {
 		while (i < len) {
 			ProgramData program = programData.get(i);
 			Map<String, Map<String, Integer>> userScores = program.getUserScores();
-			List<Map<String, Integer>> scoreValues = new ArrayList<Map<String, Integer>>(userScores.values());
-			Integer lenScore = scoreValues.size();
-			Integer j = 0;
-			float acceptance = 0;
-			float safety = 0;
-			float minority = 0;
-			float learning = 0;
-			while (j < lenScore) {
-				acceptance += scoreValues.get(j).get("acceptance");
-				safety += scoreValues.get(j).get("safety");
-				minority += scoreValues.get(j).get("minority");
-				learning += scoreValues.get(j).get("learning");
-				j = j + 1;
-			}
-			acceptance = acceptance / lenScore;
-			safety = safety / lenScore;
-			minority = minority / lenScore;
-			learning = learning / lenScore;
-			
-			UserData userDataOne = userData.get(0);
-			List<String> ranks = userDataOne.getRanking();
-			Integer k = 0;
-			while (k < ranks.size()) {
-				if (k == 0) {
-					if (ranks.get(k) == "acceptance") {
-						acceptance = acceptance * 4;
-					} else if (ranks.get(k) == "safety") {
-						safety = safety * 4;
-					} else if (ranks.get(k) == "minority") {
-						minority = minority * 4;
-					} else if (ranks.get(k) == "learning") {
-						learning = learning * 4;
-					}
-				} else if (k == 1) {
-					if (ranks.get(k) == "acceptance") {
-						acceptance = acceptance * 3;
-					} else if (ranks.get(k) == "safety") {
-						safety = safety * 3;
-					} else if (ranks.get(k) == "minority") {
-						minority = minority * 3;
-					} else if (ranks.get(k) == "learning") {
-						learning = learning * 3;
-					}
-				} else if (k == 2) {
-					if (ranks.get(k) == "acceptance") {
-						acceptance = acceptance * 2;
-					} else if (ranks.get(k) == "safety") {
-						safety = safety * 2;
-					} else if (ranks.get(k) == "minority") {
-						minority = minority * 2;
-					} else if (ranks.get(k) == "learning") {
-						learning = learning * 2;
-					}
-				} else if (k == 3) {
-					if (ranks.get(k) == "acceptance") {
-						acceptance = acceptance * 1;
-					} else if (ranks.get(k) == "safety") {
-						safety = safety * 1;
-					} else if (ranks.get(k) == "minority") {
-						minority = minority * 1;
-					} else if (ranks.get(k) == "learning") {
-						learning = learning * 1;
-					}
-				}
-				k = k + 1;
-			}
-
-			float average_value = acceptance + safety + minority + learning;
-
-			i = i + 1;
-			Map<String, Float> average;
-			if (program.getAverage() == null) {
-				average = new HashMap<>();
+			if (userScores.isEmpty()) {
+				Map<String, Float> average = new HashMap<>();;
+				float average_value = -1;
 				average.put(email, average_value);
 				program.setAverage(average);
+				i = i + 1;
 			} else {
-				average = program.getAverage();
-				if (average.get(email) == null) {
+				List<Map<String, Integer>> scoreValues = new ArrayList<Map<String, Integer>>(userScores.values());
+				Integer lenScore = scoreValues.size();
+				Integer j = 0;
+				float acceptance = 0;
+				float safety = 0;
+				float minority = 0;
+				float learning = 0;
+				while (j < lenScore) {
+					acceptance += scoreValues.get(j).get("acceptance");
+					safety += scoreValues.get(j).get("safety");
+					minority += scoreValues.get(j).get("minority");
+					learning += scoreValues.get(j).get("learning");
+					j = j + 1;
+				}
+				acceptance = acceptance / lenScore;
+				safety = safety / lenScore;
+				minority = minority / lenScore;
+				learning = learning / lenScore;
+				
+				UserData userDataOne = userData.get(0);
+				List<String> ranks = userDataOne.getRanking();
+				int k = 0;
+				// System.out.println(acceptance);
+				// System.out.println(ranks.get(k));
+				while (k < ranks.size()) {
+					// System.out.println("fish");
+					if (k == 0) {
+						if (ranks.get(k).equals("acceptance")) {
+							acceptance = acceptance * 4;
+						} else if (ranks.get(k).equals("safety")) {
+							safety = safety * 4;
+						} else if (ranks.get(k).equals("minority")) {
+							minority = minority * 4;
+						} else if (ranks.get(k).equals("learning")) {
+							learning = learning * 4;
+						}
+					} else if (k == 1) {
+						if (ranks.get(k).equals("acceptance")) {
+							System.out.println("fish");
+							acceptance = acceptance * 3;
+						} else if (ranks.get(k).equals("safety")) {
+							safety = safety * 3;
+						} else if (ranks.get(k).equals("minority")) {
+							minority = minority * 3;
+						} else if (ranks.get(k).equals("learning")) {
+							learning = learning * 3;
+						}
+					} else if (k == 2) {
+						if (ranks.get(k).equals("acceptance")) {
+							System.out.println("fish");
+							acceptance = acceptance * 2;
+						} else if (ranks.get(k).equals("safety")) {
+							safety = safety * 2;
+						} else if (ranks.get(k).equals("minority")) {
+							minority = minority * 2;
+						} else if (ranks.get(k).equals("learning")) {
+							learning = learning * 2;
+						}
+					} else if (k == 3) {
+						if (ranks.get(k).equals("acceptance")) {
+							System.out.println("fish");
+							acceptance = acceptance * 1;
+						} else if (ranks.get(k).equals("safety")) {
+							safety = safety * 1;
+						} else if (ranks.get(k).equals("minority")) {
+							minority = minority * 1;
+						} else if (ranks.get(k).equals("learning")) {
+							learning = learning * 1;
+						}
+					}
+					k = k + 1;
+				}
+				// System.out.println(acceptance);
+
+				float average_value = acceptance + safety + minority + learning;
+
+				i = i + 1;
+				Map<String, Float> average;
+				if (program.getAverage() == null) {
+					average = new HashMap<>();
 					average.put(email, average_value);
 					program.setAverage(average);
 				} else {
-					// I don't think anything needs to be done here? Average is already set... or do we want to replace the old value?
-					average.put(email, average_value);
-					program.setAverage(average);
-				}				
+					average = program.getAverage();
+					if (average.get(email) == null) {
+						average.put(email, average_value);
+						program.setAverage(average);
+					} else {
+						// I don't think anything needs to be done here? Average is already set... or do we want to replace the old value?
+						average.put(email, average_value);
+						program.setAverage(average);
+					}				
+				}
 			}
 		}
 		// Collections.sort(programData);
@@ -154,13 +169,22 @@ public class ViewData implements Route {
 	}
 
     public Object handle(Request request, Response response) {
+		Set<String> parameters = request.queryParams();
         String email = request.queryParams("email");
 
-//        if ((email == null)) {
-//            response.status(400);
-//            // some sort of error
-//            return new ViewData.ViewFailureResponse("error_bad_json: ", "missing keyword or country", email).serialize();
-//        }
+       if ((email ==null) && (parameters.size() > 0)) {
+        //    response.status(400);
+           // some sort of error
+           return new ViewData.ViewFailureResponse("error_bad_json: ", "please use query 'email' or no query", email).serialize();
+       }
+
+	   if (parameters.size() > 1) {
+			// response.status(400);
+           // some sort of error
+           return new ViewData.ViewFailureResponse("error_bad_json: ", "too many queries", email).serialize();
+	   }
+
+
 
         Logger.getLogger( "org.mongodb.driver" ).setLevel(Level.WARNING);
 
@@ -193,11 +217,11 @@ public class ViewData implements Route {
         MongoDatabase database = mongoClient.getDatabase(dbName);
 
         // MongoCollection defines a connection to a specific collection of documents in a specific database
-        MongoCollection<ProgramData> collection = database.getCollection(collectionName, ProgramData.class);
 		MongoCollection<UserData> collectionUsr = database.getCollection(collectionNameUsr, UserData.class);
+        MongoCollection<ProgramData> collection = database.getCollection(collectionName, ProgramData.class);
 
 		Bson filterUsr;
-		List<UserData> resultsUsr = new ArrayList<>();
+		List<UserData> resultsUsr = new ArrayList<UserData>();
 		if (email != null) {
 			filterUsr = Filters.and(
 					Filters.eq("email", email)
@@ -205,7 +229,7 @@ public class ViewData implements Route {
 			collectionUsr.find(filterUsr).forEach(resultsUsr::add);
 		}
 
-		// TODO: FILTERING
+	// TODO: FILTERING
 //		Bson filter = Filters.and(
 //			Filters.ne("location", resultsUsr.get(0).getCountries())
 //		);
@@ -214,11 +238,11 @@ public class ViewData implements Route {
 
 		if (email != null) {
 			List<ProgramData> sorted = sortProgramData(email, results, resultsUsr);
-			return new ViewData.ViewSuccessResponse("success", sorted, email);
+			return new ViewData.ViewSuccessResponse("success", sorted, resultsUsr, email);
 		} else {
 
 			// Sort results
-			return new ViewData.ViewSuccessResponse("success", results, "").serialize();
+			return new ViewData.ViewSuccessResponse("success", results, new ArrayList<UserData>(), "").serialize();
 		}
     }
 
@@ -227,9 +251,9 @@ public class ViewData implements Route {
 	 * @param result - a string, can be success or failure
 	 * @param data - the data we are returning
 	 */
-	public record ViewSuccessResponse(String result, List<ProgramData> data, String email) {
-		public ViewSuccessResponse(List<ProgramData> data, String email) {
-			this("success", data, email);
+	public record ViewSuccessResponse(String result, List<ProgramData> data, List<UserData> usrData, String email) {
+		public ViewSuccessResponse(List<ProgramData> data, List<UserData> usrData, String email) {
+			this("success", data, usrData, email);
 		}
 		/**
 		 * @return this response, serialized as Json
@@ -330,7 +354,7 @@ public class ViewData implements Route {
 						right_val = right_avg.get(this.email);
 					}
 				}
-				if (left_val <= right_val) {
+				if (left_val >= right_val) {
 					arr.set(k, L.get(i));
 					i++;
 				} else {
@@ -401,12 +425,12 @@ public class ViewData implements Route {
 		private Map<String, Float> average;
 
 		public ProgramData(String name, String link, String location,
-						   Map<String, Map<String, Integer>> userScores, List<Map<String, String>> comments, Map<String, Float> average) {
+            Map<String, Map<String, Integer>> userScores, List<Map<String, String>> comments, Map<String, Float> average) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
-			this.userScores = userScores;
-			this.comments = comments;
+      this.userScores = userScores;
+      this.comments = comments;
 			this.average = average;
 		}
 
@@ -462,7 +486,7 @@ public class ViewData implements Route {
 			this.location = location;
 		}
 
-		// Getter for user scores
+        // Getter for user scores
 		public Map<String, Map<String, Integer>> getUserScores() {
 			return userScores;
 		}
@@ -472,7 +496,7 @@ public class ViewData implements Route {
 			this.userScores = userScores;
 		}
 
-		// Getter for comment
+        // Getter for comment
 		public List<Map<String, String>> getComments() {
 			return comments;
 		}
@@ -502,8 +526,7 @@ public class ViewData implements Route {
 		private List<String> programs; 
 		private List<String> ranking;
 
-		public UserData(String email, String name, 
-		List<String> languages, List<String> countries, List<String> programs, List<String> ranking) {
+		public UserData(String email, String name, List<String> languages, List<String> countries, List<String> programs, List<String> ranking) {
 			this.email = email;
 			this.name = name;
 
@@ -524,7 +547,7 @@ public class ViewData implements Route {
 
 		@Override
 		public String toString() {
-			final StringBuilder sb = new StringBuilder("ProgramData{");
+			final StringBuilder sb = new StringBuilder("UserData{");
 			sb.append("email='").append(email).append('\'');
 			sb.append(", name='").append(name).append('\'');
 			sb.append(", languages='").append(languages).append('\'');
