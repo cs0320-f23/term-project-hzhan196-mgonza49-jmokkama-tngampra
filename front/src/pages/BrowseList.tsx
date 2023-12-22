@@ -9,6 +9,7 @@ import "../style/interface.css";
 import defaultPhoto from "../assets/blank-profile.jpeg";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { countries } from "../components/Countries.tsx";
 
 function getPrograms() {
   const url = "http://localhost:3232/viewdata";
@@ -26,15 +27,19 @@ function getPrograms() {
     });
 }
 
+
+
 function getCountryFlag(location:string):string {
+  function capitalizeWords(str: string): string {
+    return str
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  }
   // just to change ex ISRAEL to Israel so i can search it in Countries.tsx
-  const uncapitalizedLocation = location.charAt(0).toUpperCase() + location.slice(1).toLowerCase();
-  
-  const flagMapping: Record<string, string> = {
-  };
-
-  const flagURL = flagMapping[location] || defaultPhoto;
-
+  const uncapitalizedLocation = capitalizeWords(location);
+  const flagMapping = countries;
+  const flagURL = flagMapping[uncapitalizedLocation] || defaultPhoto;
   return flagURL;
 }
 

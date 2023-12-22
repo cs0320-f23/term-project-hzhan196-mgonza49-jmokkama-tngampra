@@ -12,11 +12,26 @@ import { loginStatus, profileEmail, profileName } from "../components/Login";
 import React from "react";
 import defaultPhoto from "../assets/blank-profile.jpeg";
 import { handleSearch } from "./BrowseList";
+import {countries} from "../components/Countries";
 
 interface UserProps {}
 
 export default function Homepage({}: UserProps) {
   const [icons, setIcons] = useState<React.ReactNode[]>([]);
+
+  function getCountryFlag(location:string):string {
+    function capitalizeWords(str: string): string {
+      return str
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(" ");
+    }
+    // just to change ex ISRAEL to Israel so i can search it in Countries.tsx
+    const uncapitalizedLocation = capitalizeWords(location);
+    const flagMapping = countries;
+    const flagURL = flagMapping[uncapitalizedLocation] || defaultPhoto;
+    return flagURL;
+  }
 
   useEffect(() => {
     async function fetchPrograms() {
@@ -76,7 +91,7 @@ export default function Homepage({}: UserProps) {
           <Icons
             key={id}
             name={program.name}
-            image={defaultPhoto}
+            image={getCountryFlag(program.location)}
             link={`/browse/${id}`}
             id={id}
             country={program.location}
