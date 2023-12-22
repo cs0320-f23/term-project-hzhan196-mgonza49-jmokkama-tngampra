@@ -1,16 +1,13 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import Search from "../components/Search";
 // import ProgramData from "../components/mockProgramData";
-import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../style/interface.css";
 // import Comment from "../components/Comments";
 import { loginStatus } from "../components/Login";
 // import commentData from "../components/mockCommentData";
 import Comment from "../components/Comment";
 import BarChart from "../components/ChartComponent";
-import Chart from "chart.js/auto";
-import ChartDataLabels from "chartjs-plugin-datalabels";
 
 let tempRating = [0, 0, 0, 0, 0];
 

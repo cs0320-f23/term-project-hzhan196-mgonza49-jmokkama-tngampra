@@ -1,21 +1,11 @@
 import React from "react";
-import { ReactNode, Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 // import ProgramData from "../components/mockProgramData";
-import { Link, useNavigate } from "react-router-dom";
-import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
 import {} from "@heroicons/react/24/outline";
-import {
-  ErrorMessage,
-  Field,
-  FieldArray,
-  FieldProps,
-  Form,
-  Formik,
-} from "formik";
+import { Field, Form, Formik } from "formik";
 import RatingButton from "../components/Radio";
-import Popup from "../components/Popup";
 import Divider from "@mui/material/Divider";
 import Dropdown, { DropdownProps } from "../components/Dropdown";
 import DialogContent from "@mui/material/DialogContent";
@@ -124,16 +114,6 @@ function Review() {
     null
   );
 
-  // function programs() {
-  //   const totalPrograms: ReactNode[] = [];
-
-  //   ProgramData.forEach((program) => {
-  //     totalPrograms.push(<option value={program.id}>{program.name}</option>);
-  //   });
-
-  //   return totalPrograms;
-  // }
-
   return (
     <div>
       <div id="navbar" className="navbar-container">
@@ -182,10 +162,10 @@ function Review() {
             );
           }}
         >
-          {({ values, handleChange, setFieldValue }) => (
+          {({ handleChange, setFieldValue }) => (
             <Form className="">
               <Field name="program">
-                {({ field }: FieldProps<string>) => (
+                {() => (
                   <div>
                     <Divider sx={{ height: 2, backgroundColor: "gray" }} />
                     <div>

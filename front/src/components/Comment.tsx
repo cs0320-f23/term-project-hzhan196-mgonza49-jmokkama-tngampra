@@ -1,10 +1,6 @@
-import { Fragment, useState, useEffect } from "react";
 import defaultPhoto from "../assets/blank-profile.jpeg";
 import "../style/interface.css";
 import "../style/App.css";
-import { login, logout, loginStatus, profilePhoto } from "./Login";
-import { getAuth } from "firebase/auth";
-import React from "react";
 
 import "../style/interface.css";
 

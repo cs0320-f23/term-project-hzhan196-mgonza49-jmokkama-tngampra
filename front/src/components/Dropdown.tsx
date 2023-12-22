@@ -1,16 +1,8 @@
-import React from "react";
-import { ReactNode, Fragment, useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
-import ProgramData from "../mockedData/mockProgramData";
-import { Link, useNavigate } from "react-router-dom";
+import { Fragment, useState, useEffect } from "react";
+
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/solid";
 import {} from "@heroicons/react/24/outline";
-import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
-import RatingButton from "../components/Radio";
-import Popup from "../components/Popup";
-import Divider from "@mui/material/Divider";
-import { getValue } from "firebase/remote-config";
 
 export interface DropdownProps {
   id: number;

@@ -4,26 +4,27 @@ import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 import Icons from "../components/Icons";
 import Recommended from "../mockedData/mockRecommended";
-import { Link, useParams, Outlet } from "react-router-dom";
 import { ReactNode } from "react";
 import { forms, userCounted } from "../components/Form";
 import "../style/interface.css";
-import { loginStatus, profileEmail, profileName } from "../components/Login";
+import { profileEmail } from "../components/Login";
 import React from "react";
 import defaultPhoto from "../assets/blank-profile.jpeg";
 import { handleSearch } from "./BrowseList";
-import {countries} from "../components/Countries";
+import { countries } from "../components/Countries";
 
 interface UserProps {}
 
 export default function Homepage({}: UserProps) {
   const [icons, setIcons] = useState<React.ReactNode[]>([]);
 
-  function getCountryFlag(location:string):string {
+  function getCountryFlag(location: string): string {
     function capitalizeWords(str: string): string {
       return str
         .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        )
         .join(" ");
     }
     // just to change ex ISRAEL to Israel so i can search it in Countries.tsx
