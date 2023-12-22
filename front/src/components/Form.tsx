@@ -28,6 +28,7 @@ export function userCounted(email: string): Promise<boolean> {
 }
 
 function checkUser(res: any): Promise<boolean> {
+  console.log(res.isMember);
   return Promise.resolve(res.isMember);
 }
 
@@ -83,18 +84,16 @@ export const forms = () => {
     });
   });
   // not taken form
-  const [hasNotTakenForm, setHasNotTakenForm] = useState<boolean>(false);
+  const [isNotMember, setIsNotMember] = useState<boolean>(false);
   useEffect(() => {
     userCounted(email).then((hasTaken) => {
-      setHasNotTakenForm(hasTaken);
+      setIsNotMember(hasTaken);
     });
-  }, [email]);
+  }, []);
   useEffect(() => {
     loginStatus()
       .then((name) => {
-        if (name === "Sign Out") {
-          setCommentStatus(true);
-        } else if (hasNotTakenForm) {
+        if (name === "Sign Out" && isNotMember) {
           setCommentStatus(true);
         } else {
           setCommentStatus(false);

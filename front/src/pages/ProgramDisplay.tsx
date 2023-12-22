@@ -183,6 +183,7 @@ function ProgramDisplay() {
 
               <div className="">
                 <p> {data[programId - 1].country}</p>
+                <a href={data[programId - 1].link}>Learn more here!</a>
               </div>
             </div>
             <div className="display-stats">
