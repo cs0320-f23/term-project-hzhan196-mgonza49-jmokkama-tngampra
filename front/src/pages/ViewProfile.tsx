@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import { profilePhoto, profileName, profileEmail } from "../components/Login";
 import Search from "../components/Search";
 import Icons from "../components/Icons";
-import ProgramData from "../components/mockProgramData";
+import ProgramData from "../mockedData/mockProgramData";
 import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
 import "../style/interface.css";
 

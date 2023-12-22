@@ -76,7 +76,7 @@ export default function NavbarButtons() {
 
   return (
     <Menu as="div">
-      <Menu.Button
+      <Menu.Button id="profile-button"
         className="ml-2 relative flex rounded-full custom-dark-gray focus:outline-none"
         // style={{ background: "transparent", border: "none" }}
       >
@@ -96,7 +96,7 @@ export default function NavbarButtons() {
           {/* <div className=""> */}
           <Menu.Item>
             {({ active }) => (
-              <button
+              <button id="view-profile-button"
                 className={`${
                   active ? "bg-gray-200" : "bg-white"
                 } w-full text-left block px-4 py-2 text-gray-700`}
@@ -107,9 +107,9 @@ export default function NavbarButtons() {
               </button>
             )}
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item >
             {({ active }) => (
-              <button
+              <button id="login-button"
                 onClick={handleSignIn}
                 className={`${
                   active ? "bg-gray-200" : "bg-white"

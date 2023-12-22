@@ -3,7 +3,7 @@ import { ReactNode, Fragment, useState } from "react";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 import Icons from "../components/Icons.tsx";
-import ProgramData from "../components/mockProgramData";
+import ProgramData from "../mockedData/mockProgramData.tsx";
 import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
 import "../style/interface.css";
 import defaultPhoto from "../assets/blank-profile.jpeg";
@@ -110,7 +110,7 @@ function BrowseList() {
   }, []);
   return (
     <div>
-      <div className="navbar-container">
+      <div id="navbar" className="navbar-container">
         <Navbar />
       </div>
 

@@ -136,7 +136,7 @@ function Review() {
 
   return (
     <div>
-      <div className="navbar-container">
+      <div id="navbar" className="navbar-container">
         <Navbar />
       </div>
 

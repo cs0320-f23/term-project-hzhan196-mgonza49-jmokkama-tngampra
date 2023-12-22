@@ -4,7 +4,7 @@ import { useFormik, Field, Formik, Form, FieldArray, isString } from "formik";
 import "../style/interface.css";
 import { loginStatus, profileEmail, profileName } from "./Login";
 import Checkbox from "../components/CheckboxDropdown";
-import ProgramData from "../components/mockProgramData";
+import ProgramData from "../mockedData/mockProgramData";
 import Popup from "./Popup";
 import Divider from "@mui/material/Divider";
 import Radio2 from "../components/Radio2";
@@ -469,8 +469,8 @@ export const forms = () => {
   if (commentStatus) {
     return (
       <div className={"footer" + (expanded ? " expanded" : "")}>
-        <div className="footer-content">
-          <button className="expand" onClick={expand}>
+        <div id="footer-expanded" className="footer-content">
+          <button id="click-here" className="expand" onClick={expand}>
             <span className="expand-label">{label()}</span>
           </button>
           {expandedForm(expanded)}

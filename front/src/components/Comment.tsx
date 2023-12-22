@@ -21,7 +21,7 @@ function Comment({
 CommentProps) {
   return (
     <div className="comment-container">
-      <div className="flex flex-row">
+      <div className="comment-container2">
         <img className="profile-circle" src={defaultPhoto}></img>
         <p
           className="text-lg font-bold mt-2 ml-2"

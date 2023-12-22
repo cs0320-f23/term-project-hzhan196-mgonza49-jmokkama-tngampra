@@ -6,7 +6,7 @@ import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
 import "../style/interface.css";
 // import Comment from "../components/Comments";
 import { loginStatus } from "../components/Login";
-import commentData from "../components/mockCommentData";
+import commentData from "../mockedData/mockCommentData";
 import Comment from "../components/Comment";
 import BarChart from "../components/ChartComponent";
 import Chart from "chart.js/auto";
@@ -104,15 +104,18 @@ function ProgramDisplay() {
         });
       });
       if (programs[programId - 1].comments.length !== 0) {
-        commentArray.push({
-          key: programId - 1,
-          user: programs[programId - 1].comments[0].username,
-          comment: programs[programId - 1].comments[0].comment,
-        });
+        programs[programId - 1].comments.forEach(
+          (comment: { username: string; comment: string }) =>
+            commentArray.push({
+              key: programId - 1,
+              user: comment.username,
+              comment: comment.comment,
+            })
+        );
       }
-      programs[programId - 1].userScores.array.forEach((rating: any) => {
-        tempRating[rating.overall - 1] = tempRating[rating.overall - 1] + 1;
-      });
+      // programs[programId - 1].userScores.array.forEach((rating: any) => {
+      //   tempRating[rating.overall - 1] = tempRating[rating.overall - 1] + 1;
+      // });
     }
     setCommentData(commentArray);
     return programArray;
@@ -140,7 +143,7 @@ function ProgramDisplay() {
 
   return (
     <div>
-      <div className="navbar-container">
+      <div id="navbar" className="navbar-container">
         <Navbar />
       </div>
       {selectedProgram && (
@@ -158,12 +161,12 @@ function ProgramDisplay() {
               Back to Browse
             </Link>
 
-            <div className="display-title">{selectedProgram.name}</div>
+            <div id="display-title" className="display-title">{selectedProgram.name}</div>
           </div>
 
           {/* White block scroll contents  */}
           <div className="big-card-holder">
-            <div className="display-info">
+            <div id="display-info" className="display-info">
               <div className="text-lg font-bold">
                 {data[programId - 1].name}
               </div>
@@ -172,7 +175,7 @@ function ProgramDisplay() {
                 <p> {data[programId - 1].country}</p>
               </div>
             </div>
-            <div className="display-stats">
+            <div id="display-stats" className="display-stats">
               Ratings:
               {/* <BarChart programRating={data[programId].rating} /> */}
               <BarChart programRating={tempRating} />

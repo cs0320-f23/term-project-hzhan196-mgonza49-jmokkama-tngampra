@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactNode, Fragment, useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import ProgramData from "../components/mockProgramData";
+import ProgramData from "../mockedData/mockProgramData";
 import { Link, useNavigate } from "react-router-dom";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/solid";

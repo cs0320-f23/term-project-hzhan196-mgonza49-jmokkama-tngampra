@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 import Icons from "../components/Icons";
-import Recommended from "../components/mockRecommended";
+import Recommended from "../mockedData/mockRecommended";
 import { Link, useParams, Outlet } from "react-router-dom";
 import { ReactNode } from "react";
 import { forms, userCounted } from "../components/Form";
@@ -112,11 +112,11 @@ export default function Homepage({}: UserProps) {
   };
   return (
     <div>
-      <div className="navbar-container">
+      <div id="navbar" className="navbar-container">
         <Navbar />
       </div>
 
-      <div className="h-screen">
+      <div id="homepage" className="h-screen">
         <h1 className="shadowed-text main-title text-2xl lg:text-6xl text-white font-semibold mt-2">
           Study Abroad @ Brown
         </h1>
