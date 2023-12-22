@@ -207,7 +207,7 @@ public class DatabaseSearchHandler implements Route {
   // Accepting towards minorities (minority)
   // How much did you learn (learning)
   // Overall score
-  // Comment
+  // Comments
 	public static class ProgramData {
 		private String name;
 		private String link;

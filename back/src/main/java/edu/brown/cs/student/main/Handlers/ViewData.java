@@ -386,38 +386,36 @@ public class ViewData implements Route {
 		// }
 	}
 
-    // Acceptance of participants and surrounding communities (acceptance)
-    // Safety of campus and area (safety)
-    // Accepting towards minorities (minority)
-    // How much did you learn (learning)
-    // Overall score
-    // Comment
+	// Acceptance of participants and surrounding communities (acceptance)
+	// Safety of campus and area (safety)
+	// Accepting towards minorities (minority)
+	// How much did you learn (learning)
+	// Overall score
+	// Comments
 	public static class ProgramData {
 		private String name;
 		private String link;
-        private String location;
-        private Map<String, Map<String, Integer>> userScores;
-        private Map<String, String> comment;
+		private String location;
+		private Map<String, Map<String, Integer>> userScores;
+		private List<Map<String, String>> comments;
 		private Map<String, Float> average;
-		// private String email;
 
 		public ProgramData(String name, String link, String location,
-            Map<String, Map<String, Integer>> userScores, Map<String, String> comment, Map<String, Float> average) {
+						   Map<String, Map<String, Integer>> userScores, List<Map<String, String>> comments, Map<String, Float> average) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
-            this.userScores = userScores;
-            this.comment = comment;
+			this.userScores = userScores;
+			this.comments = comments;
 			this.average = average;
-			// this.email = email;
 		}
 
 		public ProgramData() {
 			link = "";
 			name = "";
 			location = "";
-            userScores = new HashMap<>();
-            comment = new HashMap<>();
+			userScores = new HashMap<>();
+			comments = new ArrayList<>();
 			average = new HashMap<>();
 		}
 
@@ -427,9 +425,9 @@ public class ViewData implements Route {
 			sb.append("name='").append(name).append('\'');
 			sb.append(", link='").append(link).append('\'');
 			sb.append(", location='").append(location).append('\'');
-            sb.append(", userScores='").append(userScores).append('\'');
-            sb.append(", comment='").append(comment).append('\'');
-			sb.append(", average='").append(comment).append('\'');
+			sb.append(", userScores='").append(userScores).append('\'');
+			sb.append(", comments='").append(comments).append('\'');
+			sb.append(", average='").append(average).append('\'');
 			sb.append('}');
 			return sb.toString();
 		}
@@ -464,7 +462,7 @@ public class ViewData implements Route {
 			this.location = location;
 		}
 
-        // Getter for user scores
+		// Getter for user scores
 		public Map<String, Map<String, Integer>> getUserScores() {
 			return userScores;
 		}
@@ -474,14 +472,14 @@ public class ViewData implements Route {
 			this.userScores = userScores;
 		}
 
-        // Getter for comment
-		public Map<String, String> getComment() {
-			return comment;
+		// Getter for comment
+		public List<Map<String, String>> getComments() {
+			return comments;
 		}
 
 		// Setter for comment
-		public void setComment(Map<String, String> comment) {
-			this.comment = comment;
+		public void setComments(List<Map<String, String>> comments) {
+			this.comments = comments;
 		}
 
 		// Getter for comment
@@ -493,28 +491,6 @@ public class ViewData implements Route {
 		public void setAverage(Map<String, Float> average) {
 			this.average = average;
 		}
-
-		// // Getter for comment
-		// public String getEmail() {
-		// 	return email;
-		// }
-
-		// // Setter for comment
-		// public void setEmail(String email) {
-		// 	this.email = email;
-		// }
-
-		// @Override
-		// public int compareTo(ProgramData program) {
-		// 	//let's sort the employee based on an id in ascending order
-		// 	//returns a negative integer, zero, or a positive integer as this employee id
-		// 	//is less than, equal to, or greater than the specified object.
-		// 	if (this.getAverage() == null) {
-		// 		return -1;
-		// 	} else {
-		// 		return Math.round(this.getAverage().get(this.getEmail()) - program.getAverage().get(program.getEmail()));
-		// 	}
-		// }
 	}
 
 	public static class UserData {
