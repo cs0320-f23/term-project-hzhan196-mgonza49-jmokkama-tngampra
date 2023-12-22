@@ -212,14 +212,14 @@ public class ViewData implements Route {
 		List<ProgramData> results = new ArrayList<>();
 	    collection.find().forEach(results::add);
 
-			if (email != null) {
-				List<ProgramData> sorted = sortProgramData(email, results, resultsUsr);
-				return new ViewData.ViewSuccessResponse("success", sorted, email);
-			} else {
+		if (email != null) {
+			List<ProgramData> sorted = sortProgramData(email, results, resultsUsr);
+			return new ViewData.ViewSuccessResponse("success", sorted, email);
+		} else {
 
-				// Sort results
-				return new ViewData.ViewSuccessResponse("success", results, "").serialize();
-			}
+			// Sort results
+			return new ViewData.ViewSuccessResponse("success", results, "").serialize();
+		}
     }
 
     /**
@@ -397,12 +397,12 @@ public class ViewData implements Route {
 		private String link;
         private String location;
         private Map<String, Map<String, Integer>> userScores;
-        private List<Map<String, String>> comment;
+        private Map<String, String> comment;
 		private Map<String, Float> average;
 		// private String email;
 
 		public ProgramData(String name, String link, String location,
-            Map<String, Map<String, Integer>> userScores, List<Map<String, String>> comment, Map<String, Float> average) {
+            Map<String, Map<String, Integer>> userScores, Map<String, String> comment, Map<String, Float> average) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
@@ -417,7 +417,7 @@ public class ViewData implements Route {
 			name = "";
 			location = "";
             userScores = new HashMap<>();
-            comment = new ArrayList<>();
+            comment = new HashMap<>();
 			average = new HashMap<>();
 		}
 
@@ -475,12 +475,12 @@ public class ViewData implements Route {
 		}
 
         // Getter for comment
-		public List<Map<String, String>> getComment() {
+		public Map<String, String> getComment() {
 			return comment;
 		}
 
 		// Setter for comment
-		public void setComment(List<Map<String, String>> comment) {
+		public void setComment(Map<String, String> comment) {
 			this.comment = comment;
 		}
 
