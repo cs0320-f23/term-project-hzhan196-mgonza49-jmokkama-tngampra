@@ -24,7 +24,7 @@ export default function dropdown({
   data: DropdownProps[];
   onSelect: (selected: DropdownProps) => void;
 }) {
-  const [selected, setSelected] = useState<DropdownProps>(data[0]);
+  const [selected, setSelected] = useState<DropdownProps>({ id: 0, name: "" });
   const [query, setQuery] = useState("");
 
   useEffect(() => {
