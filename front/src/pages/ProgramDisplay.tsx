@@ -1,16 +1,14 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import Search from "../components/Search";
 // import ProgramData from "../components/mockProgramData";
-import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../style/interface.css";
 // import Comment from "../components/Comments";
 import { loginStatus } from "../components/Login";
 // import commentData from "../components/mockCommentData";
 import Comment from "../components/Comment";
 import BarChart from "../components/ChartComponent";
-import Chart from "chart.js/auto";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+import { ActualProgram } from "./Homepage";
 
 let tempRating = [0, 0, 0, 0, 0];
 
@@ -96,7 +94,7 @@ function ProgramDisplay() {
 
     if (res.result === "success") {
       const programs: any = res.data;
-      programs.forEach((program: any, index: number) => {
+      programs.forEach((program: ActualProgram, index: number) => {
         const id = index + 1;
         programArray.push({
           tempId: id,
@@ -155,7 +153,7 @@ function ProgramDisplay() {
 
   return (
     <div>
-      <div className="navbar-container">
+      <div id="navbar" className="navbar-container">
         <Navbar />
       </div>
       {selectedProgram && (
@@ -185,6 +183,7 @@ function ProgramDisplay() {
 
               <div className="">
                 <p> {data[programId - 1].country}</p>
+                <a href={data[programId - 1].link}>Learn more here!</a>
               </div>
             </div>
             <div className="display-stats">

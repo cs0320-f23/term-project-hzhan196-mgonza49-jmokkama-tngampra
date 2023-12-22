@@ -202,25 +202,22 @@ public class testUpdateHandler {
 
 
 
-    public static class ProgramData implements Comparable<ProgramData> {
+    public static class ProgramData {
 		private String name;
 		private String link;
         private String location;
         private Map<String, Map<String, Integer>> userScores;
-        private List<String> comment; 
+        private List<Map<String,String>> comments; 
 		private Map<String, Float> average;
-		private String email;
 
 		public ProgramData(String name, String link, String location,
-            Map<String, Map<String, Integer>> userScores, List<String> comment, Map<String, Float> average,
-			String email) {
+            Map<String, Map<String, Integer>> userScores, List<Map<String,String>> comments, Map<String, Float> average) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
             this.userScores = userScores;
-            this.comment = comment;
+            this.comments = comments;
 			this.average = average;
-			this.email = email;
 		}
 
 		public ProgramData() {
@@ -228,7 +225,7 @@ public class testUpdateHandler {
 			name = "";
 			location = "";
             userScores = new HashMap<>();
-            comment = new ArrayList<>();
+            comments = new ArrayList<>();
 			average = new HashMap<>();
 		}
 
@@ -239,8 +236,8 @@ public class testUpdateHandler {
 			sb.append(", link='").append(link).append('\'');
 			sb.append(", location='").append(location).append('\'');
             sb.append(", userScores='").append(userScores).append('\'');
-            sb.append(", comment='").append(comment).append('\'');
-			sb.append(", average='").append(comment).append('\'');
+            sb.append(", comments='").append(comments).append('\'');
+			sb.append(", average='").append(average).append('\'');
 			sb.append('}');
 			return sb.toString();
 		}
@@ -286,13 +283,13 @@ public class testUpdateHandler {
 		}
 
         // Getter for comment
-		public List<String> getComment() {
-			return comment;
+		public List<Map<String,String>> getComments() {
+			return comments;
 		}
 
 		// Setter for comment
-		public void setComment(List<String> comment) {
-			this.comment = comment;
+		public void setComments(List<Map<String,String>> comments) {
+			this.comments = comments;
 		}
 
 		// Getter for comment
@@ -303,24 +300,6 @@ public class testUpdateHandler {
 		// Setter for comment
 		public void setAverage(Map<String, Float> average) {
 			this.average = average;
-		}
-
-		// Getter for comment
-		public String getEmail() {
-			return email;
-		}
-
-		// Setter for comment
-		public void setEmail(String email) {
-			this.email = email;
-		}
-
-		@Override
-		public int compareTo(ProgramData program) {
-			//let's sort the employee based on an id in ascending order
-			//returns a negative integer, zero, or a positive integer as this employee id
-			//is less than, equal to, or greater than the specified object.
-			return Math.round(this.getAverage().get(this.getEmail()) - program.getAverage().get(program.getEmail()));
 		}
 	}
     

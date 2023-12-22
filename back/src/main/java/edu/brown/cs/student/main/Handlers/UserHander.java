@@ -232,12 +232,12 @@ public class UserHander implements Route {
 		private String email;
 		private String name; 
 
-		private String languages;
-		private String countries;
-		private String programs; 
-		private String ranking;
+		private List<String> languages;
+		private List<String> countries;
+		private List<String> programs; 
+		private List<String> ranking;
 
-		public UserData(String email, String name, String languages, String countries, String programs, String ranking) {
+		public UserData(String email, String name, List<String> languages, List<String> countries, List<String> programs, List<String> ranking) {
 			this.email = email;
 			this.name = name;
 
@@ -250,15 +250,15 @@ public class UserHander implements Route {
 		public UserData() {
 			email = "";
 			name = "";
-			languages = "";
-			countries = "";
-			programs = "";
-			ranking = "";
+			languages = new ArrayList<>();
+			countries = new ArrayList<>();
+			programs = new ArrayList<>();
+			ranking = new ArrayList<>();
 		}
 
 		@Override
 		public String toString() {
-			final StringBuilder sb = new StringBuilder("ProgramData{");
+			final StringBuilder sb = new StringBuilder("UserData{");
 			sb.append("email='").append(email).append('\'');
 			sb.append(", name='").append(name).append('\'');
 			sb.append(", languages='").append(languages).append('\'');
@@ -290,42 +290,42 @@ public class UserHander implements Route {
 		}
 
 		// Getter for langauges
-		public String getLanguages() {
+		public List<String> getLanguages() {
 			return languages;
 		}
 
 		// Setter for languages
-		public void setLanguages(String languages) {
+		public void setLanguages(List<String> languages) {
 			this.languages = languages;
 		}
 
 		// Getter for countries
-		public String getCountries() {
+		public List<String> getCountries() {
 			return countries;
 		}
 
 		// Setter for languages
-		public void setCountries(String countries) {
+		public void setCountries(List<String> countries) {
 			this.countries = countries;
 		}
 
 		// Getter for programs
-		public String setPrograms() {
+		public List<String> setPrograms() {
 			return programs;
 		}
 
 		// Setter for languages
-		public void setPrograms(String programs) {
+		public void setPrograms(List<String> programs) {
 			this.programs = programs;
 		}
 
 		// Getter for ranking
-		public String getRanking() {
+		public List<String> getRanking() {
 			return ranking;
 		}
 
 		// Setter for ranking
-		public void setRanking(String ranking) {
+		public void setRanking(List<String> ranking) {
 			this.ranking = ranking;
 		}
 	}

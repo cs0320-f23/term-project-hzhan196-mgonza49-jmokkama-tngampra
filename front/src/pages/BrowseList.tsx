@@ -4,12 +4,10 @@ import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 import Icons from "../components/Icons.tsx";
 import ProgramData from "../mockedData/mockProgramData.tsx";
-import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
 import "../style/interface.css";
 import defaultPhoto from "../assets/blank-profile.jpeg";
-import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { countries } from "../components/Countries.tsx";
+import { ActualProgram } from "./Homepage.tsx";
 
 function getPrograms() {
   const url = "http://localhost:3232/viewdata";
@@ -27,9 +25,7 @@ function getPrograms() {
     });
 }
 
-
-
-function getCountryFlag(location:string):string {
+function getCountryFlag(location: string): string {
   function capitalizeWords(str: string): string {
     return str
       .split(" ")
@@ -43,13 +39,12 @@ function getCountryFlag(location:string):string {
   return flagURL;
 }
 
-
 export function setupIcons(res: any) {
   const totalIcons: ReactNode[] = [];
   console.log(res);
   if (res.result === "success") {
     const programs: any = res.data;
-    programs.forEach((program: any, index: number) => {
+    programs.forEach((program: ActualProgram, index: number) => {
       const id = index + 1;
       totalIcons.push(
         <Icons

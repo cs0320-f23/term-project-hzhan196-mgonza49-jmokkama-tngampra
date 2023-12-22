@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { BrowserRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../style/interface.css";
 
 interface IconsProps {
@@ -11,9 +11,6 @@ interface IconsProps {
 }
 
 function Icons(props: IconsProps): ReactNode {
-
-  
-
   return (
     <div>
       <Link className="card" key={props.id} to={props.link}>

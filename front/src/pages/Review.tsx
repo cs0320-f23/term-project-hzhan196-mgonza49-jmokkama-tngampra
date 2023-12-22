@@ -1,27 +1,18 @@
 import React from "react";
-import { ReactNode, Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 // import ProgramData from "../components/mockProgramData";
-import { Link, useNavigate } from "react-router-dom";
-import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/solid";
+import { useNavigate } from "react-router-dom";
 import {} from "@heroicons/react/24/outline";
-import {
-  ErrorMessage,
-  Field,
-  FieldArray,
-  FieldProps,
-  Form,
-  Formik,
-} from "formik";
+import { Field, Form, Formik } from "formik";
 import RatingButton from "../components/Radio";
-import Popup from "../components/Popup";
 import Divider from "@mui/material/Divider";
 import Dropdown, { DropdownProps } from "../components/Dropdown";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Dialog from "@mui/material/Dialog";
 import { profileName } from "../components/Login";
+import { ActualProgram } from "./Homepage";
 
 function Review() {
   const [data, setData] = useState<DropdownProps[]>([]);
@@ -75,7 +66,7 @@ function Review() {
     const programArray: DropdownProps[] = [];
     if (res.result === "success") {
       const programs: any = res.data;
-      programs.forEach((program: any, index: number) => {
+      programs.forEach((program: ActualProgram, index: number) => {
         const id = index + 1;
         programArray.push({
           id: id,
@@ -123,16 +114,6 @@ function Review() {
   const [selectedProgram, setSelectedProgram] = useState<DropdownProps | null>(
     null
   );
-
-  // function programs() {
-  //   const totalPrograms: ReactNode[] = [];
-
-  //   ProgramData.forEach((program) => {
-  //     totalPrograms.push(<option value={program.id}>{program.name}</option>);
-  //   });
-
-  //   return totalPrograms;
-  // }
 
   return (
     <div>
@@ -182,10 +163,10 @@ function Review() {
             );
           }}
         >
-          {({ values, handleChange, setFieldValue }) => (
+          {({ handleChange, setFieldValue }) => (
             <Form className="">
               <Field name="program">
-                {({ field }: FieldProps<string>) => (
+                {() => (
                   <div>
                     <Divider sx={{ height: 2, backgroundColor: "gray" }} />
                     <div>
