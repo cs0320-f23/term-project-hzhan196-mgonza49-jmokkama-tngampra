@@ -12,7 +12,7 @@ import BarChart from "../components/ChartComponent";
 import Chart from "chart.js/auto";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
-const tempRating = [1, 3, 2, 5, 3];
+let tempRating = [0, 0, 0, 0, 0];
 
 interface Program {
   tempId: number;
@@ -103,10 +103,15 @@ function ProgramDisplay() {
           rating: program.average,
         });
       });
-      commentArray.push({
-        key: programId - 1,
-        user: programs[programId - 1].comments[0].username,
-        comment: programs[programId - 1].comments[0].comment,
+      if (programs[programId - 1].comments.length !== 0) {
+        commentArray.push({
+          key: programId - 1,
+          user: programs[programId - 1].comments[0].username,
+          comment: programs[programId - 1].comments[0].comment,
+        });
+      }
+      programs[programId - 1].userScores.array.forEach((rating: any) => {
+        tempRating[rating.overall - 1] = tempRating[rating.overall - 1] + 1;
       });
     }
     setCommentData(commentArray);
