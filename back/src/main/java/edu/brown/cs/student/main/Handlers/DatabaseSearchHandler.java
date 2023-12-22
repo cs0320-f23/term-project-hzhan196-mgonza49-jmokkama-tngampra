@@ -84,6 +84,10 @@ public class DatabaseSearchHandler implements Route {
 
 		collection.find(filter).forEach(results::add);
 
+		for (ProgramData programData : results) {
+			System.out.println(programData);
+		}
+
 		return results;
    }
 
@@ -203,22 +207,22 @@ public class DatabaseSearchHandler implements Route {
   // Accepting towards minorities (minority)
   // How much did you learn (learning)
   // Overall score
-  // Comment
+  // Comments
 	public static class ProgramData {
 		private String name;
 		private String link;
 		private String location;
 		private Map<String, Map<String, Integer>> userScores;
-		private List<Map<String, String>> comment;
+		private List<Map<String, String>> comments;
 		private Map<String, Float> average;
 
 		public ProgramData(String name, String link, String location,
-            Map<String, Map<String, Integer>> userScores, List<Map<String, String>> comment, Map<String, Float> average) {
+            Map<String, Map<String, Integer>> userScores, List<Map<String, String>> comments, Map<String, Float> average) {
 			this.name = name;
 			this.link = link;
 			this.location = location;
       this.userScores = userScores;
-      this.comment = comment;
+      this.comments = comments;
 			this.average = average;
 		}
 
@@ -226,8 +230,8 @@ public class DatabaseSearchHandler implements Route {
 			link = "";
 			name = "";
 			location = "";
-      userScores = new HashMap<>();
-      comment = new ArrayList<>();
+			userScores = new HashMap<>();
+			comments = new ArrayList<>();
 			average = new HashMap<>();
 		}
 
@@ -238,8 +242,8 @@ public class DatabaseSearchHandler implements Route {
 			sb.append(", link='").append(link).append('\'');
 			sb.append(", location='").append(location).append('\'');
 			sb.append(", userScores='").append(userScores).append('\'');
-			sb.append(", comment='").append(comment).append('\'');
-			sb.append(", average='").append(comment).append('\'');
+			sb.append(", comments='").append(comments).append('\'');
+			sb.append(", average='").append(average).append('\'');
 			sb.append('}');
 			return sb.toString();
 		}
@@ -285,13 +289,13 @@ public class DatabaseSearchHandler implements Route {
 		}
 
         // Getter for comment
-		public List<Map<String, String>> getComment() {
-			return comment;
+		public List<Map<String, String>> getComments() {
+			return comments;
 		}
 
 		// Setter for comment
-		public void setComment(List<Map<String, String>> comment) {
-			this.comment = comment;
+		public void setComments(List<Map<String, String>> comments) {
+			this.comments = comments;
 		}
 
 		// Getter for comment
