@@ -6,7 +6,7 @@ import { Link, useParams, Outlet, useNavigate } from "react-router-dom";
 import "../style/interface.css";
 // import Comment from "../components/Comments";
 import { loginStatus } from "../components/Login";
-import commentData from "../mockedData/mockCommentData";
+// import commentData from "../components/mockCommentData";
 import Comment from "../components/Comment";
 import BarChart from "../components/ChartComponent";
 import Chart from "chart.js/auto";
@@ -48,9 +48,10 @@ function commentDisplay(data: CommentList[]) {
   function setupComments() {
     const totalComments: ReactNode[] = [];
 
-    data.forEach((comment) => {
+    data.forEach((comment, index: number) => {
       totalComments.push(
         <Comment
+          key={index}
           user={comment.user}
           content={comment.comment}
           // yearTaken={comment.yearTaken}
@@ -87,10 +88,12 @@ function ProgramDisplay() {
   // const data = ProgramData();
   const [data, setData] = useState<Program[]>([]);
   const [commentData, setCommentData] = useState<CommentList[]>([]);
+  const rateCounted: string[] = [];
 
   function toProgram(res: any) {
     const programArray: Program[] = [];
     const commentArray: CommentList[] = [];
+
     if (res.result === "success") {
       const programs: any = res.data;
       programs.forEach((program: any, index: number) => {
@@ -113,9 +116,18 @@ function ProgramDisplay() {
             })
         );
       }
-      // programs[programId - 1].userScores.array.forEach((rating: any) => {
-      //   tempRating[rating.overall - 1] = tempRating[rating.overall - 1] + 1;
-      // });
+      Object.entries(programs[programId - 1].userScores).forEach(
+        ([user, rating]) => {
+          if (rating && typeof [user, rating] === "object") {
+            Object.entries(rating).forEach(([key, value]) => {
+              if (key === "overall" && !rateCounted.includes(user)) {
+                tempRating[value - 1] = tempRating[value - 1] + 1;
+                rateCounted.push(user);
+              }
+            });
+          }
+        }
+      );
     }
     setCommentData(commentArray);
     return programArray;
@@ -143,7 +155,7 @@ function ProgramDisplay() {
 
   return (
     <div>
-      <div id="navbar" className="navbar-container">
+      <div className="navbar-container">
         <Navbar />
       </div>
       {selectedProgram && (
@@ -161,12 +173,12 @@ function ProgramDisplay() {
               Back to Browse
             </Link>
 
-            <div id="display-title" className="display-title">{selectedProgram.name}</div>
+            <div className="display-title">{selectedProgram.name}</div>
           </div>
 
           {/* White block scroll contents  */}
           <div className="big-card-holder">
-            <div id="display-info" className="display-info">
+            <div className="display-info">
               <div className="text-lg font-bold">
                 {data[programId - 1].name}
               </div>
@@ -175,7 +187,7 @@ function ProgramDisplay() {
                 <p> {data[programId - 1].country}</p>
               </div>
             </div>
-            <div id="display-stats" className="display-stats">
+            <div className="display-stats">
               Ratings:
               {/* <BarChart programRating={data[programId].rating} /> */}
               <BarChart programRating={tempRating} />
