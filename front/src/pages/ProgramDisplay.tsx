@@ -23,6 +23,7 @@ interface Program {
 }
 
 interface CommentList {
+  key: number;
   user: string;
   comment: string;
   // yearTaken: string;
@@ -89,6 +90,7 @@ function ProgramDisplay() {
 
   function toProgram(res: any) {
     const programArray: Program[] = [];
+    const commentArray: CommentList[] = [];
     if (res.result === "success") {
       const programs: any = res.data;
       programs.forEach((program: any, index: number) => {
@@ -101,7 +103,13 @@ function ProgramDisplay() {
           rating: program.average,
         });
       });
+      commentArray.push({
+        key: programId - 1,
+        user: programs[programId - 1].comments[0].username,
+        comment: programs[programId - 1].comments[0].comment,
+      });
     }
+    setCommentData(commentArray);
     return programArray;
   }
 
@@ -151,10 +159,12 @@ function ProgramDisplay() {
           {/* White block scroll contents  */}
           <div className="big-card-holder">
             <div className="display-info">
-              <div className="text-lg font-bold">{data[programId].name}</div>
+              <div className="text-lg font-bold">
+                {data[programId - 1].name}
+              </div>
 
               <div className="">
-                <p> {data[programId].country}</p>
+                <p> {data[programId - 1].country}</p>
               </div>
             </div>
             <div className="display-stats">
